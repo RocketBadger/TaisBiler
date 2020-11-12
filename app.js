@@ -13,7 +13,7 @@ const db = mongoose.connection
 db.on('error', error => console.log(error))
 db.once('open', () => console.log('Connected to Mongoose'))
 
-// TEST AF GIT
+
 
 // Sætter server online
 app.listen(process.env.PORT, console.log('Server running'))
