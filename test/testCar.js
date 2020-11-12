@@ -1,4 +1,5 @@
 require('should')
+const { createCar, updateCar, setStatus } = require('../model/Car')
 
 /* Attributter:
 brand
@@ -8,14 +9,27 @@ retired
 colour
 id */
 
+
+
 // Oprette bil
-describe('createCar', () => {
-    it('create car empty', () => {
-        createCar().should.be.equal()
+describe('createCar', function () {
+    it('create car empty', function () {
+        let car = createCar()
+        should.equal(car.brand, undefined)
+        should.equal(car.model, undefined)
+        should.equal(car.licensePlate, undefined)
+        should.equal(car.retired, undefined)
+        car.colour.should.be.equal('white')
+        should.equal(car.id, undefined)
     })
     it('create car', () => {
-        let car = { brand: 'BMW', model: 'X3', licensePlate: 'Tais1', retired: false, colour: 'red', id: 1 }
-        car.should.be.equal({ brand: 'BMW', model: 'X3', licensePlate: 'Tais1', retired: false, colour: 'red', id: 1 })
+        let car = createCar('BMW', 'X3', 'Tais1', false, 'red', 1)
+        car.brand.should.be.equal('BMW')
+        car.model.should.be.equal('X3')
+        car.licensePlate.should.be.equal('Tais1')
+        car.retired.should.be.equal(false)
+        car.colour.should.be.equal('red')
+        car.id.should.be.equal(1)
     })
 })
 
