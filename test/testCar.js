@@ -34,8 +34,8 @@ describe('createCar', function () {
 })
 
 // Ændre bil-attributter
-describe('updateCar', () => {
-    it('update car', () => {
+describe('updateCar', function () {
+    it('update car', function () {
         updateCar().should.be.equal()
     })
     it('change brand', () => {
