@@ -37,26 +37,29 @@ const carSchema = new mongoose.Schema({
     }
 })
 
-// const Car = mongoose.model('Car', carSchema)
-// const schema = carSchema
-
-// schema.method('meow', function () {
-//     console.log('meeeeeoooooooooooow');
-// })
-
 carSchema.methods.changeColour = async function (colour) {
     this.colour = colour
     await this.save()
-    console.log(this)
 }
 
 // carSchema.methods.updateCar = async function (object) {
-//     await Car.findOneAndUpdate({ _id: this._id }, object)
+//     // await Car.findOneAndUpdate({ _id: this._id }, object)
+//     let data = await object.json()
+//     for (let i = 0; i < data.length; i++) {
+//         const element = data[i]
+
+//     }
+//     await this.save()
 // }
 
-// carSchema.methods.setStatus = async function (status) {
-//     await Car.findOneAndUpdate({ _id: this._id }, { retired: status })
-// }
+carSchema.statics.updateCar = async function (car, object) {
+    await this.findOneAndUpdate({ _id: car._id }, { $set: object })
+}
+
+carSchema.methods.setStatus = async function (status) {
+    this.retired = status
+    await this.save
+}
 
 // carSchema.statics.findCar = async function (car) {
 //     return await Car.find({ _id: car._id })

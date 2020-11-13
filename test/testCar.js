@@ -62,18 +62,37 @@ describe('Car', function () {
 
 // Ændre bil-attributter
 describe('updateCar', () => {
-    it('update colour', () => {
-        // let car = new Car({
-        //     brand: 'BMW',
-        //     model: 'X5',
-        //     licensePlate: 'AA12345',
-        //     retired: true,
-        //     colour: 'black',
-        //     id: 1
-        // })
-        car = Car.findOne({})
-        // car.changeColour('blue')
-        car.updateCar({ colour: 'blue' })
+    it('update colour', async () => {
+        let carNew = new Car({
+            brand: 'BMW',
+            model: 'X5',
+            licensePlate: 'AA12345',
+            retired: true,
+            colour: 'black',
+            id: 1
+        })
+        await carNew.save()
+        car = await Car.findOne({})
+        car.changeColour('blue')
+        car.brand.should.be.equal('BMW')
+        car.model.should.be.equal('X5')
+        car.licensePlate.should.be.equal('AA12345')
+        car.retired.should.be.equal(true)
+        car.colour.should.be.equal('blue')
+        car.id.should.be.equal(1)
+    })
+    it('updateCar colour', async () => {
+        let carNew = new Car({
+            brand: 'BMW',
+            model: 'X5',
+            licensePlate: 'AA12345',
+            retired: true,
+            colour: 'black',
+            id: 1
+        })
+        await carNew.save()
+        car = await Car.findOne({})
+        Car.updateCar(car, { colour: 'blue' })
         car.brand.should.be.equal('BMW')
         car.model.should.be.equal('X5')
         car.licensePlate.should.be.equal('AA12345')
