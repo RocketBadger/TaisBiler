@@ -42,18 +42,8 @@ carSchema.methods.changeColour = async function (colour) {
     await this.save()
 }
 
-// carSchema.methods.updateCar = async function (object) {
-//     // await Car.findOneAndUpdate({ _id: this._id }, object)
-//     let data = await object.json()
-//     for (let i = 0; i < data.length; i++) {
-//         const element = data[i]
-
-//     }
-//     await this.save()
-// }
-
 carSchema.statics.updateCar = async function (car, object) {
-    await this.findOneAndUpdate({ _id: car._id }, { $set: object })
+    return await this.findOneAndUpdate({ _id: car._id }, { $set: object }, { new: true })
 }
 
 carSchema.methods.setStatus = async function (status) {
