@@ -28,6 +28,7 @@ const carSchema = new mongoose.Schema({
     },
     colour: {
         type: String,
+        set: c => c.toLowerCase(),
         default: 'white'
     },
     id: {
@@ -36,35 +37,29 @@ const carSchema = new mongoose.Schema({
     }
 })
 
-const Car = mongoose.model('Car', carSchema)
+// const Car = mongoose.model('Car', carSchema)
+// const schema = carSchema
 
-async function createCar(brand, model, licensePlate, retired, colour, id) {
-    let car = Car({
-        brand: brand,
-        model: model,
-        licensePlate: licensePlate,
-        retired: retired,
-        colour: colour,
-        id: id
-    })
-    return await car.save()
-    // return car
+// schema.method('meow', function () {
+//     console.log('meeeeeoooooooooooow');
+// })
+
+carSchema.methods.changeColour = async function (colour) {
+    this.colour = colour
+    await this.save()
+    console.log(this)
 }
 
-async function updateCar(car, object) {
-    // let data = JSON.stringify(object)
-    await Car.findOneAndUpdate(car, { colour: 'orange' })
-    car.save()
-}
+// carSchema.methods.updateCar = async function (object) {
+//     await Car.findOneAndUpdate({ _id: this._id }, object)
+// }
 
-function setStatus(car, boolean) {
+// carSchema.methods.setStatus = async function (status) {
+//     await Car.findOneAndUpdate({ _id: this._id }, { retired: status })
+// }
 
-}
+// carSchema.statics.findCar = async function (car) {
+//     return await Car.find({ _id: car._id })
+// }
 
-async function findCar(car) {
-    // return 3
-    return await Car.find({})
-}
-
-// module.exports = mongoose.model('Car', carSchema)
-module.exports = { createCar, updateCar, setStatus, findCar }
+module.exports = mongoose.model('Car', carSchema)
