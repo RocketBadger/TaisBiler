@@ -6,7 +6,6 @@ if (process.env.NODE_ENV !== 'production') {
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
-const Car = require('./model/Car')
 
 // Starter Mongoose database
 const mongoose = require('mongoose')
@@ -21,6 +20,7 @@ db.once('open', () => console.log('Connected to Mongoose'))
 
 app.set('view engine', 'pug')
 
+// De forskellige routes
 const rootRouter = require('./routes/frontpage')
 app.use('/', rootRouter)
 
