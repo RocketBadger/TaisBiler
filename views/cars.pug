@@ -1,0 +1,21 @@
+extends layout
+
+block content
+    h1 Biler
+    br
+    table
+        each car in cars
+            tr
+                td Nummerplade: #{car.licensePlate}
+            tr
+                td Mærke: #{car.brand}
+            tr
+                td Model: #{car.model}
+            tr
+                td Skrottet: #{car.retired}
+            tr
+                td Farve: #{car.colour}
+            tr
+                td ID: #{car.id}
+        br
+            
