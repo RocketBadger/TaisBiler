@@ -19,25 +19,11 @@ const db = mongoose.connection
 db.on('error', error => console.log(error))
 db.once('open', () => console.log('Connected to Mongoose'))
 
-const car = new Car ({
-    brand: 'BMW',
-    model: 'X7',
-    licensePlate: 'fe56789',
-    retired: false,
-    colour: 'White',
-    id: 1
-})
-
-car.save()
-console.log(car)
-
 app.set('view engine', 'pug')
 
 // De forskellige routes
 const rootRouter = require('./routes/frontpage')
 app.use('/', rootRouter)
-
-
 
 // Sætter server online
 app.listen(process.env.PORT, console.log('Server running'))
