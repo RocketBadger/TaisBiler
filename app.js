@@ -44,5 +44,7 @@ car.save()
 console.log(car)
 // END SLET
 
+app.set('view engine', 'pug')
+
 // Sætter server online
 app.listen(process.env.PORT, console.log('Server running'))
