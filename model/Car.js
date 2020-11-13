@@ -37,11 +37,6 @@ const carSchema = new mongoose.Schema({
     }
 })
 
-carSchema.methods.changeColour = async function (colour) {
-    this.colour = colour
-    await this.save()
-}
-
 carSchema.statics.updateCar = async function (car, object) {
     return await this.findOneAndUpdate({ _id: car._id }, { $set: object }, { new: true })
 }
@@ -50,9 +45,5 @@ carSchema.methods.setStatus = async function (status) {
     this.retired = status
     await this.save
 }
-
-// carSchema.statics.findCar = async function (car) {
-//     return await Car.find({ _id: car._id })
-// }
 
 module.exports = mongoose.model('Car', carSchema)
