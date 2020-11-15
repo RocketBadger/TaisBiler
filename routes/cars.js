@@ -12,6 +12,7 @@ router.get('/', async (request, response) => {
     }
 })
 
+// Viser siden opretBil
 router.get('/opretBil', (request, response) => {
     try {
         response.render('createCar')
@@ -38,21 +39,14 @@ router.post('/opretBil', async (request, response) => {
     }
 })
 
-// router.get('/redigerBil', (request, response) => {
-//     try {
-//         // response.render('editCar')
-//     } catch (error) {
+// Redirecter tilbage til /biler, hvis der ikke er et id
+router.get('/redigerBil', (request, response) => {
+    try {
+        response.redirect('/biler')
+    } catch (error) {
 
-//     }
-// })
-
-// router.put('/redigerBil', async (request, response) => {
-//     try {
-
-//     } catch (error) {
-
-//     }
-// })
+    }
+})
 
 // Finder en bil fra ID og klargør redigering
 router.get('/redigerBil/:id', async (request, response) => {
@@ -65,19 +59,22 @@ router.get('/redigerBil/:id', async (request, response) => {
 })
 
 // Opdaterer en bil fra ID med PUT
-router.put('/redigerBil/:id', async (request, response) => {
+router.put('/redigerBil', async (request, response) => {
+    console.log('put')
     try {
-        const car = await Car.findById(request.params.id)
+        const car = await Car.findById(request.body._id)
+        console.log(car)
         car.brand = request.body.brand
         car[model] = request.body.model // ændrer ellers i selve modellen, måske
         car.licensePlate = request.body.licensePlate
-        car.retired = false
+        car.retired = true // skal ændres
         car.colour = request.body.colour
         car.id = request.body.id
-        car.save()
+        console.log(car)
+        await car.save()
         response.redirect('/biler')
     } catch (error) {
-
+        console.log(error)
     }
 })
 

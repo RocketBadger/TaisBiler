@@ -2,7 +2,7 @@ extends layout
 
 block content
     h1 Redigér bil
-    form(action="redigerBil", method="put")
+    form(action="redigerBil", method="PUT")
         table
             tr
                 td Mærke:
@@ -30,4 +30,5 @@ block content
                     select(name="retired")
                         option(value="false", selected= car.retired == false) Nej
                         option(value="true", selected= car.retired == true) Ja
+        input(type="hidden", name="_id", value=car._id)
         button(type="submit") REDIGER
