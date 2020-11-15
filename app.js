@@ -19,11 +19,18 @@ const db = mongoose.connection
 db.on('error', error => console.log(error))
 db.once('open', () => console.log('Connected to Mongoose'))
 
+// Gør det muligt at læse kroppen fra HTML
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
+// Sætter PUG som grafisk flade
 app.set('view engine', 'pug')
 
 // De forskellige routes
 const rootRouter = require('./routes/frontpage')
 app.use('/', rootRouter)
+const carsRouter = require('./routes/cars')
+app.use('/biler', carsRouter)
 
 // Sætter server online
 app.listen(process.env.PORT, console.log('Server running'))

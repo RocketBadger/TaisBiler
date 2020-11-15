@@ -1,12 +1,14 @@
 html
     style
         include ../styles/css/app.css
+        link(rel="stylesheet", href='https://fonts.googleapis.com/css?family=Patua+One|Nunito')
+        
     head
         title NT-tag Flådestyring
-        .topnav
-        // De her to gør ikke noget lige nu, de er mest til testformål
-        a(href='/biler') Biler
-        | 
-        a(href='/andet') Andet
+        .sidenav
+            a(href='/biler') Biler
+            a(href='/biler/opretBil') Opret bil
+            //- a(href='/biler/redigerBil') Rediger bil
     body
+        include errorMessage
         block content

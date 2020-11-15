@@ -1,0 +1,27 @@
+extends layout
+
+block content
+    h1 Opret bil
+    form(action="opretBil", method="post")
+        table
+            tr
+                td Mærke:
+                td
+                    input(type="text", name="brand")
+            tr
+                td Model:
+                td
+                    input(type="text", name="model")
+            tr
+                td Nummerplade:
+                td
+                    input(type="text", name="licensePlate")
+            tr
+                td Farve:
+                td
+                    input(type="text", name="colour")
+            tr
+                td ID:
+                td
+                    input(type="text", name="id")
+        button(type="submit") OPRET

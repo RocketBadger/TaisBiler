@@ -1,0 +1,33 @@
+extends layout
+
+block content
+    h1 Redigér bil
+    form(action="redigerBil", method="put")
+        table
+            tr
+                td Mærke:
+                td
+                    input(type="text", name="brand" value=car.brand)
+            tr
+                td Model:
+                td
+                    input(type="text", name="model" value=car.model)
+            tr
+                td Nummerplade:
+                td
+                    input(type="text", name="licensePlate" value=car.licensePlate)
+            tr
+                td Farve:
+                td
+                    input(type="text", name="colour" value=car.colour)
+            tr
+                td ID:
+                td
+                    input(type="text", name="id" value=car.id)
+            tr
+                td Skrottet:
+                td
+                    select(name="retired")
+                        option(value="false", selected= car.retired == false) Nej
+                        option(value="true", selected= car.retired == true) Ja
+        button(type="submit") REDIGER
