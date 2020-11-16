@@ -28,7 +28,7 @@ router.post('/opretBil', async (request, response) => {
             brand: request.body.brand,
             model: request.body.model,
             licensePlate: request.body.licensePlate,
-            retired: false,
+            retired: request.body.retired,
             colour: request.body.colour,
             id: request.body.id
         })
@@ -67,7 +67,7 @@ router.put('/redigerBil', async (request, response) => {
         car.brand = request.body.brand
         car[model] = request.body.model // ændrer ellers i selve modellen, måske
         car.licensePlate = request.body.licensePlate
-        car.retired = true // skal ændres
+        car.retired = request.body.retired // skal ændres
         car.colour = request.body.colour
         car.id = request.body.id
         console.log(car)

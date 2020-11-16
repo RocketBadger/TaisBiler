@@ -25,7 +25,9 @@ block content
                 td
                     input(type="text", name="id")
             tr
-                td Skrottet? (tast enten "true" eller "false":
+                td Skrottet:
                 td
-                    input(type="text", name="retired")
+                    select(name="retired")
+                        option(value="false", retired = false) Nej
+                        option(value="true", retired = true) Ja
         button(type="submit") OPRET
