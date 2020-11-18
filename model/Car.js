@@ -12,8 +12,7 @@ const carSchema = new mongoose.Schema({
     licensePlate: {
         type: String,
         // Fjerner mellemrum fra nummerplade
-        set: lp => lp.replace(' ', ''),
-        set: lp => lp.toUpperCase(),
+        set: lp => lp = lp.toUpperCase().replace(/ /g, ''),
         validate: {
             validator: (lp) => {
                 console.log(lp);
