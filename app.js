@@ -31,6 +31,8 @@ const rootRouter = require('./routes/frontpage')
 app.use('/', rootRouter)
 const carsRouter = require('./routes/cars')
 app.use('/biler', carsRouter)
+const dummyRouter = require('./routes/dummy') // SKAL SLETTES
+app.use('/dummy', dummyRouter) // SKAL SLETTES
 
 // Sætter server online
 app.listen(process.env.PORT, console.log('Server running'))

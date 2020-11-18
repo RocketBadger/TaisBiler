@@ -43,7 +43,42 @@ const carSchema = new mongoose.Schema({
     id: {
         type: Number,
         required: true
-    }
+    },
+    repairs:
+        [{
+            date: {
+                type: Date
+            },
+            repair: {
+                type: String
+            },
+            repaired: {
+                type: Boolean,
+                default: false
+            }
+        }],
+    inspections: {
+        prev: {
+            type: Date
+        },
+        next: {
+            type: Date
+        }
+    },
+    damages:
+        [{
+            date: {
+                type: Date,
+                default: Date.now()
+            },
+            damage: {
+                type: String
+            },
+            repaired: {
+                type: Boolean,
+                default: false
+            }
+        }],
 })
 
 carSchema.statics.updateCar = async function (car, object) {
@@ -52,7 +87,17 @@ carSchema.statics.updateCar = async function (car, object) {
 
 carSchema.methods.setStatus = async function (status) {
     this.retired = status
-    await this.save
+    await this.save()
+}
+
+carSchema.methods.addRepair = async function (repair) {
+    this.repairs.push(repair)
+    await this.save()
+}
+
+carSchema.methods.addDamage = async function (damage) {
+    this.damages.push(damage)
+    await this.save()
 }
 
 module.exports = mongoose.model('Car', carSchema)
