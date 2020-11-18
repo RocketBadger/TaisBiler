@@ -8,10 +8,7 @@ router.get('/', async (request, response) => {
     const cars = await Car.find({})
     response.render('cars', { cars: cars })
   } catch (error) {
-    response.render('cars', {
-      cars: [],
-      errorMessage: 'Biler kunne ikke loades',
-    })
+    response.render('cars', { cars: [], errorMessage: 'Biler kunne ikke loades', })
   }
 })
 
@@ -19,7 +16,9 @@ router.get('/', async (request, response) => {
 router.get('/opretBil', (request, response) => {
   try {
     response.render('createCar')
-  } catch (error) {}
+  } catch (error) {
+
+  }
 })
 
 // Opretter en ny bil med POST
@@ -46,7 +45,9 @@ router.post('/opretBil', async (request, response) => {
 router.get('/redigerBil', (request, response) => {
   try {
     response.redirect('/biler')
-  } catch (error) {}
+  } catch (error) {
+
+  }
 })
 
 // Finder en bil fra ID og klargør redigering
@@ -54,28 +55,29 @@ router.get('/redigerBil/:id', async (request, response) => {
   try {
     const car = await Car.findById(request.params.id)
     response.render('editCar', { car: car })
-  } catch (error) {}
+  } catch (error) {
+    response.redirect('/biler', { errorMessage: 'Der skete en fejl' })
+  }
 })
 
 // Opdaterer en bil fra ID med PUT
 router.post('/redigerBil/redigerBil', async (request, response) => {
-  console.log('put')
   try {
     const car = await Car.findById(request.body._id)
-    console.log(car)
-    car.brand = request.body.brand
-    car.model = request.body.model // ændrer ellers i selve modellen, måske
-    car.licensePlate = request.body.licensePlate
-    car.engine = request.body.engine
-    car.year = request.body.year
-    car.retired = request.body.retired
-    car.colour = request.body.colour
-    car.id = request.body.id
-    console.log(car)
-    await car.save()
+    const updates = {
+      brand: request.body.brand,
+      model: request.body.model,
+      licensePlate: request.body.licensePlate,
+      engine: request.body.engine,
+      year: request.body.year,
+      retired: request.body.retired,
+      colour: request.body.colour,
+      id: request.body.id
+    }
+    await Car.updateCar(car, updates)
     response.redirect('/biler')
   } catch (error) {
-    console.log(error)
+    response.redirect('/biler', { errorMessage: 'Der skete en fejl' })
   }
 })
 
