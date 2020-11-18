@@ -29,6 +29,8 @@ router.post('/opretBil', async (request, response) => {
       brand: request.body.brand,
       model: request.body.model,
       licensePlate: request.body.licensePlate,
+      engine: request.body.engine,
+      year: request.body.year,
       retired: request.body.retired,
       colour: request.body.colour,
       id: request.body.id,
@@ -64,7 +66,9 @@ router.post('/redigerBil/redigerBil', async (request, response) => {
     car.brand = request.body.brand
     car.model = request.body.model // ændrer ellers i selve modellen, måske
     car.licensePlate = request.body.licensePlate
-    car.retired = request.body.retired // skal ændres
+    car.engine = request.body.engine
+    car.year = request.body.year
+    car.retired = request.body.retired
     car.colour = request.body.colour
     car.id = request.body.id
     console.log(car)

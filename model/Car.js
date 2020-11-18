@@ -22,6 +22,12 @@ const carSchema = new mongoose.Schema({
         },
         required: true
     },
+    engine: {
+        type: String,
+    },
+    year: {
+        type: Number,
+    },
     retired: {
         type: Boolean,
         required: true
