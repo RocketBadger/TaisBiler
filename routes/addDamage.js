@@ -2,23 +2,26 @@ const express = require('express')
 const router = express.Router()
 const Car = require('../model/Car')
 
+// GET /skader uden id
 router.get('/', async (request, response) => {
     try {
         response.redirect('/biler')
     } catch (error) {
-        //   response.render('cars', { cars: [], errorMessage: 'Biler kunne ikke loades', })
+        //
     }
 })
 
+// GET /skader med id
 router.get('/:id', async (request, response) => {
     try {
         const car = await Car.findById(request.params.id)
         response.render('addDamage', { car: car })
     } catch (error) {
-        //   response.render('cars', { cars: [], errorMessage: 'Biler kunne ikke loades', })
+        response.redirect('/biler', { errorMessage: 'Bilen kunne ikke findes' })
     }
 })
 
+// POST damage på en bil
 router.post('/addDamage', async (request, response) => {
     try {
         const car = await Car.findById(request.body._id)
@@ -28,9 +31,9 @@ router.post('/addDamage', async (request, response) => {
             repaired: request.body.repaired
         }
         await car.addDamage(damage)
-        response.redirect('addDamage', { car: car })
+        response.redirect('/skader/' + request.body._id)
     } catch (error) {
-
+        response.redirect('/skader/' + request.body._id, { errorMessage: 'Tilføjelsen af skade gik galt' })
     }
 })
 

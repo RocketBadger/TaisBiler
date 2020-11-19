@@ -3,7 +3,11 @@ const router = express.Router()
 
 // Forsiden redirecter til /biler
 router.get('/', (request, response) => {
-    response.redirect('/biler')
+    try {
+        response.redirect('/biler')
+    } catch (error) {
+        response.send('Der skete en fejl')
+    }
 })
 
 module.exports = router
