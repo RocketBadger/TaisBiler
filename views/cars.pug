@@ -5,9 +5,9 @@ block content
     table
         each car in cars
             tr
-                td(colspan=3) <strong>ID:</strong> #{car.id}
+                td(colspan=3) #[strong ID:] #{car.id}
                     br
-                    |#{car.licensePlate}
+                    |#[u #{car.licensePlate}]
             tr                 
                 td
                     a(href="/biler/redigerBil/" + car._id, class='emojiLink') ✏️

@@ -6,15 +6,15 @@ block content
     form(action="addDamage", method="POST")
         table
             tr
-                td Skade:
+                td #[strong Skade:]
                 td
                     input(type="text", name="damage")
             tr
-                td Dato:
+                td #[strong Dato:]
                 td
                     input(type="date", name="date" value='2020-11-20')
             tr
-                td Repareret:
+                td #[strong Repareret:]
                 td
                     select(name="repaired")
                         option(value="false") Nej

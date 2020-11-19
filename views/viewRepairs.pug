@@ -2,8 +2,8 @@ h2 Reparationer
 table
     each rep in car.repairs
         tr
-            td Reparation: #{rep.repair}
+            td #[strong Reparation:] #{rep.repair}
                 br
-                |Dato: #{rep.date.toDateString()}
+                |#[strong Dato:] #{rep.date.toDateString()}
                 br
-                |Repareret: #{rep.repaired}
+                |#[strong Repareret:] #{rep.repaired}

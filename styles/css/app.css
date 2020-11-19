@@ -43,6 +43,9 @@ h2 {
 
 button {
     font-family: 'Nunito', sans-serif;
+    font-weight: bold;
+    border: 1px solid #000000;
+    border-radius: 2px;
 }
 
 .emojilink {

@@ -5,35 +5,35 @@ block content
     form(action="opretBil", method="POST")
         table
             tr
-                td Mærke:
+                td #[strong Mærke:]
                 td
                     input(type="text", name="brand")
             tr
-                td Model:
+                td #[strong Model:]
                 td
                     input(type="text", name="model")
             tr
-                td Nummerplade:
+                td #[strong Nummerplade:]
                 td
                     input(type="text", name="licensePlate")
             tr
-                td Farve:
+                td #[strong Farve:]
                 td
                     input(type="text", name="colour")
             tr
-                td Motor:
+                td #[strong Motor:]
                 td
                     input(type="text", name="engine")
             tr
-                td Årgang:
+                td #[strong Årgang:]
                 td
                     input(type="text", name="year")
             tr
-                td ID: (Skal være et tal)
+                td #[strong ID:] (Skal være et tal)
                 td
                     input(type="text", name="id")
             tr
-                td Skrottet:
+                td #[strong Skrottet:]
                 td
                     select(name="retired")
                         option(value="false", retired = false) Nej
