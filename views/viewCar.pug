@@ -11,7 +11,10 @@ br
 br
 |#[strong Farve:] #{car.colour}
 br
-|#[strong Skrottet:] #{car.retired}
+if car.retired
+    |#[strong Skrottet:]  #{'Ja'}
+else
+    |#[strong Skrottet:]  #{'Nej'}
 br
 |#[strong ID:] #{car.id}
 br
