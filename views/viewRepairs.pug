@@ -6,4 +6,9 @@ table
                 br
                 |#[strong Dato:] #{rep.date.toDateString()}
                 br
-                |#[strong Repareret:] #{rep.repaired}
+                if rep.repaired
+                    |#[strong Repareret:] #{'Ja'}
+                else
+                   |#[strong Repareret:]  #{'Nej'}
+                br
+                |-------------------
