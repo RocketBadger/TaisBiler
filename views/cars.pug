@@ -5,23 +5,10 @@ block content
     table
         each car in cars
             tr
-                td Nummerplade: #{car.licensePlate}
+                td(colspan=3) <strong>ID:</strong> #{car.id}
                     br
-                    |Mærke: #{car.brand}
-                    br
-                    |Model: #{car.model}
-                    br
-                    |Motor: #{car.engine}
-                    br
-                    |Årgang: #{car.year}
-                    br
-                    |Farve: #{car.colour}
-                    br
-                    |Skrottet: #{car.retired}
-                    br
-                    |ID: #{car.id} 
-                    br
-                    |_ID: #{car._id}                   
+                    |#{car.licensePlate}
+            tr                 
                 td
                     a(href="/biler/redigerBil/" + car._id, class='emojiLink') ✏️
                 td

@@ -5,17 +5,21 @@ block content
         
     h1 Tilføj reparation
     form(action="addRepair", method="POST")
-        |Reparation:
-        input(type="text", name="repair")
-        br
-        |Dato:
-        input(type="date", name="date")
-        br
-        |Repareret:
-        select(name="repaired")
-            option(value="false") Nej
-            option(value="true") Ja
-        br
+        table
+            tr
+                td Reparation:
+                td
+                    input(type="text", name="repair")
+            tr
+                td Dato:
+                td
+                    input(type="date", name="date")
+            tr
+                td Repareret:
+                td
+                    select(name="repaired")
+                        option(value="false") Nej
+                        option(value="true") Ja
         input(type="hidden", name="_id", value=car._id)
         button(type="submit") TILFØJ
 
