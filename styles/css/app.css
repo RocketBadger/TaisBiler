@@ -33,11 +33,7 @@ body {
     color: #818181;
 }
 
-h1 {
-    font-family: 'Patua One', cursive;
-}
-
-h2 {
+h1, h2 {
     font-family: 'Patua One', cursive;
 }
 
@@ -51,6 +47,9 @@ button {
 .emojilink {
     text-decoration: none;
     font-size: x-large;
+    margin: 5px;
+    /* border-radius: 50px;
+    border: 1px solid #000000; */
 }
 
 .grid-container {
