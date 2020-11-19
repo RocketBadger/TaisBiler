@@ -13,22 +13,22 @@ router.get('/', async (request, response) => {
 router.get('/:id', async (request, response) => {
     try {
         const car = await Car.findById(request.params.id)
-        response.render('addRepair', { car: car })
+        response.render('addDamage', { car: car })
     } catch (error) {
         //   response.render('cars', { cars: [], errorMessage: 'Biler kunne ikke loades', })
     }
 })
 
-router.post('/addRepair', async (request, response) => {
+router.post('/addDamage', async (request, response) => {
     try {
         const car = await Car.findById(request.body._id)
-        const repair = {
+        const damage = {
             date: request.body.date,
-            repair: request.body.repair,
+            damage: request.body.damage,
             repaired: request.body.repaired
         }
-        await car.addRepair(repair)
-        response.redirect('addRepair', { car: car })
+        await car.addDamage(damage)
+        response.redirect('addDamage', { car: car })
     } catch (error) {
 
     }

@@ -85,6 +85,7 @@ carSchema.statics.updateCar = async function (car, object) {
     return await this.findOneAndUpdate({ _id: car._id }, { $set: object }, { new: true })
 }
 
+// SKAL SLETTES
 carSchema.methods.setStatus = async function (status) {
     this.retired = status
     await this.save()
@@ -92,6 +93,7 @@ carSchema.methods.setStatus = async function (status) {
 
 carSchema.methods.addRepair = async function (repair) {
     this.repairs.push(repair)
+    console.log('addRepair');
     await this.save()
 }
 
