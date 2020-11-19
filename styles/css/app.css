@@ -1,6 +1,6 @@
 /* Style page content */
 body {
-    margin-left: 160px; /* Same as the width of the sidebar */
+    margin-left: 170px; /* Same as the width of the sidebar */
     padding: 0px 10px;
     font-family: 'Nunito', sans-serif;
 }
@@ -37,12 +37,22 @@ h1 {
     font-family: 'Patua One', cursive;
 }
 
+h2 {
+    font-family: 'Patua One', cursive;
+}
+
 button {
     font-family: 'Nunito', sans-serif;
 }
 
 .emojilink {
     text-decoration: none;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
 }
   
 /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */

@@ -1,0 +1,11 @@
+extends layout
+
+block content
+    include viewCar
+    h1 Tilføj reparation
+
+    .grid-container
+        .grid-item
+            include viewDamages
+        .grid-item
+            include viewRepairs

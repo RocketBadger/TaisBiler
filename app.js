@@ -26,11 +26,29 @@ app.use(bodyParser.json())
 // Sætter PUG som grafisk flade
 app.set('view engine', 'pug')
 
+async function addCar() {
+    let car = new Car({
+        brand: 'BMW',
+        model: 'X5',
+        licensePlate: 'PI12345',
+        engine: 'V5',
+        year: 2018,
+        retired: true,
+        colour: 'black',
+        id: 1
+    })
+    await car.addRepair({ date: new Date(1995, 11, 24), repair: 'Stor bule og hovprint', repaired: true })
+    await car.addDamage({ date: new Date(1995, 11, 24), damage: 'Ramt af slæde', repaired: false })
+}
+// addCar()
+
 // De forskellige routes
 const rootRouter = require('./routes/frontpage')
 app.use('/', rootRouter)
 const carsRouter = require('./routes/cars')
 app.use('/biler', carsRouter)
+const repairsRouter = require('./routes/addRepair')
+app.use('/reparation', repairsRouter)
 const dummyRouter = require('./routes/dummy') // SKAL SLETTES
 app.use('/dummy', dummyRouter) // SKAL SLETTES
 

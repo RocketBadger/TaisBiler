@@ -1,0 +1,9 @@
+h2 Skader
+table
+    each dam in car.damages
+        tr
+            td Skade: #{dam.damage}
+                br
+                |Dato: #{dam.date.toDateString()}
+                br
+                |Repareret: #{dam.repaired}

@@ -96,7 +96,9 @@ carSchema.methods.addRepair = async function (repair) {
 }
 
 carSchema.methods.addDamage = async function (damage) {
-    this.damages.push(damage)
+    let damages = this.damages
+    damages.push(damage)
+    console.log(damages);
     await this.save()
 }
 
