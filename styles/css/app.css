@@ -55,6 +55,12 @@ button {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto;
 }
+
+#error {
+    font-weight: bold;
+    font-size: larger;
+    color: mediumaquamarine
+}
   
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
