@@ -8,7 +8,7 @@ router.get('/', async (request, response) => {
     const cars = await Car.find({})
     response.render('cars', { cars: cars })
   } catch (error) {
-    response.render('errorMessage', { errorMessage: 'Biler kunne ikke loades', })
+    response.render('errorMessage', { errorMessage: 'Biler kunne ikke loades' })
   }
 })
 
@@ -17,7 +17,7 @@ router.get('/opretBil', (request, response) => {
   try {
     response.render('createCar')
   } catch (error) {
-    response.render('errorMessage', { errorMessage: 'Siden kunne ikke loades', })
+    response.render('errorMessage', { errorMessage: 'Siden kunne ikke loades' })
   }
 })
 
@@ -32,12 +32,12 @@ router.post('/opretBil', async (request, response) => {
       year: request.body.year,
       retired: request.body.retired,
       colour: request.body.colour,
-      id: request.body.id,
+      nickName: request.body.nickName,
     })
     await car.save()
     response.redirect('/biler')
   } catch (error) {
-    response.render('errorMessage', { errorMessage: 'Bil kunne ikke oprettes', })
+    response.render('errorMessage', { errorMessage: 'Bil kunne ikke oprettes' })
   }
 })
 
@@ -46,7 +46,7 @@ router.get('/redigerBil', (request, response) => {
   try {
     response.redirect('/biler')
   } catch (error) {
-    response.render('errorMessage', { errorMessage: 'Siden kunne ikke loades', })
+    response.render('errorMessage', { errorMessage: 'Siden kunne ikke loades' })
   }
 })
 
@@ -56,7 +56,7 @@ router.get('/redigerBil/:id', async (request, response) => {
     const car = await Car.findById(request.params.id)
     response.render('editCar', { car: car })
   } catch (error) {
-    response.render('errorMessage', { errorMessage: 'Bil kunne ikke findes', })
+    response.render('errorMessage', { errorMessage: 'Bil kunne ikke findes' })
   }
 })
 
@@ -72,12 +72,14 @@ router.post('/redigerBil/redigerBil', async (request, response) => {
       year: request.body.year,
       retired: request.body.retired,
       colour: request.body.colour,
-      id: request.body.id
+      nickName: request.body.nickName,
     }
     await Car.updateCar(car, updates)
     response.redirect('/biler')
   } catch (error) {
-    response.render('errorMessage', { errorMessage: 'Der skete en fejl under redigering af bilen', })
+    response.render('errorMessage', {
+      errorMessage: 'Der skete en fejl under redigering af bilen',
+    })
   }
 })
 
