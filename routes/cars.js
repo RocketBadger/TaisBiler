@@ -8,7 +8,7 @@ router.get('/', async (request, response) => {
     const cars = await Car.find({})
     response.render('cars', { cars: cars })
   } catch (error) {
-    response.render('cars', { cars: [], errorMessage: 'Biler kunne ikke loades', })
+    response.render('errorMessage', { errorMessage: 'Biler kunne ikke loades', })
   }
 })
 
@@ -17,7 +17,7 @@ router.get('/opretBil', (request, response) => {
   try {
     response.render('createCar')
   } catch (error) {
-    response.redirect('/biler')
+    response.render('errorMessage', { errorMessage: 'Siden kunne ikke loades', })
   }
 })
 
@@ -37,7 +37,7 @@ router.post('/opretBil', async (request, response) => {
     await car.save()
     response.redirect('/biler')
   } catch (error) {
-    response.redirect('/opretBil', { errorMessage: 'Bil kunne ikke oprettes' })
+    response.render('errorMessage', { errorMessage: 'Bil kunne ikke oprettes', })
   }
 })
 
@@ -46,7 +46,7 @@ router.get('/redigerBil', (request, response) => {
   try {
     response.redirect('/biler')
   } catch (error) {
-    response.send('Der skete en fejl')
+    response.render('errorMessage', { errorMessage: 'Siden kunne ikke loades', })
   }
 })
 
@@ -56,13 +56,7 @@ router.get('/redigerBil/:id', async (request, response) => {
     const car = await Car.findById(request.params.id)
     response.render('editCar', { car: car })
   } catch (error) {
-    response.redirect('/biler', { errorMessage: 'Bil kunne ikke findes' })
-    // const url = require('url')
-    // response.redirect(url.format('/biler', {
-    //   errorMessage: 'Bil kunne ikke findes'
-    // }))
-    // response.send({ errorMessage: 'Bil kunne ikke findes', redirect_path: '/biler' })
-    // response.render('createCar', { errorMessage: 'Bil kunne ikke findes' })
+    response.render('errorMessage', { errorMessage: 'Bil kunne ikke findes', })
   }
 })
 
@@ -83,7 +77,7 @@ router.post('/redigerBil/redigerBil', async (request, response) => {
     await Car.updateCar(car, updates)
     response.redirect('/biler')
   } catch (error) {
-    response.redirect('/biler', { errorMessage: 'Der skete en fejl' })
+    response.render('errorMessage', { errorMessage: 'Der skete en fejl under redigering af bilen', })
   }
 })
 

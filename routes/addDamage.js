@@ -7,7 +7,7 @@ router.get('/', async (request, response) => {
     try {
         response.redirect('/biler')
     } catch (error) {
-        //
+        response.render('errorMessage', { errorMessage: 'Biler kunne ikke loades', })
     }
 })
 
@@ -17,7 +17,7 @@ router.get('/:id', async (request, response) => {
         const car = await Car.findById(request.params.id)
         response.render('addDamage', { car: car })
     } catch (error) {
-        response.redirect('/biler', { errorMessage: 'Bilen kunne ikke findes' })
+        response.render('errorMessage', { errorMessage: 'Bil kunne ikke findes', })
     }
 })
 
@@ -33,7 +33,7 @@ router.post('/addDamage', async (request, response) => {
         await car.addDamage(damage)
         response.redirect('/skader/' + request.body._id)
     } catch (error) {
-        response.redirect('/skader/' + request.body._id, { errorMessage: 'Tilføjelsen af skade gik galt' })
+        response.render('errorMessage', { errorMessage: 'Tilføjelse af skade gik galt', })
     }
 })
 
