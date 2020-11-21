@@ -3,40 +3,5 @@ extends layout
 block content
     h1 Redigér bil
     form(action="redigerBil", method="post")
-        table
-            tr
-                td #[strong Mærke:]
-                td
-                    input(type="text", name="brand" value=car.brand)
-            tr
-                td #[strong Model:]
-                td
-                    input(type="text", name="model" value=car.model)
-            tr
-                td #[strong Nummerplade:]
-                td
-                    input(type="text", name="licensePlate" value=car.licensePlate)
-            tr
-                td #[strong Farve:]
-                td
-                    input(type="text", name="colour" value=car.colour)
-            tr
-                td #[strong Motor:]
-                td
-                    input(type="text", name="engine" value=car.engine)
-            tr
-                td #[strong Årgang:]
-                td
-                    input(type="text", name="year" value=car.year)
-            tr
-                td #[strong Kælenavn:]
-                td
-                    input(type="text", name="nickName" value=car.nickName)
-            tr
-                td #[strong Skrottet:]
-                td
-                    select(name="retired")
-                        option(value="false", selected= car.retired == false) Nej
-                        option(value="true", selected= car.retired == true) Ja
-        input(type="hidden", name="_id", value=car._id)
+        include carinfo
         button(type="submit") REDIGER

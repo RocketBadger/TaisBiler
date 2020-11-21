@@ -3,39 +3,5 @@ extends layout
 block content
     h1 Opret bil
     form(action="opretBil", method="POST")
-        table
-            tr
-                td #[strong Mærke:]
-                td
-                    input(type="text", name="brand" placeholder='Mærke')
-            tr
-                td #[strong Model:]
-                td
-                    input(type="text", name="model" placeholder='Model')
-            tr
-                td #[strong Nummerplade:]
-                td
-                    input(type="text", name="licensePlate" placeholder='Nummerplade')
-            tr
-                td #[strong Farve:]
-                td
-                    input(type="text", name="colour" placeholder='Farve')
-            tr
-                td #[strong Motor:]
-                td
-                    input(type="text", name="engine" placeholder='Motor')
-            tr
-                td #[strong Årgang:]
-                td
-                    input(type="text", name="year" placeholder='Årgang')
-            tr
-                td #[strong Kaldenavn:]
-                td
-                    input(type="text", name="nickName" placeholder='Kaldenavn')
-            tr
-                td #[strong Skrottet:]
-                td
-                    select(name="retired")
-                        option(value="false", retired = false) Nej
-                        option(value="true", retired = true) Ja
+        include carinfo
         button(type="submit") OPRET
