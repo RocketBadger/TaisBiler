@@ -1,36 +1,36 @@
 table
-          tr
-              td #[strong Mærke:]
-              td
-                  input(type="text", name="brand" value=(car!==undefined&&car.brand!==undefined)?car.brand:'',placeholder='Mærke')
-          tr
-              td #[strong Model:]
-              td
-                  input(type="text", name="model" value=(car!==undefined&&car.model!==undefined)?car.model:'',placeholder='Model')
-          tr
-              td #[strong Nummerplade:]
-              td
-                  input(type="text", name="licensePlate" value=(car!==undefined&&car.licensePlate!==undefined)?car.licensePlate:'',placeholder='Nummerplade')
-          tr
-              td #[strong Farve:]
-              td
-                  input(type="text", name="colour" value=(car!==undefined&&car.colour!==undefined)?car.colour:'',placeholder='Farve')
-          tr
-              td #[strong Motor:]
-              td
-                  input(type="text", name="engine" value=(car!==undefined&&car.engine!==undefined)?car.engine:'',placeholder='Motor')
-          tr
-              td #[strong Årgang:]
-              td
-                  input(type="text", name="year" value=(car!==undefined&&car.year!==undefined)?car.year:'',placeholder='Årstal')
-          tr
-              td #[strong Kælenavn:]
-              td
-                  input(type="text", name="nickName" value=(car!==undefined&&car.nickName!==undefined)?car.nickName:'', placeholder='Kælenavn' )
-          tr
-              td #[strong Skrottet:]
-              td
-                  select(name="retired")
-                      option(value="false", selected=(car!==undefined)? car.retired == false:retired = false) Nej
-                      option(value="true", selected= (car!==undefined)? car.retired == true:retired = true) Ja
+    tr
+        td #[strong Mærke:]
+        td
+            input(type="text", name="brand" value=(car!==undefined&&car.brand!==undefined)?car.brand:'',placeholder='Mærke')
+    tr
+        td #[strong Model:]
+        td
+            input(type="text", name="model" value=(car!==undefined&&car.model!==undefined)?car.model:'',placeholder='Model')
+    tr
+        td #[strong Nummerplade:]
+        td
+            input(type="text", name="licensePlate" value=(car!==undefined&&car.licensePlate!==undefined)?car.licensePlate:'',placeholder='Nummerplade')
+    tr
+        td #[strong Farve:]
+        td
+            input(type="text", name="colour" value=(car!==undefined&&car.colour!==undefined)?car.colour:'',placeholder='Farve')
+    tr
+        td #[strong Motor:]
+        td
+            input(type="text", name="engine" value=(car!==undefined&&car.engine!==undefined)?car.engine:'',placeholder='Motor')
+    tr
+        td #[strong Årgang:]
+        td
+            input(type="text", name="year" value=(car!==undefined&&car.year!==undefined)?car.year:'',placeholder='Årstal')
+    tr
+        td #[strong Kælenavn:]
+        td
+            input(type="text", name="nickName" value=(car!==undefined&&car.nickName!==undefined)?car.nickName:'', placeholder='Kælenavn' )
+    tr
+        td #[strong Skrottet:]
+        td
+            select(name="retired")
+                option(value="false", selected=(car!==undefined)? car.retired == false:retired = false) Nej
+                option(value="true", selected= (car!==undefined)? car.retired == true:retired = true) Ja
 input(type="hidden", name="_id", value=(car!==undefined&&car._id!==undefined)?car._id:'')
