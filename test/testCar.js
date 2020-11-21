@@ -1,6 +1,7 @@
 require('should')
 const mongoose = require('mongoose')
 const Car = require('../model/Car')
+const Repair = require('../model/Repair')
 
 /* Attributter:
 brand
@@ -12,7 +13,7 @@ nickName */
 
 before((done) => {
   mongoose.connect('mongodb://localhost/tbiler_test', {
-    useFindAndModify: false,
+    useFindAndModify: false
   })
   const db = mongoose.connection
   db.on('error', (error) => console.log(error))
@@ -33,7 +34,19 @@ beforeEach((done) => {
       colour: 'black',
       nickName: 'One'
     })
+    let carOther = new Car({
+      brand: 'BMW2',
+      model: 'X52',
+      licensePlate: 'BB56789',
+      engine: 'V52',
+      year: 2022,
+      retired: true,
+      colour: 'black2',
+      nickName: 'Two'
+    })
+
     await car.save()
+    await carOther.save()
     done()
   })
 })
@@ -161,7 +174,10 @@ describe('updateCar', () => {
   })
   it('updateCar brand and colour', async () => {
     let car = await Car.findOne({})
+    const carId = car._id
     car = await Car.updateCar(car, { brand: 'Mercedes', colour: 'blue' })
+    car = await Car.findById(carId)
+    let car2 = await Car.findOne({ brand: 'BMW2' })
     car.brand.should.be.equal('Mercedes')
     car.model.should.be.equal('X5')
     car.licensePlate.should.be.equal('AA12345')
@@ -170,6 +186,15 @@ describe('updateCar', () => {
     car.retired.should.be.equal(true)
     car.colour.should.be.equal('blue')
     car.nickName.should.be.equal('One')
+
+    car2.brand.should.be.equal('BMW2')
+    car2.model.should.be.equal('X52')
+    car2.licensePlate.should.be.equal('BB56789')
+    car2.engine.should.be.equal('V52')
+    car2.year.should.be.equal(2022)
+    car2.retired.should.be.equal(true)
+    car2.colour.should.be.equal('black2')
+    car2.nickName.should.be.equal('Two')
   })
   it('updateCar all attributes', async () => {
     let car = await Car.findOne({})
@@ -181,7 +206,7 @@ describe('updateCar', () => {
       year: 2019,
       retired: false,
       colour: 'blue',
-      nickName: 'Four',
+      nickName: 'Four'
     })
     car.brand.should.be.equal('Mercedes')
     car.model.should.be.equal('C1')
@@ -197,11 +222,13 @@ describe('updateCar', () => {
 describe('repair', () => {
   it('add repair today', async () => {
     const car = await Car.findOne({})
-    await car.addRepair({
+    const carId = car._id
+    const repair = new Repair({
       date: Date.now(),
       repair: 'Totalskadet',
       repaired: false
     })
+    await car.addRepair(repair)
     car.repairs.length.should.be.equal(1)
   })
   it('add repair Christmas', async () => {
@@ -226,6 +253,24 @@ describe('repair', () => {
       repaired: false
     })
     car.repairs.length.should.be.equal(2)
+  })
+  it('change repair', async () => {
+    const car = await Car.findOne({})
+    const carId = car._id
+    const repair = new Repair({
+      date: Date.now(),
+      repair: 'Totalskadet',
+      repaired: false
+    })
+    const actualRepair = await car.addRepair(repair)
+    const repairChange = new Repair({
+      date: Date.now(),
+      repair: 'ok',
+      repaired: true
+    })
+    const newRepair = await car.changeRepair(actualRepair, repairChange)
+    newRepair.repaired.should.be.equal(true)
+    newRepair.repair.should.be.equal('ok')
   })
 })
 

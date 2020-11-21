@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const Repair = require('./Repair').schema
 
 const carSchema = new mongoose.Schema({
   brand: {
@@ -15,7 +16,6 @@ const carSchema = new mongoose.Schema({
     set: (lp) => (lp = lp.toUpperCase().replace(/ /g, '')),
     validate: {
       validator: (lp) => {
-        console.log(lp)
         // Tester, om korrekt nummerplade
         return /^\w{2}\d{5}$/.test(lp)
       },
@@ -44,36 +44,23 @@ const carSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  repairs: [
-    {
-      date: {
-        type: Date,
-      },
-      repair: {
-        type: String,
-      },
-      repaired: {
-        type: Boolean,
-        default: false,
-      }
-    }
-  ],
+  repairs: [Repair],
   inspections: {
     prev: {
-      type: Date,
+      type: Date
     },
     next: {
-      type: Date,
+      type: Date
     }
   },
   damages: [
     {
       date: {
         type: Date,
-        default: Date.now(),
+        default: Date.now()
       },
       damage: {
-        type: String,
+        type: String
       },
       repaired: {
         type: Boolean,
@@ -99,8 +86,20 @@ carSchema.methods.setStatus = async function (status) {
 
 carSchema.methods.addRepair = async function (repair) {
   this.repairs.push(repair)
-  console.log('addRepair')
   await this.save()
+  return this.repairs[this.repairs.length - 1]
+}
+
+carSchema.methods.getRepair = async (repairId) => {
+  return await this.repairs.id(repairId)
+}
+
+carSchema.methods.changeRepair = async function (actualRepair, repairChange) {
+  let repairToChange = await this.repairs.id(actualRepair._id)
+  repairToChange.repair = repairChange.repair
+  repairToChange.repaired = repairChange.repaired
+  await this.save()
+  return this.repairs.id(repairToChange._id)
 }
 
 carSchema.methods.addDamage = async function (damage) {
