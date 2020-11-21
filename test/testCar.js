@@ -31,7 +31,7 @@ beforeEach((done) => {
       year: 2018,
       retired: true,
       colour: 'black',
-      nickName: 'One',
+      nickName: 'One'
     })
     await car.save()
     done()
@@ -60,7 +60,7 @@ describe('Car', function () {
       year: 2018,
       retired: true,
       colour: 'black',
-      nickName: 'One',
+      nickName: 'One'
     })
     car.brand.should.be.equal('BMW')
     car.model.should.be.equal('X5')
@@ -200,7 +200,7 @@ describe('repair', () => {
     await car.addRepair({
       date: Date.now(),
       repair: 'Totalskadet',
-      repaired: false,
+      repaired: false
     })
     car.repairs.length.should.be.equal(1)
   })
@@ -209,7 +209,7 @@ describe('repair', () => {
     await car.addRepair({
       date: new Date(1995, 11, 24),
       repair: 'Stor bule og hovprint',
-      repaired: true,
+      repaired: true
     })
     car.repairs.length.should.be.equal(1)
   })
@@ -218,12 +218,12 @@ describe('repair', () => {
     await car.addRepair({
       date: new Date(1995, 11, 24),
       repair: 'Stor bule og hovprint',
-      repaired: true,
+      repaired: true
     })
     await car.addRepair({
       date: Date.now(),
       repair: 'Totalskadet',
-      repaired: false,
+      repaired: false
     })
     car.repairs.length.should.be.equal(2)
   })
@@ -240,7 +240,7 @@ describe('damage', () => {
     await car.addDamage({
       date: new Date(1995, 11, 24),
       damage: 'Ramt af slæde',
-      repaired: false,
+      repaired: false
     })
     car.damages.length.should.be.equal(1)
   })
@@ -249,7 +249,7 @@ describe('damage', () => {
     await car.addDamage({
       date: new Date(1995, 11, 24),
       damage: 'Ramt af slæde',
-      repaired: true,
+      repaired: true
     })
     await car.addDamage({ damage: 'Tippet som ko' })
     car.damages.length.should.be.equal(2)

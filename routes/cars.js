@@ -32,7 +32,7 @@ router.post('/opretBil', async (request, response) => {
       year: request.body.year,
       retired: request.body.retired,
       colour: request.body.colour,
-      nickName: request.body.nickName,
+      nickName: request.body.nickName
     })
     await car.save()
     response.redirect('/biler')
@@ -72,13 +72,13 @@ router.post('/redigerBil/redigerBil', async (request, response) => {
       year: request.body.year,
       retired: request.body.retired,
       colour: request.body.colour,
-      nickName: request.body.nickName,
+      nickName: request.body.nickName
     }
     await Car.updateCar(car, updates)
     response.redirect('/biler')
   } catch (error) {
     response.render('errorMessage', {
-      errorMessage: 'Der skete en fejl under redigering af bilen',
+      errorMessage: 'Der skete en fejl under redigering af bilen'
     })
   }
 })

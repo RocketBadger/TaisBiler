@@ -3,11 +3,11 @@ const mongoose = require('mongoose')
 const carSchema = new mongoose.Schema({
   brand: {
     type: String,
-    required: true,
+    required: true
   },
   model: {
     type: String,
-    required: true,
+    required: true
   },
   licensePlate: {
     type: String,
@@ -19,30 +19,30 @@ const carSchema = new mongoose.Schema({
         // Tester, om korrekt nummerplade
         return /^\w{2}\d{5}$/.test(lp)
       },
-      message: 'Not a correct license plate',
+      message: 'Not a correct license plate'
     },
-    required: true,
+    required: true
   },
   engine: {
     type: String,
-    required: true,
+    required: true
   },
   year: {
     type: Number,
-    required: true,
+    required: true
   },
   retired: {
     type: Boolean,
-    required: true,
+    required: true
   },
   colour: {
     type: String,
     set: (c) => c.toLowerCase(),
-    default: 'white',
+    default: 'white'
   },
   nickName: {
     type: String,
-    required: true,
+    required: true
   },
   repairs: [
     {
@@ -55,8 +55,8 @@ const carSchema = new mongoose.Schema({
       repaired: {
         type: Boolean,
         default: false,
-      },
-    },
+      }
+    }
   ],
   inspections: {
     prev: {
@@ -64,7 +64,7 @@ const carSchema = new mongoose.Schema({
     },
     next: {
       type: Date,
-    },
+    }
   },
   damages: [
     {
@@ -77,10 +77,10 @@ const carSchema = new mongoose.Schema({
       },
       repaired: {
         type: Boolean,
-        default: false,
-      },
-    },
-  ],
+        default: false
+      }
+    }
+  ]
 })
 
 carSchema.statics.updateCar = async function (car, object) {

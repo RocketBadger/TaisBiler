@@ -44,6 +44,12 @@ button {
     border-radius: 2px;
 }
 
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+}
+
 .emojilink {
     text-decoration: none;
     font-size: x-large;
@@ -52,10 +58,8 @@ button {
     border: 1px solid #000000; */
 }
 
-.grid-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto;
+.listTable {
+    border-bottom-style: dotted;
 }
 
 #error {

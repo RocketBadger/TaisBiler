@@ -1,5 +1,5 @@
 h2 Skader
-table
+table.listTable
     each dam in car.damages
         tr
             td #[strong Skade:] #{dam.damage}
@@ -7,10 +7,8 @@ table
                 |#[strong Dato:] #{dam.date.toDateString()}
                 br
                 if dam.repaired
-                    |#[strong Repareret:] #{'Ja'}
+                    |#[strong Repareret:] Ja
                 else
-                   |#[strong Repareret:]  #{'Nej'}
-                br
-                |---------------------------
+                   |#[strong Repareret:] Nej
             td
                 a(href="/biler/redigerSkade/" + car._id, class='emojiLink') ✏️

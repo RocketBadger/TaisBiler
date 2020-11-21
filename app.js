@@ -1,6 +1,6 @@
 // Hvis vi ikke er i produktionsmiljøet, skal der køres med lokale env-variable
 if (process.env.NODE_ENV !== 'production') {
-    require('dotenv').config()
+  require('dotenv').config()
 }
 
 const express = require('express')
@@ -11,12 +11,12 @@ const Car = require('./model/Car')
 // Starter Mongoose database
 const mongoose = require('mongoose')
 mongoose.connect(process.env.DATABASE_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false
 })
 const db = mongoose.connection
-db.on('error', error => console.log(error))
+db.on('error', (error) => console.log(error))
 db.once('open', () => console.log('Connected to Mongoose'))
 
 // Gør det muligt at læse kroppen fra HTML
@@ -27,18 +27,26 @@ app.use(bodyParser.json())
 app.set('view engine', 'pug')
 
 async function addCar() {
-    let car = new Car({
-        brand: 'BMW',
-        model: 'X5',
-        licensePlate: 'PI12345',
-        engine: 'V5',
-        year: 2018,
-        retired: true,
-        colour: 'black',
-        id: 1
-    })
-    await car.addRepair({ date: new Date(1995, 11, 24), repair: 'Stor bule og hovprint', repaired: true })
-    await car.addDamage({ date: new Date(1995, 11, 24), damage: 'Ramt af slæde', repaired: false })
+  let car = new Car({
+    brand: 'BMW',
+    model: 'X5',
+    licensePlate: 'PI12345',
+    engine: 'V5',
+    year: 2018,
+    retired: true,
+    colour: 'black',
+    id: 1,
+  })
+  await car.addRepair({
+    date: new Date(1995, 11, 24),
+    repair: 'Stor bule og hovprint',
+    repaired: true,
+  })
+  await car.addDamage({
+    date: new Date(1995, 11, 24),
+    damage: 'Ramt af slæde',
+    repaired: false,
+  })
 }
 // addCar()
 

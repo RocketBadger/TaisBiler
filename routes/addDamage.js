@@ -28,13 +28,13 @@ router.post('/addDamage', async (request, response) => {
     const damage = {
       date: request.body.date,
       damage: request.body.damage,
-      repaired: request.body.repaired,
+      repaired: request.body.repaired
     }
     await car.addDamage(damage)
     response.redirect('/skader/' + request.body._id)
   } catch (error) {
     response.render('errorMessage', {
-      errorMessage: 'Tilføjelse af skade gik galt',
+      errorMessage: 'Tilføjelse af skade gik galt'
     })
   }
 })

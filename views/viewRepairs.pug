@@ -1,5 +1,5 @@
 h2 Reparationer
-table
+table.listTable
     each rep in car.repairs
         tr
             td #[strong Reparation:] #{rep.repair}
@@ -7,10 +7,8 @@ table
                 |#[strong Dato:] #{rep.date.toDateString()}
                 br
                 if rep.repaired
-                    |#[strong Repareret:] #{'Ja'}
+                    |#[strong Repareret:] Ja
                 else
-                   |#[strong Repareret:]  #{'Nej'}
-                br
-                |---------------------------
+                   |#[strong Repareret:] Nej
             td
                 a(href="/biler/redigerReparation/" + car._id, class='emojiLink') ✏️
