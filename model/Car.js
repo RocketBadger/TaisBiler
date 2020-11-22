@@ -43,7 +43,7 @@ const carSchema = new mongoose.Schema({
   },
   nickName: {
     type: String,
-    required: true
+    required: false
   },
   repairs: [Repair],
   inspections: {

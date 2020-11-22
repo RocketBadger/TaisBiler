@@ -37,6 +37,7 @@ router.post('/addRepair', async (request, response) => {
     response.render('errorMessage', {
       errorMessage: 'Tilføjelse af reparation gik galt'
     })
+    console.log(error)
   }
 })
 
