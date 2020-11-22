@@ -2,6 +2,7 @@ require('should')
 const mongoose = require('mongoose')
 const Car = require('../model/Car')
 const Repair = require('../model/Repair')
+const Damage = require('../model/Damage')
 
 /* Attributter:
 brand
@@ -268,9 +269,9 @@ describe('repair', () => {
       repair: 'ok',
       repaired: true
     })
-    const newRepair = await car.changeRepair(actualRepair, repairChange)
-    newRepair.repaired.should.be.equal(true)
-    newRepair.repair.should.be.equal('ok')
+    const updatedRepair = await car.changeRepair(actualRepair, repairChange)
+    updatedRepair.repaired.should.be.equal(true)
+    updatedRepair.repair.should.be.equal('ok')
   })
 })
 
@@ -298,5 +299,23 @@ describe('damage', () => {
     })
     await car.addDamage({ damage: 'Tippet som ko' })
     car.damages.length.should.be.equal(2)
+  })
+  it('change damage', async () => {
+    const car = await Car.findOne({})
+    const carId = car._id
+    const damage = new Damage({
+      date: Date.now(),
+      damage: 'Totalskadet',
+      repaired: false
+    })
+    const actualDamage = await car.addDamage(damage)
+    const damageChange = new Damage({
+      date: Date.now(),
+      damage: 'ok',
+      repaired: true
+    })
+    const updatedDamage = await car.changeDamage(actualDamage, damageChange)
+    updatedDamage.repaired.should.be.equal(true)
+    updatedDamage.damage.should.be.equal('ok')
   })
 })

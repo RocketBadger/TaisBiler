@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const Repair = require('./Repair').schema
+const Damage = require('./Damage').schema
 
 const carSchema = new mongoose.Schema({
   brand: {
@@ -53,21 +54,7 @@ const carSchema = new mongoose.Schema({
       type: Date
     }
   },
-  damages: [
-    {
-      date: {
-        type: Date,
-        default: Date.now()
-      },
-      damage: {
-        type: String
-      },
-      repaired: {
-        type: Boolean,
-        default: false
-      }
-    }
-  ]
+  damages: [Damage]
 })
 
 carSchema.statics.updateCar = async function (car, object) {
@@ -78,35 +65,30 @@ carSchema.statics.updateCar = async function (car, object) {
   )
 }
 
-// SKAL SLETTES
-carSchema.methods.setStatus = async function (status) {
-  this.retired = status
-  await this.save()
-}
-
 carSchema.methods.addRepair = async function (repair) {
   this.repairs.push(repair)
   await this.save()
   return this.repairs[this.repairs.length - 1]
 }
 
-carSchema.methods.getRepair = async (repairId) => {
-  return await this.repairs.id(repairId)
-}
-
 carSchema.methods.changeRepair = async function (actualRepair, repairChange) {
   let repairToChange = await this.repairs.id(actualRepair._id)
-  repairToChange.repair = repairChange.repair
-  repairToChange.repaired = repairChange.repaired
+  repairToChange.set(repairChange)
   await this.save()
-  return this.repairs.id(repairToChange._id)
+  return this.repairs.id(actualRepair._id)
 }
 
 carSchema.methods.addDamage = async function (damage) {
-  let damages = this.damages
-  damages.push(damage)
-  console.log(damages)
+  this.damages.push(damage)
   await this.save()
+  return this.damages[this.damages.length - 1]
+}
+
+carSchema.methods.changeDamage = async function (actualDamage, damageChange) {
+  let damageToChange = await this.damages.id(actualDamage._id)
+  damageToChange.set(damageChange)
+  await this.save()
+  return this.damages.id(actualDamage._id)
 }
 
 module.exports = mongoose.model('Car', carSchema)
