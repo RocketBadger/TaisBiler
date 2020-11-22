@@ -1,7 +1,6 @@
 extends layout
 
 block content
-    include viewCar
     
     h1 Tilføj skade
     form(action="addDamage", method="POST")
@@ -22,9 +21,3 @@ block content
                         option(value="true") Ja
         input(type="hidden", name="_id", value=car._id)
         button(type="submit") TILFØJ
-
-    .grid-container
-        .grid-item
-            include viewDamages
-        .grid-item
-            include viewRepairs

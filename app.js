@@ -61,8 +61,8 @@ const carsRouter = require('./routes/cars')
 app.use('/biler', carsRouter)
 const repairsRouter = require('./routes/repair')
 app.use('/reparation', repairsRouter)
-const damagesRouter = require('./routes/damage')
-app.use('/skader', damagesRouter)
+// const damagesRouter = require('./routes/damage')
+// app.use('/skader', damagesRouter)
 const dummyRouter = require('./routes/dummy') // SKAL SLETTES
 app.use('/dummy', dummyRouter) // SKAL SLETTES
 

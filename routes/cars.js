@@ -9,6 +9,7 @@ router.get('/', async (request, response) => {
     response.render('cars', { cars: cars })
   } catch (error) {
     response.render('errorMessage', { errorMessage: 'Biler kunne ikke loades' })
+    console.log(error)
   }
 })
 
@@ -18,6 +19,7 @@ router.get('/opretBil', (request, response) => {
     response.render('createCar')
   } catch (error) {
     response.render('errorMessage', { errorMessage: 'Siden kunne ikke loades' })
+    console.log(error)
   }
 })
 
@@ -38,6 +40,7 @@ router.post('/opretBil', async (request, response) => {
     response.redirect('/biler')
   } catch (error) {
     response.render('errorMessage', { errorMessage: 'Bil kunne ikke oprettes' })
+    console.log(error)
   }
 })
 
@@ -47,6 +50,7 @@ router.get('/redigerBil', (request, response) => {
     response.redirect('/biler')
   } catch (error) {
     response.render('errorMessage', { errorMessage: 'Siden kunne ikke loades' })
+    console.log(error)
   }
 })
 
@@ -57,6 +61,7 @@ router.get('/redigerBil/:id', async (request, response) => {
     response.render('editCar', { car: car })
   } catch (error) {
     response.render('errorMessage', { errorMessage: 'Bil kunne ikke findes' })
+    console.log(error)
   }
 })
 
@@ -80,6 +85,7 @@ router.post('/redigerBil/redigerBil', async (request, response) => {
     response.render('errorMessage', {
       errorMessage: 'Der skete en fejl under redigering af bilen'
     })
+    console.log(error)
   }
 })
 
