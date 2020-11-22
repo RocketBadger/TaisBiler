@@ -51,7 +51,7 @@ async function addCar() {
     repaired: false
   })
 }
-addCar()
+// addCar()
 // -> SKAL SLETTES
 
 // De forskellige routes
