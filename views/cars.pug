@@ -5,12 +5,12 @@ block content
     table
         each car in cars
             tr
-                if car.nickName != null
-                    td(colspan=3) 
-                        |#[strong Kælenavn:] #{car.nickName}
-                        br
-                        |#[u #{car.licensePlate}]
-                else
+                td(colspan=3) 
+                    if car.nickName != null
+                        if car.nickName != ''
+                            br
+                            |#[strong Kælenavn:] #{car.nickName}
+                    br
                     |#[u #{car.licensePlate}]
             tr                 
                 td
