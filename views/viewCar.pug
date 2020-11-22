@@ -16,4 +16,5 @@ if car.retired
 else
     |#[strong Skrottet:] Nej
 br
-|#[strong Kælenavn:] #{car.nickName}
+if car.nickName != null
+    |#[strong Kælenavn:] #{car.nickName}
