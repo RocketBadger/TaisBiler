@@ -2,6 +2,7 @@ h2 Skader
 table.listTable
     each dam in car.damages
         tr
+        table.listTable
             td #[strong Skade:] #{dam.damage}
                 br
                 |#[strong Dato:] #{dam.date.toDateString()}

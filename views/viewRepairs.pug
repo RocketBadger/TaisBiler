@@ -2,6 +2,7 @@ h2 Reparationer
 table.listTable
     each rep in car.repairs
         tr
+        table.listTable
             td #[strong Reparation:] #{rep.repair}
                 br
                 |#[strong Dato:] #{rep.date.toDateString()}
