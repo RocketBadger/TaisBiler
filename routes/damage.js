@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const Car = require('../model/Car')
+const Damage = require('../model/Damage')
 
 // GET /skader uden id
 router.get('/', async (request, response) => {
@@ -25,11 +26,11 @@ router.get('/:id', async (request, response) => {
 router.post('/addDamage', async (request, response) => {
   try {
     const car = await Car.findById(request.body._id)
-    const damage = {
+    const damage = new Damage({
       date: request.body.date,
       damage: request.body.damage,
       repaired: request.body.repaired
-    }
+    })
     await car.addDamage(damage)
     response.redirect('/skader/' + request.body._id)
   } catch (error) {

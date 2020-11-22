@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const damageSchema = mongoose.Schema({
+const damageSchema = new mongoose.Schema({
   date: {
     type: Date,
     default: Date.now()

@@ -57,6 +57,8 @@ const carSchema = new mongoose.Schema({
   damages: [Damage]
 })
 
+//-----------------------car methods------------------------------------
+
 carSchema.statics.updateCar = async function (car, object) {
   return await this.findOneAndUpdate(
     { _id: car._id },
@@ -64,6 +66,8 @@ carSchema.statics.updateCar = async function (car, object) {
     { new: true }
   )
 }
+
+//-----------------------Repair methods---------------------------------
 
 carSchema.methods.addRepair = async function (repair) {
   this.repairs.push(repair)
@@ -77,6 +81,8 @@ carSchema.methods.changeRepair = async function (actualRepair, repairChange) {
   await this.save()
   return this.repairs.id(actualRepair._id)
 }
+
+//-----------------------Damage methods------------------------------------
 
 carSchema.methods.addDamage = async function (damage) {
   this.damages.push(damage)
