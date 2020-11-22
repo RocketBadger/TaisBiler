@@ -388,4 +388,23 @@ describe('damage', () => {
     updatedDamage.repaired.should.be.equal(true)
     updatedDamage.damage.should.be.equal('ok')
   })
+
+  it('change damage repaired', async () => {
+    const car = await Car.findOne({})
+    const carId = car._id
+    const date1 = Date.now()
+    const damage = new Damage({
+      date: date1,
+      damage: 'Totalskadet',
+      repaired: false
+    })
+    const actualDamage = await car.addDamage(damage)
+
+    const updatedDamage = await car.changeDamage(actualDamage, {
+      repaired: true
+    })
+    updatedDamage.repaired.should.be.equal(true)
+    updatedDamage.damage.should.be.equal('Totalskadet')
+    updatedDamage.date.valueOf().should.be.equal(date1)
+  })
 })
