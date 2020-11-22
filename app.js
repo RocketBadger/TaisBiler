@@ -28,29 +28,29 @@ app.use(bodyParser.json())
 app.set('view engine', 'pug')
 
 // SKAL SLETTES ->
-async function addCar() {
-  let car = new Car({
-    brand: 'BMW',
-    model: 'X5',
-    licensePlate: 'PI12345',
-    engine: 'V5',
-    year: 2018,
-    retired: true,
-    colour: 'black',
-    nickName: 'One'
-  })
-  const repair = new Repair({
-    date: new Date(1995, 11, 24),
-    repair: 'Stor bule og hovprint',
-    repaired: true
-  })
-  await car.addRepair(repair)
-  await car.addDamage({
-    date: new Date(1995, 11, 24),
-    damage: 'Ramt af slæde',
-    repaired: false
-  })
-}
+// async function addCar() {
+//   let car = new Car({
+//     brand: 'BMW',
+//     model: 'X5',
+//     licensePlate: 'PI12345',
+//     engine: 'V5',
+//     year: 2018,
+//     retired: true,
+//     colour: 'black',
+//     nickName: 'One'
+//   })
+//   const repair = new Repair({
+//     date: new Date(1995, 11, 24),
+//     repair: 'Stor bule og hovprint',
+//     repaired: true
+//   })
+//   await car.addRepair(repair)
+//   await car.addDamage({
+//     date: new Date(1995, 11, 24),
+//     damage: 'Ramt af slæde',
+//     repaired: false
+//   })
+// }
 // addCar()
 // -> SKAL SLETTES
 
@@ -61,8 +61,13 @@ const carsRouter = require('./routes/cars')
 app.use('/biler', carsRouter)
 const repairsRouter = require('./routes/repair')
 app.use('/reparation', repairsRouter)
-const damagesRouter = require('./routes/damage')
-app.use('/skader', damagesRouter)
+
+// const damagesRouter = require('./routes/damage') // FORÆLDET
+// app.use('/skader', damagesRouter)  // FORÆLDET
+
+const editDamageRouter = require('./routes/repair')
+app.use('/redigerSkade', editDamageRouter)
+
 const dummyRouter = require('./routes/dummy') // SKAL SLETTES
 app.use('/dummy', dummyRouter) // SKAL SLETTES
 

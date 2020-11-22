@@ -7,6 +7,7 @@ router.get('/', (request, response) => {
         response.redirect('/biler')
     } catch (error) {
         response.send('Der skete en fejl')
+        console.log(error)
     }
 })
 

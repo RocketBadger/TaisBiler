@@ -1,23 +1,23 @@
 extends layout
 
 block content
-    
-    h1 Tilføj skade
-    form(action="addDamage", method="POST")
+
+    h1 Rediger skade
+    form(action="redigerSkade", method="POST")
         table
             tr
                 td #[strong Skade:]
                 td
-                    input(type="text", name="damage" placeholder='Skade')
+                    input(type="text", name="damage", value=dam.damage)
             tr
                 td #[strong Dato:]
                 td
-                    input(type="date", name="date" value='2020-11-20')
+                    input(type="date", name="date" value=dam.date)
             tr
                 td #[strong Repareret:]
                 td
                     select(name="repaired")
                         option(value="false") Nej
                         option(value="true") Ja
-        input(type="hidden", name="_id", value=car._id)
-        button(type="submit") TILFØJ
+        input(type="hidden", name="_id", value=dam._id)
+        button(type="submit") REDIGER
