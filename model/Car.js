@@ -68,7 +68,7 @@ carSchema.statics.updateCar = async function (car, object) {
 }
 
 carSchema.statics.deleteCar = async function (car) {
-  await this.deleteOne({ id: car._id })
+  await this.deleteOne({ _id: car._id })
 }
 
 //-----------------------Repair methods---------------------------------

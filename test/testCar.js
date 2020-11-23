@@ -272,11 +272,13 @@ describe('updateCar', () => {
 
 describe('deleteCar', function () {
   it('delete car', async function () {
-    let car = await Car.find({})
     let noBeforDelete = await Car.count({})
+    let car = await Car.findOne()
+    car.brand.should.be.equal('BMW')
     await Car.deleteCar(car)
+    let car2 = await Car.findOne()
     let noAfterDelete = await Car.count({})
-
+    car2.brand.should.be.equal('BMW2')
     noBeforDelete.should.be.equal(2)
     noAfterDelete.should.be.equal(1)
   })
