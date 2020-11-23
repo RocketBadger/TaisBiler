@@ -4,7 +4,7 @@ table.listTable
         tr
             td.listTD #[strong Skade:] #{dam.damage}
                 br
-                |#[strong Dato:] #{dam.date.toDateString()}
+                |#[strong Dato:] #{dam.date.toLocaleDateString()}
                 br
                 if dam.repaired
                     |#[strong Repareret:] Ja

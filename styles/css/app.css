@@ -76,7 +76,14 @@ button {
 @media only screen and (max-width: 600px) {
   body {
     margin-left: 110px; /* Same as the width of the sidebar */
-    font-size: large;
+  }
+  .sidenav {
+    padding-top: 15px;
+    width: 100px;
+  }
+  .sidenav a {
+    font-size: 18px;
+    padding: 6px 8px 12px 16px;
   }
   .grid-container {
     display: grid;
@@ -86,13 +93,8 @@ button {
   table {
     font-size: large;
   }
-  .sidenav {
-    padding-top: 15px;
-    width: 100px;
-  }
-  .sidenav a {
-    font-size: 18px;
-    padding: 6px 8px 12px 16px;
+  td {
+    display: block;
   }
 }
 

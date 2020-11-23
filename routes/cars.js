@@ -6,6 +6,8 @@ const Car = require('../model/Car')
 router.get('/', async (request, response) => {
   try {
     const cars = await Car.find({})
+    // Ikke-skrottede biler går først
+    cars.sort((a, b) => a.retired - b.retired)
     response.render('cars', { cars: cars })
   } catch (error) {
     response.render('errorMessage', { errorMessage: 'Biler kunne ikke loades' })

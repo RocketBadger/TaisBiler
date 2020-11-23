@@ -4,7 +4,7 @@ table.listTable
         tr
             td.listTD #[strong Reparation:] #{rep.repair}
                 br
-                |#[strong Dato:] #{rep.date.toDateString()}
+                |#[strong Dato:] #{rep.date.toLocaleDateString()}
                 br
                 if rep.repaired
                     |#[strong Repareret:] Ja
