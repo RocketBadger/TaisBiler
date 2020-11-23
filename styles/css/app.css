@@ -33,8 +33,7 @@ body {
   color: #818181;
 }
 
-h1,
-h2 {
+h1, h2 {
   font-family: 'Patua One', cursive;
 }
 
@@ -60,6 +59,10 @@ button {
 }
 
 .listTable {
+  border-collapse: collapse;
+}
+
+.listTD {
   border-bottom-style: dotted;
 }
 
@@ -73,6 +76,15 @@ button {
 @media only screen and (max-width: 600px) {
   body {
     margin-left: 110px; /* Same as the width of the sidebar */
+    font-size: large;
+  }
+  .grid-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+  table {
+    font-size: large;
   }
   .sidenav {
     padding-top: 15px;

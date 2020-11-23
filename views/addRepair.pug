@@ -1,29 +1,22 @@
 extends layout
 
 block content
-    include viewCar
-    .grid-container
-        .grid-item
-            h1 Tilføj reparation
-            form(action="addRepair", method="POST")
-                table
-                    tr
-                        td #[strong Reparation:]
-                        td
-                            input(type="text", name="repair" placeholder='Reparation')
-                    tr
-                        td #[strong Dato:]
-                        td
-                            input(type="date", name="date" value='2020-11-20')
-                    tr
-                        td #[strong Repareret:]
-                        td
-                            select(name="repaired")
-                                option(value="false") Nej
-                                option(value="true") Ja
-                input(type="hidden", name="_id", value=car._id)
-                button(type="submit") TILFØJ
-            include viewRepairs
-        .grid-item
-            include addDamage
-            include viewDamages
+    h1 Tilføj reparation
+    form(action="addRepair", method="POST")
+        table
+            tr
+                td #[strong Reparation:]
+                td
+                    input(type="text", name="repair" placeholder='Reparation')
+            tr
+                td #[strong Dato:]
+                td
+                    input(type="date", name="date" value='2020-11-20')
+            tr
+                td #[strong Repareret:]
+                td
+                    select(name="repaired")
+                        option(value="false") Nej
+                        option(value="true") Ja
+        input(type="hidden", name="_id", value=car._id)
+        button(type="submit") TILFØJ

@@ -18,7 +18,7 @@ router.get('/', async (request, response) => {
 router.get('/:id', async (request, response) => {
   try {
     const car = await Car.findById(request.params.id)
-    response.render('addRepair', { car: car })
+    response.render('repairsAndDamages', { car: car })
   } catch (error) {
     response.render('errorMessage', { errorMessage: 'Bil kunne ikke findes' })
     console.log(error)
@@ -100,7 +100,7 @@ router.get('/redigerSkade/:id', (request, response) => {
   try {
     console.log(request.params.id)
     const damage = car.damages.findById(request.params.id)
-    response.render('editDamage', {damage: damage})
+    response.render('editDamage', { damage: damage })
   } catch (error) {
     response.render('errorMessage', { errorMessage: 'Skade kunne ikke findes' })
     console.log(error)

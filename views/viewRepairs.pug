@@ -2,8 +2,7 @@ h2 Reparationer
 table.listTable
     each rep in car.repairs
         tr
-        table.listTable
-            td #[strong Reparation:] #{rep.repair}
+            td.listTD #[strong Reparation:] #{rep.repair}
                 br
                 |#[strong Dato:] #{rep.date.toDateString()}
                 br
@@ -11,5 +10,5 @@ table.listTable
                     |#[strong Repareret:] Ja
                 else
                    |#[strong Repareret:] Nej
-            td
+            td.listTD
                 a(href="/biler/redigerReparation/" + rep._id, class='emojiLink') ✏️

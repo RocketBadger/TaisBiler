@@ -6,10 +6,9 @@ block content
         each car in cars
             tr
                 td(colspan=3) 
-                    if car.nickName != null
-                        if car.nickName != ''
-                            br
-                            |#[strong Kælenavn:] #{car.nickName}
+                    if car.nickName
+                        br
+                        |#[strong Kælenavn:] #{car.nickName}
                     br
                     |#[u #{car.licensePlate}]
             tr                 
