@@ -348,11 +348,19 @@ describe('addRepair', () => {
       repair: 'Totalskadet',
       repaired: false
     })
-    const actualRepair = await car.addRepair(repair)
+    const repair2 = new Repair({
+      date: Date.now(),
+      repair: 'Totalskadet',
+      repaired: false
+    })
 
+    const actualRepair = await car.addRepair(repair)
+    const actualRepair2 = await car.addRepair(repair2)
     const updatedRepair = await car.changeRepair(actualRepair, {
       repaired: true
     })
+    car.repairs.length.should.be.equal(2)
+    actualRepair2.repaired.should.be.equal(false)
     updatedRepair.repaired.should.be.equal(true)
     updatedRepair.repair.should.be.equal('Totalskadet')
     updatedRepair.date.valueOf().should.be.equal(date1)
