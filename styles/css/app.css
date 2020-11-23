@@ -1,6 +1,6 @@
 /* Style page content */
 body {
-  margin-left: 170px; /* Same as the width of the sidebar */
+  margin-left: 170px; /* Same as the width of the sidebar + 10 */
   padding: 0px 10px;
   font-family: 'Nunito', sans-serif;
 }
@@ -54,8 +54,6 @@ button {
   text-decoration: none;
   font-size: x-large;
   margin: 5px;
-  /* border-radius: 50px;
-    border: 1px solid #000000; */
 }
 
 .listTable {
@@ -66,58 +64,87 @@ button {
   border-bottom-style: dotted;
 }
 
+.emojiTD {
+  text-align: center;
+}
+
+button {
+  float: right;
+}
+
 #error {
   font-weight: bold;
   font-size: larger;
-  color: mediumaquamarine;
+  color: darkred;
 }
 
-/* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 600px) {
+/* Extra small devices (phones, 767px and down) */
+@media only screen and (max-width: 767px) {
   body {
-    margin-left: 110px; /* Same as the width of the sidebar */
+    margin-left: 110px; /* Same as the width of the sidebar + 10 */
   }
   .sidenav {
     padding-top: 15px;
     width: 100px;
   }
   .sidenav a {
-    font-size: 18px;
-    padding: 6px 8px 12px 16px;
+    font-size: x-large;
+    padding: 6px 8px 20px 16px;
   }
   .grid-container {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: auto;
   }
-  table {
-    font-size: large;
-  }
   td {
     display: block;
   }
-}
-
-/* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 600px) {
-  /* .sidenav {padding-top: 15px;}
-    .sidenav a {font-size: 18px;} */
+  .listTD:nth-child(1) {
+    border-bottom-style: none;
+  }
+  .listTD:nth-child(2) {
+    text-align: right;
+  }
+  .emojiTD {
+    display: inline-table;
+    margin: auto 16px auto auto;
+  }
+  h1 {
+    font-size: 1.5em;
+  }
+  h2 {
+    font-size: 1.3em;
+  }
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
-  /* .sidenav {padding-top: 15px;}
-    .sidenav a {font-size: 18px;} */
+  body {
+    margin-left: 180px; /* Same as the width of the sidebar + 10 */
+  }
+  .sidenav {
+    padding-top: 15px;
+    width: 170px;
+  }
+  .sidenav a {
+    padding: 6px 8px 16px 16px;
+  }
+  td {
+    display: block;
+  }
+  .listTD:nth-child(1) {
+    border-bottom-style: none;
+  }
+  .listTD:nth-child(2) {
+    text-align: right;
+  }
+  .emojiTD {
+    display: inline-table;
+    margin: auto 16px auto auto;
+  }
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (min-width: 992px) {
-  /* .sidenav {padding-top: 15px;}
-    .sidenav a {font-size: 18px;} */
-}
+/* @media only screen and (min-width: 992px) {
 
-/* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1200px) {
-  /* .sidenav {padding-top: 15px;}
-    .sidenav a {font-size: 18px;} */
-}
+} */
