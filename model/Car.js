@@ -104,5 +104,8 @@ carSchema.methods.changeDamage = async function (actualDamage, damageChange) {
   await this.save()
   return this.damages.id(actualDamage._id)
 }
+carSchema.methods.deleteDamage = async function (damage) {
+  await this.damages.id(damage._id).remove()
+}
 
 module.exports = mongoose.model('Car', carSchema)

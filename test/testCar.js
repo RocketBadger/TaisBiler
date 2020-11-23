@@ -100,7 +100,7 @@ describe('Car', function () {
 // Ændre bil-attributter
 describe('updateCar', () => {
   it('updateCar brand', async () => {
-    let car = await Car.findOne({})
+    let car = await Car.findOne()
     car = await Car.updateCar(car, { brand: 'Mercedes' })
     car.brand.should.be.equal('Mercedes')
     car.model.should.be.equal('X5')
@@ -122,7 +122,7 @@ describe('updateCar', () => {
     car2.nickName.should.be.equal('Two')
   })
   it('updateCar model', async () => {
-    let car = await Car.findOne({})
+    let car = await Car.findOne()
     car = await Car.updateCar(car, { model: 'C1' })
     car.brand.should.be.equal('BMW')
     car.model.should.be.equal('C1')
@@ -144,7 +144,7 @@ describe('updateCar', () => {
     car2.nickName.should.be.equal('Two')
   })
   it('updateCar licensePlate', async () => {
-    let car = await Car.findOne({})
+    let car = await Car.findOne()
     car = await Car.updateCar(car, { licensePlate: 'BB22555' })
     car.brand.should.be.equal('BMW')
     car.model.should.be.equal('X5')
@@ -166,7 +166,7 @@ describe('updateCar', () => {
     car2.nickName.should.be.equal('Two')
   })
   it('updateCar engine', async () => {
-    let car = await Car.findOne({})
+    let car = await Car.findOne()
     car = await Car.updateCar(car, { engine: 'BrumBrum' })
     car.brand.should.be.equal('BMW')
     car.model.should.be.equal('X5')
@@ -178,7 +178,7 @@ describe('updateCar', () => {
     car.nickName.should.be.equal('One')
   })
   it('updateCar year', async () => {
-    let car = await Car.findOne({})
+    let car = await Car.findOne()
     car = await Car.updateCar(car, { year: 2019 })
     car.brand.should.be.equal('BMW')
     car.model.should.be.equal('X5')
@@ -190,7 +190,7 @@ describe('updateCar', () => {
     car.nickName.should.be.equal('One')
   })
   it('updateCar colour', async () => {
-    let car = await Car.findOne({})
+    let car = await Car.findOne()
     car = await Car.updateCar(car, { colour: 'blue' })
     car.brand.should.be.equal('BMW')
     car.model.should.be.equal('X5')
@@ -202,7 +202,7 @@ describe('updateCar', () => {
     car.nickName.should.be.equal('One')
   })
   it('updateCar nickName', async () => {
-    let car = await Car.findOne({})
+    let car = await Car.findOne()
     car = await Car.updateCar(car, { nickName: 'Four' })
     car.brand.should.be.equal('BMW')
     car.model.should.be.equal('X5')
@@ -214,7 +214,7 @@ describe('updateCar', () => {
     car.nickName.should.be.equal('Four')
   })
   it('updateCar brand and colour', async () => {
-    let car = await Car.findOne({})
+    let car = await Car.findOne()
     const carId = car._id
     car = await Car.updateCar(car, { brand: 'Mercedes', colour: 'blue' })
     car = await Car.findById(carId)
@@ -238,7 +238,7 @@ describe('updateCar', () => {
     car2.nickName.should.be.equal('Two')
   })
   it('updateCar all attributes', async () => {
-    let car = await Car.findOne({})
+    let car = await Car.findOne()
     car = await Car.updateCar(car, {
       brand: 'Mercedes',
       model: 'C1',
@@ -288,7 +288,7 @@ describe('deleteCar', function () {
 
 describe('addRepair', () => {
   it('add repair today', async () => {
-    const car = await Car.findOne({})
+    const car = await Car.findOne()
     const carId = car._id
     const repair = new Repair({
       date: Date.now(),
@@ -299,7 +299,7 @@ describe('addRepair', () => {
     car.repairs.length.should.be.equal(1)
   })
   it('add repair Christmas', async () => {
-    const car = await Car.findOne({})
+    const car = await Car.findOne()
     await car.addRepair({
       date: new Date(1995, 11, 24),
       repair: 'Stor bule og hovprint',
@@ -308,7 +308,7 @@ describe('addRepair', () => {
     car.repairs.length.should.be.equal(1)
   })
   it('add two repairs', async () => {
-    const car = await Car.findOne({})
+    const car = await Car.findOne()
     await car.addRepair({
       date: new Date(1995, 11, 24),
       repair: 'Stor bule og hovprint',
@@ -321,9 +321,13 @@ describe('addRepair', () => {
     })
     car.repairs.length.should.be.equal(2)
   })
+})
+
+//change repair
+describe('changeRepair', () => {
   it('change repair all', async () => {
     const date1 = Date.parse('March 21, 2012')
-    const car = await Car.findOne({})
+    const car = await Car.findOne()
     const carId = car._id
     const repair = new Repair({
       date: Date.now(),
@@ -342,7 +346,7 @@ describe('addRepair', () => {
     updatedRepair.date.valueOf().should.be.equal(date1)
   })
   it('change repair repaired', async () => {
-    const car = await Car.findOne({})
+    const car = await Car.findOne()
     const carId = car._id
     const date1 = Date.now()
     const repair = new Repair({
@@ -371,7 +375,7 @@ describe('addRepair', () => {
 
 describe('deleteRepair', function () {
   it('delete a repair', async function () {
-    let car = await Car.findOne({})
+    let car = await Car.findOne()
     const repair = new Repair({
       date: Date.now(),
       repair: 'Totalskadet',
@@ -379,14 +383,16 @@ describe('deleteRepair', function () {
     })
     const repair2 = new Repair({
       date: Date.now(),
-      repair: 'Totalskadet',
-      repaired: false
+      repair: 'Totally',
+      repaired: true
     })
-    await car.addRepair(repair)
+    let repair3 = await car.addRepair(repair)
     await car.addRepair(repair2)
     let noBeforDelete = await car.repairs.length
-    await car.deleteRepair(repair)
+    await car.deleteRepair(repair3)
     let noAfterDelete = await car.repairs.length
+    let repair4 = await car.repairs[0]
+    repair4.repair.should.be.equal('Totally')
 
     noBeforDelete.should.be.equal(2)
     noAfterDelete.should.be.equal(1)
@@ -394,14 +400,14 @@ describe('deleteRepair', function () {
 })
 
 // Damage
-describe('damage', () => {
+describe('addDamage', () => {
   it('add damage default', async () => {
-    const car = await Car.findOne({})
+    const car = await Car.findOne()
     await car.addDamage({})
     car.damages.length.should.be.equal(1)
   })
   it('add damage Christmas', async () => {
-    const car = await Car.findOne({})
+    const car = await Car.findOne()
     await car.addDamage({
       date: new Date(1995, 11, 24),
       damage: 'Ramt af slæde',
@@ -410,7 +416,7 @@ describe('damage', () => {
     car.damages.length.should.be.equal(1)
   })
   it('add two damages', async () => {
-    const car = await Car.findOne({})
+    const car = await Car.findOne()
     await car.addDamage({
       date: new Date(1995, 11, 24),
       damage: 'Ramt af slæde',
@@ -419,8 +425,11 @@ describe('damage', () => {
     await car.addDamage({ damage: 'Tippet som ko' })
     car.damages.length.should.be.equal(2)
   })
-  it('change damage', async () => {
-    const car = await Car.findOne({})
+})
+//ændre damage
+describe('changeDamage', () => {
+  it('change damage all', async () => {
+    const car = await Car.findOne()
     const carId = car._id
     const damage = new Damage({
       date: Date.now(),
@@ -439,7 +448,7 @@ describe('damage', () => {
   })
 
   it('change damage repaired', async () => {
-    const car = await Car.findOne({})
+    const car = await Car.findOne()
     const carId = car._id
     const date1 = Date.now()
     const damage = new Damage({
@@ -455,5 +464,35 @@ describe('damage', () => {
     updatedDamage.repaired.should.be.equal(true)
     updatedDamage.damage.should.be.equal('Totalskadet')
     updatedDamage.date.valueOf().should.be.equal(date1)
+  })
+})
+
+//slette damage
+describe('deleteDamage', () => {
+  it('delete a damage', async () => {
+    const car = await Car.findOne()
+    const carId = car._id
+    const date1 = Date.now()
+    const damage1 = new Damage({
+      date: date1,
+      damage: 'Totalskadet1',
+      repaired: false
+    })
+    const damage2 = new Damage({
+      date: date1,
+      damage: 'Totalskadet2',
+      repaired: false
+    })
+    const damage3 = await car.addDamage(damage1)
+    car.addDamage(damage2)
+
+    let noBeforDelete = await car.damages.length
+    await car.deleteDamage(damage3)
+    let noAfterDelete = await car.damages.length
+    let damage4 = await car.damages[0]
+    damage4.damage.should.be.equal('Totalskadet2')
+
+    noBeforDelete.should.be.equal(2)
+    noAfterDelete.should.be.equal(1)
   })
 })
