@@ -269,9 +269,9 @@ describe('updateCar', () => {
     car2.nickName.should.be.equal('Two')
   })
 })
-
+// slette bil
 describe('deleteCar', function () {
-  it('delete car', async function () {
+  it('delete a car', async function () {
     let noBeforDelete = await Car.count({})
     let car = await Car.findOne()
     car.brand.should.be.equal('BMW')
@@ -284,7 +284,8 @@ describe('deleteCar', function () {
   })
 })
 
-// repair
+//----------repair-------------
+// Tilføje reparation til bil
 
 describe('addRepair', () => {
   it('add repair today', async () => {
@@ -323,7 +324,7 @@ describe('addRepair', () => {
   })
 })
 
-//change repair
+// ændre reparation
 describe('changeRepair', () => {
   it('change repair all', async () => {
     const date1 = Date.parse('March 21, 2012')
@@ -372,7 +373,7 @@ describe('changeRepair', () => {
     updatedRepair.date.valueOf().should.be.equal(date1)
   })
 })
-
+// Slette reparation
 describe('deleteRepair', function () {
   it('delete a repair', async function () {
     let car = await Car.findOne()
@@ -399,7 +400,9 @@ describe('deleteRepair', function () {
   })
 })
 
-// Damage
+//----------Damage-----------------
+// Tilføje skade til bil
+
 describe('addDamage', () => {
   it('add damage default', async () => {
     const car = await Car.findOne()
@@ -426,7 +429,8 @@ describe('addDamage', () => {
     car.damages.length.should.be.equal(2)
   })
 })
-//ændre damage
+
+//ændre skade
 describe('changeDamage', () => {
   it('change damage all', async () => {
     const car = await Car.findOne()
@@ -467,7 +471,7 @@ describe('changeDamage', () => {
   })
 })
 
-//slette damage
+//slette skade
 describe('deleteDamage', () => {
   it('delete a damage', async () => {
     const car = await Car.findOne()
