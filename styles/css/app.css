@@ -1,6 +1,5 @@
 /* Style page content */
 body {
-  margin-left: 170px; /* Same as the width of the sidebar + 10 */
   padding: 0px 10px;
   font-family: 'Nunito', sans-serif;
 }
@@ -8,19 +7,16 @@ body {
 /* The sidebar menu */
 .sidenav {
   height: 100%; /* Full-height: remove this if you want "auto" height */
-  width: 160px; /* Set the width of the sidebar */
   position: fixed; /* Fixed Sidebar (stay in place on scroll) */
   z-index: 1; /* Stay on top */
   top: 0; /* Stay at the top */
   left: 0;
   background-color: #111; /* Black */
   overflow-x: hidden; /* Disable horizontal scroll */
-  padding-top: 20px;
 }
 
 /* The navigation menu links */
 .sidenav a {
-  padding: 6px 8px 6px 16px;
   text-decoration: none;
   font-family: 'Patua One', cursive;
   font-size: 25px;
@@ -64,8 +60,16 @@ button {
   border-bottom-style: dotted;
 }
 
+.listTD:nth-child(2) {
+  text-align: right;
+}
+
 .emojiTD {
   text-align: center;
+}
+
+.buttonDiv {
+  display: inline-block;
 }
 
 button {
@@ -78,14 +82,16 @@ button {
   color: darkred;
 }
 
+/* ------------------------------------------------------------------- */
+
 /* Extra small devices (phones, 767px and down) */
 @media only screen and (max-width: 767px) {
   body {
     margin-left: 110px; /* Same as the width of the sidebar + 10 */
   }
   .sidenav {
-    padding-top: 15px;
     width: 100px;
+    padding-top: 15px;
   }
   .sidenav a {
     font-size: x-large;
@@ -102,12 +108,9 @@ button {
   .listTD:nth-child(1) {
     border-bottom-style: none;
   }
-  .listTD:nth-child(2) {
-    text-align: right;
-  }
   .emojiTD {
     display: inline-table;
-    margin: auto 16px auto auto;
+    margin: auto 20px auto auto;
   }
   h1 {
     font-size: 1.5em;
@@ -123,28 +126,37 @@ button {
     margin-left: 180px; /* Same as the width of the sidebar + 10 */
   }
   .sidenav {
-    padding-top: 15px;
     width: 170px;
+    padding-top: 15px;
   }
   .sidenav a {
     padding: 6px 8px 16px 16px;
   }
-  td {
+  /* td {
     display: block;
-  }
-  .listTD:nth-child(1) {
+  } */
+  /* .listTD:nth-child(1) {
     border-bottom-style: none;
-  }
-  .listTD:nth-child(2) {
-    text-align: right;
-  }
+  } */
   .emojiTD {
     display: inline-table;
-    margin: auto 16px auto auto;
+    margin: auto 20px auto auto;
   }
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
-/* @media only screen and (min-width: 992px) {
-
-} */
+@media only screen and (min-width: 992px) {
+  body {
+    margin-left: 170px; /* Same as the width of the sidebar + 10 */
+  }
+  .sidenav {
+    width: 160px; /* Set the width of the sidebar */
+    padding-top: 20px;
+  }
+  .sidenav a {
+    padding: 6px 8px 6px 16px;
+  }
+  .emojiTD {
+    margin: auto;
+  }
+}

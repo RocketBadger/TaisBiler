@@ -2,27 +2,25 @@ extends layout
 
 block content
     h1 Tilføj skade
-    form(action="addDamage", method="POST")
-        table
-            tr
-                td #[strong Skade:]
-                td
-                    input(type="text", name="damage", placeholder="Skade")
-            tr
-                td #[strong Dato:]
-                td
-                    input(type="date",
-                    name="date",
-                    value=new Date().toISOString().split('T')[0],
-                    max=value=new Date().toISOString().split('T')[0])
-            tr
-                td #[strong Repareret:]
-                td
-                    select(name="repaired")
-                        option(value="false") Nej
-                        option(value="true") Ja
-            tr
-                td
-                    input(type="hidden", name="_id", value=car._id)
-                td
-                    button(type="submit") TILFØJ
+    div.buttonDiv
+        form(action="addDamage", method="POST")
+            table
+                tr
+                    td #[strong Skade:]
+                    td
+                        input(type="text", name="damage", placeholder="Skade")
+                tr
+                    td #[strong Dato:]
+                    td
+                        input(type="date",
+                        name="date",
+                        value=new Date().toISOString().split('T')[0],
+                        max=value=new Date().toISOString().split('T')[0])
+                tr
+                    td #[strong Repareret:]
+                    td
+                        select(name="repaired")
+                            option(value="false") Nej
+                            option(value="true") Ja
+            input(type="hidden", name="_id", value=car._id)
+            button(type="submit") TILFØJ

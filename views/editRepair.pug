@@ -3,21 +3,22 @@ extends layout
 block content
 
     h1 Rediger skade
-    form(action="redigerReparation", method="POST")
-        table
-            tr
-                td #[strong Reparation:]
-                td
-                    input(type="text", name="reparation", value=rep.repair)
-            tr
-                td #[strong Dato:]
-                td
-                    input(type="date", name="date" value=rep.date)
-            tr
-                td #[strong Repareret:]
-                td
-                    select(name="repaired")
-                        option(value="false") Nej
-                        option(value="true") Ja
-        input(type="hidden", name="_id", value=dam._id)
-        button(type="submit") REDIGER
+    div.buttonDiv
+        form(action="redigerReparation", method="POST")
+            table
+                tr
+                    td #[strong Reparation:]
+                    td
+                        input(type="text", name="reparation", value=rep.repair)
+                tr
+                    td #[strong Dato:]
+                    td
+                        input(type="date", name="date" value=rep.date)
+                tr
+                    td #[strong Repareret:]
+                    td
+                        select(name="repaired")
+                            option(value="false") Nej
+                            option(value="true") Ja
+            input(type="hidden", name="_id", value=dam._id)
+            button(type="submit") REDIGER
