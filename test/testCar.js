@@ -270,7 +270,21 @@ describe('updateCar', () => {
   })
 })
 
-describe('repair', () => {
+describe('deleteCar', function () {
+  it('delete car', async function () {
+    let car = await Car.find({})
+    let noBeforDelete = await Car.count({})
+    await Car.deleteCar(car)
+    let noAfterDelete = await Car.count({})
+
+    noBeforDelete.should.be.equal(2)
+    noAfterDelete.should.be.equal(1)
+  })
+})
+
+// repair
+
+describe('addRepair', () => {
   it('add repair today', async () => {
     const car = await Car.findOne({})
     const carId = car._id
@@ -345,6 +359,31 @@ describe('repair', () => {
   })
 })
 
+describe('deleteRepair', function () {
+  it('delete a repair', async function () {
+    let car = await Car.findOne({})
+    const repair = new Repair({
+      date: Date.now(),
+      repair: 'Totalskadet',
+      repaired: false
+    })
+    const repair2 = new Repair({
+      date: Date.now(),
+      repair: 'Totalskadet',
+      repaired: false
+    })
+    await car.addRepair(repair)
+    await car.addRepair(repair2)
+    let noBeforDelete = await car.repairs.length
+    await car.deleteRepair(repair)
+    let noAfterDelete = await car.repairs.length
+
+    noBeforDelete.should.be.equal(2)
+    noAfterDelete.should.be.equal(1)
+  })
+})
+
+// Damage
 describe('damage', () => {
   it('add damage default', async () => {
     const car = await Car.findOne({})

@@ -67,6 +67,10 @@ carSchema.statics.updateCar = async function (car, object) {
   )
 }
 
+carSchema.statics.deleteCar = async function (car) {
+  await this.deleteOne({ id: car._id })
+}
+
 //-----------------------Repair methods---------------------------------
 
 carSchema.methods.addRepair = async function (repair) {
@@ -80,6 +84,10 @@ carSchema.methods.changeRepair = async function (actualRepair, repairChange) {
   repairToChange.set(repairChange)
   await this.save()
   return this.repairs.id(actualRepair._id)
+}
+
+carSchema.methods.deleteRepair = async function (repair) {
+  await this.repairs.id(repair._id).remove()
 }
 
 //-----------------------Damage methods------------------------------------
