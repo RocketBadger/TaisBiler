@@ -65,7 +65,10 @@ app.use('/reparation', repairsRouter)
 // const damagesRouter = require('./routes/damage') // FORÆLDET
 // app.use('/skader', damagesRouter)  // FORÆLDET
 
-const editDamageRouter = require('./routes/repair')
+const editRepairRouter = require('./routes/editRepair')
+app.use('/redigerReparation', editRepairRouter)
+
+const editDamageRouter = require('./routes/editDamage')
 app.use('/redigerSkade', editDamageRouter)
 
 const dummyRouter = require('./routes/dummy') // SKAL SLETTES
