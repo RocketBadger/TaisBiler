@@ -2,6 +2,7 @@ extends layout
 
 block content
     h1 Redigér bil
-    form(action="redigerBil", method="post")
-        include carInfo
-        button(type="submit") REDIGER
+    div.buttonDiv
+        form(action="redigerBil", method="post")
+            include carInfo
+            button(type="submit") REDIGER

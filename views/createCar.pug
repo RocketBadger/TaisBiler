@@ -2,6 +2,7 @@ extends layout
 
 block content
     h1 Opret bil
-    form(action="opretBil", method="POST")
-        include carInfo
-        button(type="submit") OPRET
+    div.buttonDiv
+        form(action="opretBil", method="POST")
+            include carInfo
+            button(type="submit") OPRET

@@ -2,24 +2,22 @@ extends layout
 
 block content
     h1 Tilføj reparation
-    form(action="addRepair", method="POST")
-        table
-            tr
-                td #[strong Reparation:]
-                td
-                    input(type="text", name="repair", placeholder="Reparation")
-            tr
-                td #[strong Dato:]
-                td
-                    input(type="date", name="date", value=new Date().toISOString().split('T')[0])
-            tr
-                td #[strong Repareret:]
-                td
-                    select(name="repaired")
-                        option(value="false") Nej
-                        option(value="true") Ja
-            tr
-                td
-                    input(type="hidden", name="_id", value=car._id)
-                td
-                    button(type="submit") TILFØJ
+    div.buttonDiv
+        form(action="addRepair", method="POST")
+            table
+                tr
+                    td #[strong Reparation:]
+                    td
+                        input(type="text", name="repair", placeholder="Reparation")
+                tr
+                    td #[strong Dato:]
+                    td
+                        input(type="date", name="date", value=new Date().toISOString().split('T')[0])
+                tr
+                    td #[strong Repareret:]
+                    td
+                        select(name="repaired")
+                            option(value="false") Nej
+                            option(value="true") Ja
+            input(type="hidden", name="_id", value=car._id)
+            button(type="submit") TILFØJ
