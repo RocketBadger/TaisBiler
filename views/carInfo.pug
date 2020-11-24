@@ -46,7 +46,7 @@ table
         td
             select(name="retired")
                 option(value="false",
-                    selected=(car !== undefined)? car.retired == false:retired = false) Nej
+                    selected=(car !== undefined) ? car.retired == false : retired = false) Nej
                 option(value="true",
-                    selected= (car !== undefined)? car.retired == true:retired = true) Ja
+                    selected= (car !== undefined) ? car.retired == true : retired = true) Ja
 input(type="hidden", name="_id", value=(car !== undefined && car._id !== undefined) ? car._id : '')
