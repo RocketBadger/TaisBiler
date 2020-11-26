@@ -49,7 +49,6 @@ const carSchema = new mongoose.Schema({
     type: Boolean,
     required: false
   },
-  repairs: [Repair],
   inspections: {
     prev: {
       type: Date
@@ -58,6 +57,7 @@ const carSchema = new mongoose.Schema({
       type: Date
     }
   },
+  repairs: [Repair],
   damages: [Damage]
 })
 

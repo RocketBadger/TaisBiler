@@ -31,6 +31,7 @@ beforeEach((done) => {
       licensePlate: 'AA12345',
       engine: 'V5',
       year: 2018,
+      particulateFilter: false,
       retired: true,
       colour: 'black',
       nickName: 'One'
@@ -41,6 +42,7 @@ beforeEach((done) => {
       licensePlate: 'BB56789',
       engine: 'V52',
       year: 2022,
+      particulateFilter: true,
       retired: true,
       colour: 'black2',
       nickName: 'Two'
@@ -61,6 +63,7 @@ describe('Car', function () {
     should.equal(car.licensePlate, undefined)
     should.equal(car.engine, undefined)
     should.equal(car.year, undefined)
+    should.equal(car.particulateFilter, undefined)
     should.equal(car.retired, undefined)
     car.colour.should.be.equal('white')
     should.equal(car.nickName, undefined)
@@ -72,6 +75,7 @@ describe('Car', function () {
       licensePlate: 'AA12345',
       engine: 'V5',
       year: 2018,
+      particulateFilter: false,
       retired: true,
       colour: 'black',
       nickName: 'One'
@@ -81,6 +85,7 @@ describe('Car', function () {
     car.licensePlate.should.be.equal('AA12345')
     car.engine.should.be.equal('V5')
     car.year.should.be.equal(2018)
+    car.particulateFilter.should.be.equal(false)
     car.retired.should.be.equal(true)
     car.colour.should.be.equal('black')
     car.nickName.should.be.equal('One')
@@ -91,6 +96,7 @@ describe('Car', function () {
     car2.licensePlate.should.be.equal('BB56789')
     car2.engine.should.be.equal('V52')
     car2.year.should.be.equal(2022)
+    car2.particulateFilter.should.be.equal(true)
     car2.retired.should.be.equal(true)
     car2.colour.should.be.equal('black2')
     car2.nickName.should.be.equal('Two')
@@ -107,6 +113,7 @@ describe('updateCar', () => {
     car.licensePlate.should.be.equal('AA12345')
     car.engine.should.be.equal('V5')
     car.year.should.be.equal(2018)
+    car.particulateFilter.should.be.equal(false)
     car.retired.should.be.equal(true)
     car.colour.should.be.equal('black')
     car.nickName.should.be.equal('One')
@@ -117,6 +124,7 @@ describe('updateCar', () => {
     car2.licensePlate.should.be.equal('BB56789')
     car2.engine.should.be.equal('V52')
     car2.year.should.be.equal(2022)
+    car2.particulateFilter.should.be.equal(true)
     car2.retired.should.be.equal(true)
     car2.colour.should.be.equal('black2')
     car2.nickName.should.be.equal('Two')
@@ -129,6 +137,7 @@ describe('updateCar', () => {
     car.licensePlate.should.be.equal('AA12345')
     car.engine.should.be.equal('V5')
     car.year.should.be.equal(2018)
+    car.particulateFilter.should.be.equal(false)
     car.retired.should.be.equal(true)
     car.colour.should.be.equal('black')
     car.nickName.should.be.equal('One')
@@ -139,6 +148,7 @@ describe('updateCar', () => {
     car2.licensePlate.should.be.equal('BB56789')
     car2.engine.should.be.equal('V52')
     car2.year.should.be.equal(2022)
+    car2.particulateFilter.should.be.equal(true)
     car2.retired.should.be.equal(true)
     car2.colour.should.be.equal('black2')
     car2.nickName.should.be.equal('Two')
@@ -151,6 +161,7 @@ describe('updateCar', () => {
     car.licensePlate.should.be.equal('BB22555')
     car.engine.should.be.equal('V5')
     car.year.should.be.equal(2018)
+    car.particulateFilter.should.be.equal(false)
     car.retired.should.be.equal(true)
     car.colour.should.be.equal('black')
     car.nickName.should.be.equal('One')
@@ -161,6 +172,7 @@ describe('updateCar', () => {
     car2.licensePlate.should.be.equal('BB56789')
     car2.engine.should.be.equal('V52')
     car2.year.should.be.equal(2022)
+    car2.particulateFilter.should.be.equal(true)
     car2.retired.should.be.equal(true)
     car2.colour.should.be.equal('black2')
     car2.nickName.should.be.equal('Two')
@@ -173,6 +185,7 @@ describe('updateCar', () => {
     car.licensePlate.should.be.equal('AA12345')
     car.engine.should.be.equal('BrumBrum')
     car.year.should.be.equal(2018)
+    car.particulateFilter.should.be.equal(false)
     car.retired.should.be.equal(true)
     car.colour.should.be.equal('black')
     car.nickName.should.be.equal('One')
@@ -185,6 +198,20 @@ describe('updateCar', () => {
     car.licensePlate.should.be.equal('AA12345')
     car.engine.should.be.equal('V5')
     car.year.should.be.equal(2019)
+    car.particulateFilter.should.be.equal(false)
+    car.retired.should.be.equal(true)
+    car.colour.should.be.equal('black')
+    car.nickName.should.be.equal('One')
+  })
+  it('updateCar particulateFilter', async () => {
+    let car = await Car.findOne()
+    car = await Car.updateCar(car, { particulateFilter: true })
+    car.brand.should.be.equal('BMW')
+    car.model.should.be.equal('X5')
+    car.licensePlate.should.be.equal('AA12345')
+    car.engine.should.be.equal('V5')
+    car.year.should.be.equal(2018)
+    car.particulateFilter.should.be.equal(true)
     car.retired.should.be.equal(true)
     car.colour.should.be.equal('black')
     car.nickName.should.be.equal('One')
@@ -197,6 +224,7 @@ describe('updateCar', () => {
     car.licensePlate.should.be.equal('AA12345')
     car.engine.should.be.equal('V5')
     car.year.should.be.equal(2018)
+    car.particulateFilter.should.be.equal(false)
     car.retired.should.be.equal(true)
     car.colour.should.be.equal('blue')
     car.nickName.should.be.equal('One')
@@ -209,6 +237,7 @@ describe('updateCar', () => {
     car.licensePlate.should.be.equal('AA12345')
     car.engine.should.be.equal('V5')
     car.year.should.be.equal(2018)
+    car.particulateFilter.should.be.equal(false)
     car.retired.should.be.equal(true)
     car.colour.should.be.equal('black')
     car.nickName.should.be.equal('Four')
@@ -223,6 +252,7 @@ describe('updateCar', () => {
     car.licensePlate.should.be.equal('AA12345')
     car.engine.should.be.equal('V5')
     car.year.should.be.equal(2018)
+    car.particulateFilter.should.be.equal(false)
     car.retired.should.be.equal(true)
     car.colour.should.be.equal('blue')
     car.nickName.should.be.equal('One')
@@ -245,6 +275,7 @@ describe('updateCar', () => {
       licensePlate: 'BB22555',
       engine: 'BrumBrum',
       year: 2019,
+      particulateFilter: true,
       retired: false,
       colour: 'blue',
       nickName: 'Four'
@@ -254,6 +285,7 @@ describe('updateCar', () => {
     car.licensePlate.should.be.equal('BB22555')
     car.engine.should.be.equal('BrumBrum')
     car.year.should.be.equal(2019)
+    car.particulateFilter.should.be.equal(true)
     car.retired.should.be.equal(false)
     car.colour.should.be.equal('blue')
     car.nickName.should.be.equal('Four')
@@ -264,6 +296,7 @@ describe('updateCar', () => {
     car2.licensePlate.should.be.equal('BB56789')
     car2.engine.should.be.equal('V52')
     car2.year.should.be.equal(2022)
+    car2.particulateFilter.should.be.equal(true)
     car2.retired.should.be.equal(true)
     car2.colour.should.be.equal('black2')
     car2.nickName.should.be.equal('Two')
