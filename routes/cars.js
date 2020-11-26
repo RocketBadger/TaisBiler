@@ -34,6 +34,7 @@ router.post('/opretBil', async (request, response) => {
       licensePlate: request.body.licensePlate,
       engine: request.body.engine,
       year: request.body.year,
+      particulateFilter: request.body.particulateFilter,
       retired: request.body.retired,
       colour: request.body.colour,
       nickName: request.body.nickName
@@ -77,6 +78,7 @@ router.post('/redigerBil/redigerBil', async (request, response) => {
       licensePlate: request.body.licensePlate,
       engine: request.body.engine,
       year: request.body.year,
+      particulateFilter: request.body.particulateFilter,
       retired: request.body.retired,
       colour: request.body.colour,
       nickName: request.body.nickName

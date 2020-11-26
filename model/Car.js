@@ -45,6 +45,10 @@ const carSchema = new mongoose.Schema({
     type: String,
     required: false
   },
+  particulateFilter: {
+    type: Boolean,
+    required: false
+  },
   repairs: [Repair],
   inspections: {
     prev: {

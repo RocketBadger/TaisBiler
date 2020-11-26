@@ -9,6 +9,11 @@ br
 br
 |#[strong Årgang:] #{car.year}
 br
+if car.particulateFilter
+    |#[strong Partikelfilter:] Ja
+else
+    |#[strong Partikelfilter:] Nej
+br
 |#[strong Farve:] #{car.colour}
 br
 if car.retired

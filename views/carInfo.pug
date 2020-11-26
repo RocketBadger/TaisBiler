@@ -36,6 +36,14 @@ table
                 value=(car !== undefined && car.year !== undefined) ? car.year : '',
                 placeholder='Årstal', required)
     tr
+        td #[strong Partikelfilter:]
+        td
+            select(name="particulateFilter")
+                option(value="true",
+                    selected=(car !== undefined) ? car.particulateFilter == true : particulateFilter = true) Ja
+                option(value="false", 
+                    selected=(car !==undefined) ? car.particulateFilter == false : particulateFilter = false) Nej
+    tr
         td #[strong Kælenavn:]
         td
             input(type="text", name="nickName",
@@ -45,8 +53,8 @@ table
         td #[strong Skrottet:]
         td
             select(name="retired")
-                option(value="false",
-                    selected=(car !== undefined) ? car.retired == false : retired = false) Nej
                 option(value="true",
                     selected= (car !== undefined) ? car.retired == true : retired = true) Ja
+                option(value="false",
+                    selected=(car !== undefined) ? car.retired == false : retired = false) Nej
 input(type="hidden", name="_id", value=(car !== undefined && car._id !== undefined) ? car._id : '')
