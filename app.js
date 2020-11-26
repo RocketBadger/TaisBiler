@@ -61,16 +61,14 @@ const carsRouter = require('./routes/cars')
 app.use('/biler', carsRouter)
 const repairsRouter = require('./routes/repair')
 app.use('/reparation', repairsRouter)
-
 // const damagesRouter = require('./routes/damage') // FORÆLDET
 // app.use('/skader', damagesRouter)  // FORÆLDET
-
 const editRepairRouter = require('./routes/editRepair')
 app.use('/redigerReparation', editRepairRouter)
-
 const editDamageRouter = require('./routes/editDamage')
 app.use('/redigerSkade', editDamageRouter)
-
+const statisticsRouter = require('./routes/statistics')
+app.use('/statistik', statisticsRouter)
 const dummyRouter = require('./routes/dummy') // SKAL SLETTES
 app.use('/dummy', dummyRouter) // SKAL SLETTES
 
