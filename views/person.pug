@@ -11,6 +11,13 @@ block content
                 input(type="text", name="name",
                 value=(person !== undefined && person.navn !== undefined) ? person.navn : '',
                 placeholder='Navn')
+            td
+            td ---
+                button(type="submit") TILFØJ
+            td --
+                button(type="submit") Ændre
+            td
+                button(type="submit" value=null) Slet
         tr
             td #[strong Stilling:]
             td
@@ -24,24 +31,37 @@ block content
                 name="birthday",
                  value=(person !== undefined && person.birthday !== undefined) ? person.birthday : '',
                 placeholder=new Date().toISOString().split('T')[0])
-                  
+        tr
+          td.buttons
+            br
+            button(type="submit") Ændre
+            br
+          td.buttons
+            br
+            button(type="submit") Ændre         
+            br
+          td.buttons
+            br
+            button(type="submit") Ændre     
             input(type="hidden", name="_id", value=(person !== undefined && person._id !== undefined) ? person._id:'')
        
-      button(type="submit") TILFØJ
-
-    button(type="submit") Ændre
-
-    button(type="submit" value=null) Slet
+        button(type="submit") Ændre
+        br
+        br
+        button(type="submit" value=null) Slet
   
     br
     h2 Personer
         table.listTable
           each person in persons
             tr
-              td.list #[strong Navn:] #{person.name}
+              td Navn: 
+              td #{person.name}
             tr
-              td.list #[strong Stilling:] #{person.position}
+              td #[italic Stilling:] 
+              td #{person.position}
             tr
-              td.list #[strong Fødselsdag:] #{person.birthday}
+              td #[strong Fødselsdag:] 
+              td #{(person.birthday!== undefined) ? person.birthday.toLocaleDateString():''}
             tr
-              td --------------------
+              td(colspan='2') -------------------------
