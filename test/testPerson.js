@@ -2,14 +2,10 @@ require('should')
 const mongoose = require('mongoose')
 const Person = require('../model/Person')
 
-/* Attributter:
-name,
-position
-birthday
-*/
-
 before((done) => {
-  mongoose.connect('mongodb://localhost/tbiler_test', {
+  mongoose.connect('mongodb://localhost/tbiler_person_test', {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
     useFindAndModify: false
   })
   const db = mongoose.connection
@@ -18,26 +14,6 @@ before((done) => {
     done()
   })
 })
-
-// beforeEach((done) => {
-//   mongoose.connection.collections.persons.drop(async () => {
-//     let person1 = new Person({
-//       name: 'Worker One',
-//       position: 'Carpenter',
-//       birthday: new Date(1111, 11, 11)
-//     })
-//     let person2 = new Person({
-//       name: 'Worker Two',
-//       position: 'Roofer',
-//       birthday: new Date(2002, 02, 02)
-//     })
-
-//     await person1.save()
-//     await person2.save()
-//     done()
-//   })
-// })
-
 // Oprette person
 describe('Person', function () {
   it('create person no info', function () {

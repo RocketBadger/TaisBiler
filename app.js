@@ -69,6 +69,9 @@ const editDamageRouter = require('./routes/editDamage')
 app.use('/redigerSkade', editDamageRouter)
 const statisticsRouter = require('./routes/statistics')
 app.use('/statistik', statisticsRouter)
+const personsRouter = require('./routes/person')
+app.use('/person', personsRouter)
+
 const dummyRouter = require('./routes/dummy') // SKAL SLETTES
 app.use('/dummy', dummyRouter) // SKAL SLETTES
 

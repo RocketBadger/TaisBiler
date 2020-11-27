@@ -1,0 +1,47 @@
+extends layout
+
+block content
+  h1 Opret, Ændre eller slet person
+  div.buttonDiv
+    form(action="person", method="POST")
+      table 
+        tr
+            td #[strong Navn:]
+            td
+                input(type="text", name="name",
+                value=(person !== undefined && person.navn !== undefined) ? person.navn : '',
+                placeholder='Navn')
+        tr
+            td #[strong Stilling:]
+            td
+                input(type="text", name="position",
+                value=(person !== undefined && person.position !== undefined) ? person.position : '',
+                placeholder='Stilling')
+        tr
+            td #[strong Fødselsdato:]
+            td
+                input(type="date",
+                name="birthday",
+                 value=(person !== undefined && person.birthday !== undefined) ? person.birthday : '',
+                placeholder=new Date().toISOString().split('T')[0])
+                  
+            input(type="hidden", name="_id", value=(person !== undefined && person._id !== undefined) ? person._id:'')
+       
+      button(type="submit") TILFØJ
+
+    button(type="submit") Ændre
+
+    button(type="submit" value=null) Slet
+  
+    br
+    h2 Personer
+        table.listTable
+          each person in persons
+            tr
+              td.list #[strong Navn:] #{person.name}
+            tr
+              td.list #[strong Stilling:] #{person.position}
+            tr
+              td.list #[strong Fødselsdag:] #{person.birthday}
+            tr
+              td --------------------
