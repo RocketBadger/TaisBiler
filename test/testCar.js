@@ -491,3 +491,13 @@ describe('deleteDamage', () => {
     noAfterDelete.should.be.equal(1)
   })
 })
+
+//----------Inspection-----------------
+// Tilføje syn til bil
+describe('addInspection', () => {
+  it('add inspection', async () => {
+    const car = await Car.findOne()
+    const inspection = new Date(0)
+    await car.addInspection(inspection)
+  })
+})
