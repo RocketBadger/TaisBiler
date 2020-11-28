@@ -115,9 +115,7 @@ router.get('/:id', async (request, response) => {
 router.post('/addInspection', async (request, response) => {
   try {
       const car = await Car.findById(request.body._id)
-      car.prevInspection = car.nextInspection
-      car.nextInspection = request.body.nextInspection
-      car.save()
+      car.addInspection(request.body.nextInspection)
       response.redirect('/reparation/' + request.body._id)
   } catch (error) {
       response.render('errorMessage', {

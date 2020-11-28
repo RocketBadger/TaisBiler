@@ -114,4 +114,12 @@ carSchema.methods.deleteDamage = async function (damage) {
   await this.damages.id(damage._id).remove()
 }
 
+//-----------------------Inspection methods------------------------------------
+
+carSchema.methods.addInspection = async function (newNextInspection) {
+  this.prevInspection = this.nextInspection
+  this.nextInspection = newNextInspection
+  await this.save()
+}
+
 module.exports = mongoose.model('Car', carSchema)
