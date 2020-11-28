@@ -1,25 +1,32 @@
-h2 Bil
-|#[strong Nummerplade:] #{car.licensePlate}
-br
-|#[strong Mærke:] #{car.brand}
-br
-|#[strong Model:] #{car.model}
-br
-|#[strong Motor:] #{car.engine}
-br
-|#[strong Årgang:] #{car.year}
-br
-if car.particulateFilter
-    |#[strong Partikelfilter:] Ja
-else
-    |#[strong Partikelfilter:] Nej
-br
-|#[strong Farve:] #{car.colour}
-br
-if car.retired
-    |#[strong Skrottet:] Ja
-else
-    |#[strong Skrottet:] Nej
-br
-if car.nickName
-    |#[strong Kælenavn:] #{car.nickName}
+extends layout
+
+block content
+    .grid-container 
+        .grid-item
+            h2 Bil
+            |#[strong Nummerplade:] #{car.licensePlate}
+            br
+            |#[strong Mærke:] #{car.brand}
+            br
+            |#[strong Model:] #{car.model}
+            br
+            |#[strong Motor:] #{car.engine}
+            br
+            |#[strong Årgang:] #{car.year}
+            br
+            if car.particulateFilter
+                |#[strong Partikelfilter:] Ja
+            else
+                |#[strong Partikelfilter:] Nej
+            br
+            |#[strong Farve:] #{car.colour}
+            br
+            if car.retired
+                |#[strong Skrottet:] Ja
+            else
+                |#[strong Skrottet:] Nej
+            br
+            if car.nickName
+                |#[strong Kælenavn:] #{car.nickName}
+        .grid-item
+            include inspection
