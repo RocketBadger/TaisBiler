@@ -14,7 +14,6 @@ router.get('/', async (req, res) => {
   }
 })
 router.get('/:id', async (req, res) => {
-  console.log(req.params.id)
   try {
     const person = await Person.findById(req.params.id)
     const persons = await Person.find({})
@@ -28,7 +27,7 @@ router.get('/:id', async (req, res) => {
 })
 
 //Opretter en ny person
-router.post('/', async (req, res) => {
+router.post('/person', async (req, res) => {
   if (req.body.but1) {
     try {
       let person = new Person({
@@ -76,25 +75,6 @@ router.post('/', async (req, res) => {
       })
       console.log(error)
     }
-  }
-})
-
-//Ændrer en person, og "sletter"/overskriver
-router.post('/person', async (req, res) => {
-  const personOld = await Person.findById(req.params.id)
-  try {
-    let personNew = new Person({
-      name: request.body.name,
-      position: request.body.position,
-      birthday: request.body.birthday
-    })
-    Person.updatePerson(personOld, personNew)
-    res.redirect('/person')
-  } catch (error) {
-    res.render('errorMessage', {
-      errorMessage: 'Person kunne ikke ændres'
-    })
-    console.log(error)
   }
 })
 
