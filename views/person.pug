@@ -10,8 +10,7 @@ block content
             td(colspan='2')
                 input(type="text", name="name",
                 value=(person !== undefined && person.name !== undefined) ? person.name : '',
-                placeholder='Navn')
-           
+                placeholder='Navn')           
         tr
             td #[strong Stilling:]
             td(colspan='2')
@@ -28,9 +27,10 @@ block content
         tr
           td(colspan='2')
             br
-            button(class="buttonsPerson" name="but1" type="submit" value="create" ) Opret 
-            button(class="buttonsPerson" name="but2" type="submit" value="change") Ændre 
-            button(class="buttonsPerson" name="but3" type="submit" value="nullify") "Slet"            
+            button(class="buttonsPerson" name="btnCreate" type="submit" value="create" ) Opret 
+            button(class="buttonsPerson" name="btnChange" type="submit" value="change") Ændre 
+            button(class="buttonsPerson" name="btnNullify" type="submit" value="nullify") "Slet"            
+             
             input(type="hidden", name="_id", value=(person !== undefined && person._id !== undefined) ? person._id:'')
         
     br

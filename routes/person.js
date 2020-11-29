@@ -36,10 +36,21 @@ router.get('/person/:id', async (req, res) => {
     console.log(error)
   }
 })
+// Undgår at flere klik på person uden rettelser, sender en videre
+router.get('/person/person', async (req, res) => {
+  try {
+    res.redirect('/person')
+  } catch (error) {
+    res.render('errorMessage', {
+      errorMessage: 'Person kunne ikke findes'
+    })
+    console.log(error)
+  }
+})
 
-//Opretter en ny person
+//Opretter en ny person, ændrer eller "sletter eksisterende"
 router.post('/person', async (req, res) => {
-  if (req.body.but1) {
+  if (req.body.btnCreate) {
     try {
       let person = new Person({
         name: req.body.name,
@@ -54,7 +65,7 @@ router.post('/person', async (req, res) => {
       })
       console.log(error)
     }
-  } else if (req.body.but2) {
+  } else if (req.body.btnChange) {
     try {
       const oldPerson = await Person.findById(req.body._id)
       const updates = {
@@ -70,7 +81,7 @@ router.post('/person', async (req, res) => {
       })
       console.log(error)
     }
-  } else if (req.body.but3) {
+  } else if (req.body.btnNullify) {
     try {
       const oldPerson = await Person.findById(req.body._id)
       const updates = {
@@ -88,5 +99,55 @@ router.post('/person', async (req, res) => {
     }
   }
 })
-
+// Undgår at flere klik på person uden rettelser, sender en videre
+router.post('/', async (req, res) => {
+  if (req.body.btnCreate) {
+    try {
+      let person = new Person({
+        name: req.body.name,
+        position: req.body.position,
+        birthday: req.body.birthday
+      })
+      await person.save()
+      res.redirect('/person')
+    } catch (error) {
+      res.render('errorMessage', {
+        errorMessage: 'Person kunne ikke oprettes'
+      })
+      console.log(error)
+    }
+  } else if (req.body.btnChange) {
+    try {
+      const oldPerson = await Person.findById(req.body._id)
+      const updates = {
+        name: req.body.name,
+        position: req.body.position,
+        birthday: req.body.birthday
+      }
+      await Person.updatePerson(oldPerson, updates)
+      res.redirect('/person')
+    } catch (error) {
+      res.render('errorMessage', {
+        errorMessage: 'Person kunne ikke ændres'
+      })
+      console.log(error)
+    }
+  } else if (req.body.btnNullify) {
+    try {
+      const oldPerson = await Person.findById(req.body._id)
+      const updates = {
+        name: null,
+        position: null,
+        birthday: null
+      }
+      await Person.updatePerson(oldPerson, updates)
+      res.redirect('/person')
+    } catch (error) {
+      res.render('errorMessage', {
+        errorMessage: 'Person kunne ikke ændres'
+      })
+      console.log(error)
+    }
+  }
+})
 module.exports = router
