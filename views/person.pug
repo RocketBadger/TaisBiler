@@ -26,18 +26,11 @@ block content
                  value=(person !== undefined && person.birthday !== undefined ) ? person.birthday : '',
                 placeholder=new Date().toISOString().split('T')[0])
         tr
-          td
+          td(colspan='2')
             br
-            br
-            button(name="but1" type="submit" value="create" ) Opret            
-          td
-            br
-            br
-            button(name="but2" type="submit" value="change") Ændre             
-          td
-            br
-            br
-            button(name="but3" type="submit" value="nullify") "Slet"     
+            button(class="buttonsPerson" name="but1" type="submit" value="create" ) Opret 
+            button(class="buttonsPerson" name="but2" type="submit" value="change") Ændre 
+            button(class="buttonsPerson" name="but3" type="submit" value="nullify") "Slet"            
             input(type="hidden", name="_id", value=(person !== undefined && person._id !== undefined) ? person._id:'')
         
     br

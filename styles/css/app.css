@@ -61,6 +61,11 @@ button {
 .listTD {
   border-bottom-style: dotted;
 }
+.buttonsPerson {
+  margin-left: 2pc;
+  margin-top: 2pc;
+  float: left;
+}
 
 .listTD:nth-child(2) {
   text-align: right;
@@ -88,7 +93,7 @@ button {
     margin-left: 110px; /* Same as the width of the sidebar + 10 */
   }
   .sidenav {
-    width: 100px;
+    width: 120px;
     padding-top: 15px;
   }
   .sidenav a {
