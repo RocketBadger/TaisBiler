@@ -14,6 +14,36 @@ nickName */
 
 // Oprette bil
 describe('Car', function () {
+  // beforeEach(async (done) => {
+  //   mongoose.connection.collections.cars.drop(async () => {
+  //     let car = new Car({
+  //       brand: 'BMW',
+  //       model: 'X5',
+  //       licensePlate: 'AA12345',
+  //       engine: 'V5',
+  //       year: 2018,
+  //       particulateFilter: false,
+  //       retired: true,
+  //       colour: 'black',
+  //       nickName: 'One'
+  //     })
+  //     let carOther = await Car.create({
+  //       brand: 'dudum',
+  //       model: 'dummde',
+  //       licensePlate: 'BB56789',
+  //       engine: 'dudum',
+  //       year: 2022,
+  //       particulateFilter: true,
+  //       retired: true,
+  //       colour: 'black2',
+  //       nickName: 'Two'
+  //     })
+  //     await car.save()
+  //     await carOther.save()
+  //     done()
+  //   })
+  // })
+
   it('create car empty', function () {
     let car = new Car()
     should.equal(car.brand, undefined)
@@ -38,6 +68,7 @@ describe('Car', function () {
       colour: 'black',
       nickName: 'One'
     })
+    car = await car.save()
     car.brand.should.be.equal('BMW')
     car.model.should.be.equal('X5')
     car.licensePlate.should.be.equal('AA12345')
@@ -48,11 +79,11 @@ describe('Car', function () {
     car.colour.should.be.equal('black')
     car.nickName.should.be.equal('One')
 
-    let car2 = await Car.findOne({ brand: 'BMW2' })
-    car2.brand.should.be.equal('BMW2')
-    car2.model.should.be.equal('X52')
+    let car2 = await Car.findOne({ brand: 'dudum' })
+    car2.brand.should.be.equal('dudum')
+    car2.model.should.be.equal('dummde')
     car2.licensePlate.should.be.equal('BB56789')
-    car2.engine.should.be.equal('V52')
+    car2.engine.should.be.equal('dudum')
     car2.year.should.be.equal(2022)
     car2.particulateFilter.should.be.equal(true)
     car2.retired.should.be.equal(true)

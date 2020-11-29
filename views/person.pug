@@ -7,61 +7,54 @@ block content
       table 
         tr
             td #[strong Navn:]
-            td
+            td(colspan='2')
                 input(type="text", name="name",
-                value=(person !== undefined && person.navn !== undefined) ? person.navn : '',
+                value=(person !== undefined && person.name !== undefined) ? person.name : '',
                 placeholder='Navn')
-            td
-            td ---
-                button(type="submit") TILFØJ
-            td --
-                button(type="submit") Ændre
-            td
-                button(type="submit" value=null) Slet
+           
         tr
             td #[strong Stilling:]
-            td
+            td(colspan='2')
                 input(type="text", name="position",
                 value=(person !== undefined && person.position !== undefined) ? person.position : '',
                 placeholder='Stilling')
         tr
             td #[strong Fødselsdato:]
-            td
+            td(colspan='2')
                 input(type="date",
                 name="birthday",
-                 value=(person !== undefined && person.birthday !== undefined) ? person.birthday : '',
+                 value=(person !== undefined && person.birthday !== undefined ) ? person.birthday : '',
                 placeholder=new Date().toISOString().split('T')[0])
         tr
-          td.buttons
+          td
             br
-            button(type="submit") Ændre
             br
-          td.buttons
+            button(name="but1" type="submit" value="create" ) Opret            
+          td
             br
-            button(type="submit") Ændre         
             br
-          td.buttons
+            button(name="but2" type="submit" value="change") Ændre             
+          td
             br
-            button(type="submit") Ændre     
+            br
+            button(name="but3" type="submit" value="nullify") "Slet"     
             input(type="hidden", name="_id", value=(person !== undefined && person._id !== undefined) ? person._id:'')
-       
-        button(type="submit") Ændre
-        br
-        br
-        button(type="submit" value=null) Slet
-  
+        
     br
     h2 Personer
         table.listTable
           each person in persons
             tr
-              td Navn: 
+              td #[i Navn:] 
               td #{person.name}
             tr
-              td #[italic Stilling:] 
+              td #[i Stilling:] 
               td #{person.position}
             tr
-              td #[strong Fødselsdag:] 
-              td #{(person.birthday!== undefined) ? person.birthday.toLocaleDateString():''}
+              td #[i Fødselsdag:] 
+              td #{(person.birthday!== undefined&&person.birthday!== null) ? person.birthday.toLocaleDateString():''}
+            tr
+              td.emojiTD 
+                a(href="person/" + person._id, class='emojiLink') ✏️
             tr
               td(colspan='2') -------------------------

@@ -62,19 +62,27 @@ const carSchema = new mongoose.Schema({
 //-----------------------car methods------------------------------------
 
 carSchema.statics.updateCar = async function (car, object) {
-  return await this.findOneAndUpdate({
-    _id: car._id
-  }, {
-    $set: object
-  }, {
-    new: true
-  })
+  return await this.findOneAndUpdate(
+    {
+      _id: car._id
+    },
+    {
+      $set: object
+    },
+    {
+      new: true
+    }
+  )
 }
 
 carSchema.statics.deleteCar = async function (car) {
   await this.deleteOne({
     _id: car._id
   })
+}
+
+carSchema.statics.getCar = async function (details) {
+  return await this.findOne(details)
 }
 
 //-----------------------Repair methods---------------------------------
