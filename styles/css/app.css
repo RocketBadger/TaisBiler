@@ -61,11 +61,6 @@ button {
 .listTD {
   border-bottom-style: dotted;
 }
-.buttonsPerson {
-  margin-left: 2pc;
-  margin-top: 2pc;
-  float: left;
-}
 
 .listTD:nth-child(2) {
   text-align: right;
@@ -83,6 +78,12 @@ button {
   font-weight: bold;
   font-size: larger;
   color: darkred;
+}
+
+.buttonsPerson {
+  margin-left: 2pc;
+  margin-top: 2pc;
+  float: left;
 }
 
 /* ------------------------------------------------------------------ */
