@@ -25,6 +25,17 @@ router.get('/:id', async (req, res) => {
     console.log(error)
   }
 })
+// Undgår at flere klik på person uden rettelser, sender en videre
+router.get('/person/:id', async (req, res) => {
+  try {
+    res.redirect('/person/' + req.params.id)
+  } catch (error) {
+    res.render('errorMessage', {
+      errorMessage: 'Person kunne ikke findes'
+    })
+    console.log(error)
+  }
+})
 
 //Opretter en ny person
 router.post('/person', async (req, res) => {
