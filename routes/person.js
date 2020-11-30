@@ -42,7 +42,7 @@ router.get('/person/person', async (req, res) => {
     res.redirect('/person')
   } catch (error) {
     res.render('errorMessage', {
-      errorMessage: 'Person kunne ikke findes'
+      errorMessage: 'Fejl prøv senere'
     })
     console.log(error)
   }
