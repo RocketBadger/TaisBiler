@@ -10,18 +10,12 @@ before((done) => {
   })
   const db = mongoose.connection
   db.on('error', (error) => console.log(error))
-  db.once('open', () => {})
+  db.once('open', () => { })
   done()
 })
 
-// PERSON
-// beforeEach((done) => {
-//   //   people.drop()
-//   done()
-// })
-
 // CAR
-// beforeEach(async () => {
+// beforeEach(async (done) => {
 //   mongoose.connection.collections.cars.drop(async () => {
 //     let car = new Car({
 //       brand: 'BMW',
@@ -34,24 +28,30 @@ before((done) => {
 //       colour: 'black',
 //       nickName: 'One'
 //     })
-//     let carOther = new Car({
-//       brand: 'BMW2',
-//       model: 'X52',
+//     let carOther = await Car.create({
+//       brand: 'dudum',
+//       model: 'dummde',
 //       licensePlate: 'BB56789',
-//       engine: 'V52',
+//       engine: 'dudum',
 //       year: 2022,
 //       particulateFilter: true,
 //       retired: true,
 //       colour: 'black2',
 //       nickName: 'Two'
 //     })
-
 //     await car.save()
 //     await carOther.save()
+//     done()
 //   })
 // })
 
-// //
+// PERSON
+// beforeEach((done) => {
+//   //   people.drop()
+//   done()
+// })
+
+// CLOTHES
 // beforeEach((done) => {
 //   mongoose.connection.collections.clothes.drop(async () => {
 //     done()
