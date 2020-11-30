@@ -51,10 +51,11 @@ describe('clothes statistics', function () {
         })
         await shoes.save()
     })
-    afterEach(() => {
-        Clothes.drop()
+    afterEach(async () => {
+        await Clothes.drop()
+        await Person.drop()
     })
-    it('get persons from specific piece of clothes', async function () {
+    it('get persons from a specific piece of clothes', async function () {
         let clothes = await Clothes.findOne({ name: 'Sko' })
         let person = new Person({
             name: 'Sam',
@@ -76,7 +77,7 @@ describe('clothes statistics', function () {
         // persons.should.contain({ name: 'Dean', position: 'Tagdækker', birthday: new Date(1979, 1, 24) })
         // persons.should.not.contain({ name: 'Bobby', position: 'Sekretær', birthday: new Date(1950, 8, 12) })
     })
-    it('get specific person clothes', async function () {
+    it('get clothes from a specific person', async function () {
         let person = new Person({
             name: 'Sam',
             position: 'Sjakbejs',
@@ -84,7 +85,7 @@ describe('clothes statistics', function () {
         })
         await person.save()
         let clothes = await Clothes.findOne({ name: 'Sko' })
-        // TO-DO add person to handedout
+        await clothes.addPerson(person, new Date())
         await clothes.save()
         let personClothes = await Clothes.getAPersonsClothes(person._id)
         personClothes.length.should.be.equal(1)
