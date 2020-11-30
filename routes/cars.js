@@ -75,7 +75,8 @@ router.get('/redigerBil/:id', async (request, response) => {
 router.post('/redigerBil/redigerBil', async (request, response) => {
   try {
     const car = await Car.findById(request.body._id)
-    const Driver = await Person.findById(request.body.driver)
+    if (request.body.driver !== 'Ingen'){
+      const Driver = await Person.findById(request.body.driver)
     const updates = {
       brand: request.body.brand,
       model: request.body.model,
@@ -89,6 +90,21 @@ router.post('/redigerBil/redigerBil', async (request, response) => {
       driver: Driver
     }
     await Car.updateCar(car, updates)
+  } else {
+    const updates = {
+      brand: request.body.brand,
+      model: request.body.model,
+      licensePlate: request.body.licensePlate,
+      engine: request.body.engine,
+      year: request.body.year,
+      particulateFilter: request.body.particulateFilter,
+      retired: request.body.retired,
+      colour: request.body.colour,
+      nickName: request.body.nickName,
+      driver: undefined
+    }
+    await Car.updateCar(car, updates)
+  }
     response.redirect('/biler')
   } catch (error) {
     response.render('errorMessage', {

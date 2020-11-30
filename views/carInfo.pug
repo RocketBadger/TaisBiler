@@ -64,7 +64,7 @@ block content
             td #[strong Chauffør:]
             td
                 select(name="driver")
-                    option(value=null) Ingen
+                    option(value=undefined) Ingen
                     each person in people
                         option(value=person._id) #{person.name}
     input(type="hidden", name="_id", value=(car !== undefined && car._id !== undefined) ? car._id : '')
