@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const Car = require('../model/Car')
+const Person = require('../model/Person')
 
 // Forsiden redirecter til /biler
 router.get('/', async (request, response) => {
@@ -61,7 +62,8 @@ router.get('/redigerBil', (request, response) => {
 router.get('/redigerBil/:id', async (request, response) => {
   try {
     const car = await Car.findById(request.params.id)
-    response.render('editCar', { car: car })
+    const people = await Person.find({})
+    response.render('editCar', { car: car, people: people })
   } catch (error) {
     response.render('errorMessage', { errorMessage: 'Bil kunne ikke findes' })
     console.log(error)

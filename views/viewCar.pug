@@ -28,5 +28,8 @@ block content
             br
             if car.nickName
                 |#[strong Kælenavn:] #{car.nickName}
+            br
+            if car.driver
+                |#[strong Chauffør:] #{car.driver}
         .grid-item
             include inspection

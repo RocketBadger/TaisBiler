@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const Repair = require('./Repair').schema
 const Damage = require('./Damage').schema
+const Person = require('./Person').schema
 
 const carSchema = new mongoose.Schema({
   brand: {
@@ -56,7 +57,10 @@ const carSchema = new mongoose.Schema({
     type: Date
   },
   repairs: [Repair],
-  damages: [Damage]
+  damages: [Damage],
+  driver: {
+    type: Person
+  }
 })
 
 //-----------------------car methods------------------------------------
