@@ -30,6 +30,8 @@ block content
                 |#[strong Kælenavn:] #{car.nickName}
             br
             if car.driver
-                |#[strong Chauffør:] #{car.driver}
+                |#[strong Chauffør:] #{car.driver.name}
+            else
+                |#[strong Chauffør:] Ingen
         .grid-item
             include inspection
