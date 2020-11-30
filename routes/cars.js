@@ -38,7 +38,8 @@ router.post('/opretBil', async (request, response) => {
       particulateFilter: request.body.particulateFilter,
       retired: request.body.retired,
       colour: request.body.colour,
-      nickName: request.body.nickName
+      nickName: request.body.nickName,
+      driver: request.body.driver
     })
     await car.save()
     response.redirect('/biler')
@@ -74,6 +75,7 @@ router.get('/redigerBil/:id', async (request, response) => {
 router.post('/redigerBil/redigerBil', async (request, response) => {
   try {
     const car = await Car.findById(request.body._id)
+    const Driver = await Person.findById(request.body.driver)
     const updates = {
       brand: request.body.brand,
       model: request.body.model,
@@ -83,7 +85,8 @@ router.post('/redigerBil/redigerBil', async (request, response) => {
       particulateFilter: request.body.particulateFilter,
       retired: request.body.retired,
       colour: request.body.colour,
-      nickName: request.body.nickName
+      nickName: request.body.nickName,
+      driver: Driver
     }
     await Car.updateCar(car, updates)
     response.redirect('/biler')
