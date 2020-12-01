@@ -6,7 +6,7 @@ const Person = require('../model/Person')
 // Siden med personer
 router.get('/', async (req, res) => {
   try {
-    const persons = await Person.find({})
+    const persons = await Person.find()
     res.render('person', { persons: persons })
   } catch (error) {
     res.render('errorMessage', { errorMessage: 'Siden kunne ikke loades' })

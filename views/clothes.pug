@@ -1,0 +1,35 @@
+extends layout
+
+block content
+  h2 Opret, ændre, slette arbejdstøj
+  h2 eller tilføje arbejdstøj til person
+  div.buttonDiv
+    form(action="clothes" method="post")
+      table 
+        tr
+          td #[strong Type:]
+          td(colspan='2')
+            input(type="text", name="name",
+            value=(clothes!==undifined)?clothes.name:'',
+            placeholder='Type',required)
+        tr
+          td #[strong Størrelse:]
+          td(colspan='2')
+            input(type="text", name="size",
+            value=(clothes !== undifined) ? clothes.size:'',
+            placeholder='Størrelse',required)
+        tr
+          td #[strong Mærke:]
+          td(colspan='2')
+            input(type="text", name="brand",
+            value=(clothes !== undifined) ? clothes.brand:'',
+            placeholder='Mærke',required)
+
+        tr
+          td(colspan='3') -----------------------------------
+        tr
+          td #[strong Person:]
+          td(colspan='2')
+            input(type="text" name="person",
+            value=(person !==undifined && person.name !== undifined) ? person.name : '' ,
+            placeholder='Ingen person valgt',required)
