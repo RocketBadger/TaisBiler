@@ -28,5 +28,15 @@ block content
             br
             if car.nickName
                 |#[strong Kælenavn:] #{car.nickName}
+            br
+            if car.driver.driver
+                |#[strong Chauffør:] #{car.driver.driver.name} |#[strong Fra:] #{car.driver.DateFrom.toLocaleDateString()}
+            else
+                |#[strong Chauffør:] Ingen
+            br
+            if car.driver.prevDriver
+                |#[strong Tidligere chauffør:] #{car.driver.prevDriver.name} |#[strong Til:] #{car.driver.prevDateTo.toLocaleDateString()} |#[strong Fra:] #{car.driver.prevDateFrom.toLocaleDateString()}
+            else
+                |#[strong Tidligere chauffør:] Ingen
         .grid-item
             include inspection

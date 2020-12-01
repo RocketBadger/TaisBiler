@@ -2,9 +2,13 @@ extends layout
 
 block content
     h2 Syn
-    |#[strong Næste:] #{car.nextInspection.toLocaleDateString()}
+    |#[strong Næste:] 
+    if car.nextInspection !== undefined 
+        |#{car.nextInspection.toLocaleDateString()}
     br
-    |#[strong Sidste:] #{car.prevInspection.toLocaleDateString()}
+    |#[strong Sidste:]
+    if car.prevInspection !== undefined 
+        |#{car.prevInspection.toLocaleDateString()}
     br
     br
     //- h2 Tilføj syn

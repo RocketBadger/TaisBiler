@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const Repair = require('./Repair').schema
 const Damage = require('./Damage').schema
+const Person = require('./Person').schema
 
 const carSchema = new mongoose.Schema({
   brand: {
@@ -34,7 +35,8 @@ const carSchema = new mongoose.Schema({
   },
   retired: {
     type: Boolean,
-    required: true
+    required: true,
+    default: false
   },
   colour: {
     type: String,
@@ -47,7 +49,7 @@ const carSchema = new mongoose.Schema({
   },
   particulateFilter: {
     type: Boolean,
-    required: false
+    default: false
   },
   prevInspection: {
     type: Date
@@ -56,7 +58,24 @@ const carSchema = new mongoose.Schema({
     type: Date
   },
   repairs: [Repair],
-  damages: [Damage]
+  damages: [Damage],
+  driver: {
+    driver: {
+    type: Person
+    },
+    dateFrom: {
+      type: Date
+    },
+    prevDriver: {
+      type: Person
+    },
+    prevDateFrom:{
+      type: Date
+    },
+    prevDateTo: {
+      type: Date
+    }
+  }
 })
 
 //-----------------------car methods------------------------------------
