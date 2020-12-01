@@ -2,8 +2,8 @@
 const Car = require('../model/Car')
 
 const mongoose = require('mongoose')
-before((done) => {
-  mongoose.connect('mongodb://localhost/tbiler_test123', {
+before(() => {
+  mongoose.connect('mongodb://localhost/tbiler_testing', {
     useFindAndModify: false,
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -11,7 +11,6 @@ before((done) => {
   const db = mongoose.connection
   db.on('error', (error) => console.log(error))
   db.once('open', () => {})
-  done()
 })
 after(() => {
   mongoose.connection.close()

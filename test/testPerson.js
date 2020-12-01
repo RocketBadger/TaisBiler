@@ -17,8 +17,7 @@ beforeEach(async () => {
   await person1.save()
   await person2.save()
 })
-
-afterEach(async () => {
+afterEach(() => {
   mongoose.connection.collections.people.drop()
 })
 // Oprette person
