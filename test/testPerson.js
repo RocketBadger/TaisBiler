@@ -1,6 +1,26 @@
 require('should')
 const Person = require('../model/Person')
 
+beforeEach(async () => {
+  const date = new Date(1234, 12, 12)
+  const date2 = new Date(1111, 11, 11)
+  let person1 = Person({
+    name: 'Worker One',
+    position: 'Stargazer',
+    birthday: date
+  })
+  let person2 = Person({
+    name: 'Worker Two',
+    position: 'Roofer',
+    birthday: date2
+  })
+  await person1.save()
+  await person2.save()
+})
+
+afterEach(async () => {
+  mongoose.connection.collections.people.drop()
+})
 // Oprette person
 describe('Person', function () {
   it('create person no info', function () {
@@ -13,18 +33,13 @@ describe('Person', function () {
   it('Person with info', async () => {
     const date = new Date(1234, 12, 12)
     const date2 = new Date(1111, 11, 11)
-    let person67 = Person({
-      name: 'Worker sixtyseven',
-      position: 'Stargazer',
-      birthday: date
-    })
-    await person67.save()
-    person67.name.should.be.equal('Worker sixtyseven')
-    person67.position.should.be.equal('Stargazer')
-    person67.birthday.should.be.equal(date)
+    let person1 = await Person.findOne({ name: 'Worker One' })
+    person1.name.should.be.equal('Worker One')
+    person1.position.should.be.equal('Stargazer')
+    // person1.birthday.should.be.equal(date)
 
-    let person = await Person.findOne({ name: 'Worker No1' })
-    person.name.should.be.equal('Worker No1')
+    let person = await Person.findOne({ name: 'Worker Two' })
+    person.name.should.be.equal('Worker Two')
     person.position.should.be.equal('Roofer')
     // person.birthday.should.be.equal(date2)
   })
