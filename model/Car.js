@@ -35,7 +35,8 @@ const carSchema = new mongoose.Schema({
   },
   retired: {
     type: Boolean,
-    required: true
+    required: true,
+    default: false
   },
   colour: {
     type: String,
@@ -48,7 +49,7 @@ const carSchema = new mongoose.Schema({
   },
   particulateFilter: {
     type: Boolean,
-    required: false
+    default: false
   },
   prevInspection: {
     type: Date
