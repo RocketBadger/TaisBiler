@@ -29,8 +29,8 @@ block content
             if car.nickName
                 |#[strong Kælenavn:] #{car.nickName}
             br
-            if car.driver
-                |#[strong Chauffør:] #{car.driver.name}
+            if car.driver.driver
+                |#[strong Chauffør:] #{car.driver.driver.name}
             else
                 |#[strong Chauffør:] Ingen
         .grid-item

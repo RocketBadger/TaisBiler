@@ -9,9 +9,13 @@ router.get('/', async (request, response) => {
     const cars = await Car.find({})
     // Ikke-skrottede biler går først
     cars.sort((a, b) => a.retired - b.retired)
-    response.render('cars', { cars: cars })
+    response.render('cars', {
+      cars: cars
+    })
   } catch (error) {
-    response.render('errorMessage', { errorMessage: 'Biler kunne ikke loades' })
+    response.render('errorMessage', {
+      errorMessage: 'Biler kunne ikke loades'
+    })
     console.log(error)
   }
 })
@@ -21,7 +25,9 @@ router.get('/opretBil', (request, response) => {
   try {
     response.render('createCar')
   } catch (error) {
-    response.render('errorMessage', { errorMessage: 'Siden kunne ikke loades' })
+    response.render('errorMessage', {
+      errorMessage: 'Siden kunne ikke loades'
+    })
     console.log(error)
   }
 })
@@ -44,7 +50,9 @@ router.post('/opretBil', async (request, response) => {
     await car.save()
     response.redirect('/biler')
   } catch (error) {
-    response.render('errorMessage', { errorMessage: 'Bil kunne ikke oprettes' })
+    response.render('errorMessage', {
+      errorMessage: 'Bil kunne ikke oprettes'
+    })
     console.log(error)
   }
 })
@@ -54,7 +62,9 @@ router.get('/redigerBil', (request, response) => {
   try {
     response.redirect('/biler')
   } catch (error) {
-    response.render('errorMessage', { errorMessage: 'Siden kunne ikke loades' })
+    response.render('errorMessage', {
+      errorMessage: 'Siden kunne ikke loades'
+    })
     console.log(error)
   }
 })
@@ -64,9 +74,14 @@ router.get('/redigerBil/:id', async (request, response) => {
   try {
     const car = await Car.findById(request.params.id)
     const people = await Person.find({})
-    response.render('editCar', { car: car, people: people })
+    response.render('editCar', {
+      car: car,
+      people: people
+    })
   } catch (error) {
-    response.render('errorMessage', { errorMessage: 'Bil kunne ikke findes' })
+    response.render('errorMessage', {
+      errorMessage: 'Bil kunne ikke findes'
+    })
     console.log(error)
   }
 })
@@ -74,9 +89,11 @@ router.get('/redigerBil/:id', async (request, response) => {
 // Opdaterer en bil fra ID med PUT
 router.post('/redigerBil/redigerBil', async (request, response) => {
   try {
+    let Driver = undefined
+    if (request.body.driver !== 'Ingen') {
+      Driver = await Person.findById(request.body.driver)
+    }
     const car = await Car.findById(request.body._id)
-    if (request.body.driver !== 'Ingen'){
-      const Driver = await Person.findById(request.body.driver)
     const updates = {
       brand: request.body.brand,
       model: request.body.model,
@@ -87,24 +104,15 @@ router.post('/redigerBil/redigerBil', async (request, response) => {
       retired: request.body.retired,
       colour: request.body.colour,
       nickName: request.body.nickName,
-      driver: Driver
+      driver: {
+        prevDriver: car.driver.driver,
+        prevDateFrom: car.driver.dateFrom,
+        prevDateTo: new Date().toISOString().split('T')[0],
+        driver: Driver,
+        dateFrom: new Date().toISOString().split('T')[0]
+      }
     }
     await Car.updateCar(car, updates)
-  } else {
-    const updates = {
-      brand: request.body.brand,
-      model: request.body.model,
-      licensePlate: request.body.licensePlate,
-      engine: request.body.engine,
-      year: request.body.year,
-      particulateFilter: request.body.particulateFilter,
-      retired: request.body.retired,
-      colour: request.body.colour,
-      nickName: request.body.nickName,
-      driver: undefined
-    }
-    await Car.updateCar(car, updates)
-  }
     response.redirect('/biler')
   } catch (error) {
     response.render('errorMessage', {

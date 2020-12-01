@@ -59,7 +59,21 @@ const carSchema = new mongoose.Schema({
   repairs: [Repair],
   damages: [Damage],
   driver: {
+    driver: {
     type: Person
+    },
+    dateFrom: {
+      type: Date
+    },
+    prevDriver: {
+      type: Person
+    },
+    prevDateFrom:{
+      type: Date
+    },
+    prevDateTo: {
+      type: Date
+    }
   }
 })
 
