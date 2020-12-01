@@ -24,13 +24,14 @@ block content
                 name="birthday",
                  value=(person !== undefined && person.birthday !== undefined ) ? person.birthday : '',
                 placeholder=new Date().toISOString().split('T')[0])
-            td(colspan='2')
-              br
-              button(class="buttonsPerson" name="btnCreate" type="submit" value="create" ) Opret 
-              button(class="buttonsPerson" name="btnChange" type="submit" value="change") Ændre 
-              button(class="buttonsPerson" name="btnNullify" type="submit" value="nullify") "Slet"            
-              
-              input(type="hidden", name="_id", value=(person !== undefined && person._id !== undefined) ? person._id:'')
+        tr
+          td(colspan='2')
+            br
+            button(class="buttonsPerson" name="btnCreate" type="submit" value="create" ) Opret 
+            button(class="buttonsPerson" name="btnChange" type="submit" value="change") Ændre 
+            button(class="buttonsPerson" name="btnNullify" type="submit" value="nullify") "Slet"            
+             
+            input(type="hidden", name="_id", value=(person !== undefined && person._id !== undefined) ? person._id:'')
         
     br
     h2 Personer
@@ -47,6 +48,6 @@ block content
               td #{(person.birthday!== undefined&&person.birthday!== null) ? person.birthday.toLocaleDateString():''}
             tr
               td.emojiTD 
-                a(href="person/" + person._id, class='emojiLink') ✏️
+                a(href="/person/" + person._id, class='emojiLink') ✏️
             tr
               td(colspan='2') -------------------------

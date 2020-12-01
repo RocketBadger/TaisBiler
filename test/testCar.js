@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const Car = require('../model/Car')
 const Repair = require('../model/Repair')
 const Damage = require('../model/Damage')
+const Person = require('../model/Person')
 
 /* Attributter:
 brand
@@ -14,6 +15,36 @@ nickName */
 
 // Oprette bil
 describe('Car', function () {
+  // beforeEach(async (done) => {
+  //   mongoose.connection.collections.cars.drop(async () => {
+  //     let car = new Car({
+  //       brand: 'BMW',
+  //       model: 'X5',
+  //       licensePlate: 'AA12345',
+  //       engine: 'V5',
+  //       year: 2018,
+  //       particulateFilter: false,
+  //       retired: true,
+  //       colour: 'black',
+  //       nickName: 'One'
+  //     })
+  //     let carOther = await Car.create({
+  //       brand: 'dudum',
+  //       model: 'dummde',
+  //       licensePlate: 'BB56789',
+  //       engine: 'dudum',
+  //       year: 2022,
+  //       particulateFilter: true,
+  //       retired: true,
+  //       colour: 'black2',
+  //       nickName: 'Two'
+  //     })
+  //     await car.save()
+  //     await carOther.save()
+  //     done()
+  //   })
+  // })
+
   it('create car empty', function () {
     let car = new Car()
     should.equal(car.brand, undefined)
@@ -38,6 +69,7 @@ describe('Car', function () {
       colour: 'black',
       nickName: 'One'
     })
+    car = await car.save()
     car.brand.should.be.equal('BMW')
     car.model.should.be.equal('X5')
     car.licensePlate.should.be.equal('AA12345')
@@ -48,11 +80,11 @@ describe('Car', function () {
     car.colour.should.be.equal('black')
     car.nickName.should.be.equal('One')
 
-    let car2 = await Car.findOne({ brand: 'BMW2' })
-    car2.brand.should.be.equal('BMW2')
-    car2.model.should.be.equal('X52')
+    let car2 = await Car.findOne({ brand: 'dudum' })
+    car2.brand.should.be.equal('dudum')
+    car2.model.should.be.equal('dummde')
     car2.licensePlate.should.be.equal('BB56789')
-    car2.engine.should.be.equal('V52')
+    car2.engine.should.be.equal('dudum')
     car2.year.should.be.equal(2022)
     car2.particulateFilter.should.be.equal(true)
     car2.retired.should.be.equal(true)
@@ -499,5 +531,71 @@ describe('addInspection', () => {
     const car = await Car.findOne()
     const inspection = new Date(0)
     await car.addInspection(inspection)
+  })
+})
+
+//----------Statistics-----------------
+describe('car statistics', () => {
+  beforeEach(async () => {
+    let car = new Car({
+      brand: 'BMW',
+      model: 'X5',
+      licensePlate: 'AA12345',
+      engine: 'V5',
+      year: 2018,
+      particulateFilter: false,
+      retired: true,
+      colour: 'black',
+      nickName: 'One'
+    })
+    await car.save()
+  })
+  afterEach(async () => {
+    await Car.drop()
+    await Person.drop()
+  })
+  it('get drivers from specific car', async function () {
+    let car = Car.findOne()
+    let person = new Person({
+      name: 'Sam',
+      position: 'Sjakbejs',
+      birthday: new Date(1983, 5, 2)
+    })
+    await person.save()
+    let person2 = new Person({
+      name: 'Dean',
+      position: 'Tagdækker',
+      birthday: new Date(1979, 1, 24)
+    })
+    await person2.save()
+    // add person and person2 to car
+    // tjek at der er to personer på car
+    // tjek at den ene er Sam
+    // tjek at den anden er Dean
+  })
+  it('get cars from specific driver', async function () {
+    let car = new Car({
+      brand: 'Rolls-Royce',
+      model: 'Phantom',
+      licensePlate: 'RR37913',
+      engine: 'V5',
+      year: 2019,
+      particulateFilter: true,
+      retired: false,
+      colour: 'pink',
+      nickName: 'VrumVrum'
+    })
+    await car.save()
+    let car2 = Car.findOne({ brand: 'BMW' })
+    let person = new Person({
+      name: 'Sam',
+      position: 'Sjakbejs',
+      birthday: new Date(1983, 5, 2)
+    })
+    await person.save()
+    // add person to car and car2
+    // tjek at der to biler, der hører til personen
+    // tjek at den ene er Rolls-Royce
+    // tjek at den anden er BMW
   })
 })

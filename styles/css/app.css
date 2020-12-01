@@ -29,7 +29,8 @@ body {
   color: #818181;
 }
 
-h1, h2 {
+h1,
+h2 {
   font-family: 'Patua One', cursive;
 }
 
@@ -38,6 +39,7 @@ button {
   font-weight: bold;
   border: 1px solid #000000;
   border-radius: 2px;
+  float: right;
 }
 
 .grid-container {
@@ -72,17 +74,19 @@ button {
   display: inline-block;
 }
 
-button {
-  float: right;
-}
-
 #error {
   font-weight: bold;
   font-size: larger;
   color: darkred;
 }
 
-/* ------------------------------------------------------------------- */
+.buttonsPerson {
+  margin-left: 2pc;
+  margin-top: 2pc;
+  float: left;
+}
+
+/* ------------------------------------------------------------------ */
 
 /* Extra small devices (phones, 767px and down) */
 @media only screen and (max-width: 767px) {
@@ -90,7 +94,7 @@ button {
     margin-left: 110px; /* Same as the width of the sidebar + 10 */
   }
   .sidenav {
-    width: 100px;
+    width: 120px;
     padding-top: 15px;
   }
   .sidenav a {
