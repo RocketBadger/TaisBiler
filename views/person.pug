@@ -48,6 +48,6 @@ block content
               td #{(person.birthday!== undefined&&person.birthday!== null) ? person.birthday.toLocaleDateString():''}
             tr
               td.emojiTD 
-                a(href="person/" + person._id, class='emojiLink') ✏️
+                a(href="/person/" + person._id, class='emojiLink') ✏️
             tr
               td(colspan='2') -------------------------

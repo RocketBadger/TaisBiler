@@ -25,31 +25,9 @@ router.get('/:id', async (req, res) => {
     console.log(error)
   }
 })
-// Undgår at flere klik på person uden rettelser, sender en videre
-router.get('/person/:id', async (req, res) => {
-  try {
-    res.redirect('/person/' + req.params.id)
-  } catch (error) {
-    res.render('errorMessage', {
-      errorMessage: 'Person kunne ikke findes'
-    })
-    console.log(error)
-  }
-})
-// Undgår at flere klik på person uden rettelser, sender en videre
-router.get('/person/person', async (req, res) => {
-  try {
-    res.redirect('/person')
-  } catch (error) {
-    res.render('errorMessage', {
-      errorMessage: 'Fejl prøv senere'
-    })
-    console.log(error)
-  }
-})
 
-//Opretter en ny person, ændrer eller "sletter eksisterende"
-router.post('/person', async (req, res) => {
+// Til oprettelse uden at have klikket på person
+router.post('/', async (req, res) => {
   if (req.body.btnCreate) {
     try {
       let person = new Person({
@@ -66,41 +44,18 @@ router.post('/person', async (req, res) => {
       console.log(error)
     }
   } else if (req.body.btnChange) {
-    try {
-      const oldPerson = await Person.findById(req.body._id)
-      const updates = {
-        name: req.body.name,
-        position: req.body.position,
-        birthday: req.body.birthday
-      }
-      await Person.updatePerson(oldPerson, updates)
-      res.redirect('/person')
-    } catch (error) {
-      res.render('errorMessage', {
-        errorMessage: 'Person kunne ikke ændres'
-      })
-      console.log(error)
-    }
+    res.render('errorMessage', {
+      errorMessage: 'Person skal vælges, før der kan ændres'
+    })
   } else if (req.body.btnNullify) {
-    try {
-      const oldPerson = await Person.findById(req.body._id)
-      const updates = {
-        name: null,
-        position: null,
-        birthday: null
-      }
-      await Person.updatePerson(oldPerson, updates)
-      res.redirect('/person')
-    } catch (error) {
-      res.render('errorMessage', {
-        errorMessage: 'Person kunne ikke ændres'
-      })
-      console.log(error)
-    }
+    res.render('errorMessage', {
+      errorMessage: 'Person skal vælges, før der kan "slettes"'
+    })
   }
 })
-// Undgår at flere klik på person uden rettelser, sender en videre
-router.post('/', async (req, res) => {
+
+//Opretter en ny person, ændrer eller "sletter eksisterende"
+router.post('/person', async (req, res) => {
   if (req.body.btnCreate) {
     try {
       let person = new Person({
