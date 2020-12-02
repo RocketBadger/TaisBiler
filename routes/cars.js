@@ -35,6 +35,10 @@ router.get('/opretBil', (request, response) => {
 // Opretter en ny bil med POST
 router.post('/opretBil', async (request, response) => {
   try {
+    let Driver = undefined
+    if (request.body.driver !== 'Ingen') {
+      Driver = await Person.findById(request.body.driver)
+    }
     let car = new Car({
       brand: request.body.brand,
       model: request.body.model,
@@ -45,7 +49,10 @@ router.post('/opretBil', async (request, response) => {
       retired: request.body.retired,
       colour: request.body.colour,
       nickName: request.body.nickName,
-      driver: request.body.driver
+      driver: {
+        driver: Driver,
+        dateFrom: new Date().toISOString().split('T')[0]
+      }
     })
     await car.save()
     response.redirect('/biler')
