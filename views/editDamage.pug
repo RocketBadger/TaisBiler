@@ -25,8 +25,13 @@ block content
                 tr
                     td #[strong Repareret:]
                     td
-                        select(name="repaired")
-                            option(value="false") Nej
-                            option(value="true") Ja
+                        if damage.repaired
+                            select(name="repaired")
+                                option(value="true") Ja
+                                option(value="false") Nej
+                        else 
+                            select(name="repaired")
+                                option(value="false") Nej
+                                option(value="true") Ja
             input(type="hidden", name="_id", value=damage._id)
             button(type="submit") REDIGÉR
