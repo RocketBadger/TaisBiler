@@ -36,7 +36,9 @@ clothesSchema.statics.getReceiversOfClothes = async function (clothesID) {
   } else {
     let personIDs = Array.from(clothes.handedOut.keys())
     let personsArray = await Person.find()
-    personsArray = personsArray.filter(person => personIDs.includes(person._id.toString()))
+    personsArray = personsArray.filter((person) =>
+      personIDs.includes(person._id.toString())
+    )
     for (let i = 0; i < personsArray.length; i++) {
       const element = personsArray[i]
       receivers.set(element, clothes.handedOut.get(element._id.toString()))
@@ -55,6 +57,20 @@ clothesSchema.statics.getAPersonsClothes = async function (personID) {
     }
   }
   return clothes
+}
+
+clothesSchema.statics.updateClothes = async function (clothes, change) {
+  return await this.findOneAndUpdate(
+    { _id: clothes._id },
+    { $set: change },
+    { new: true }
+  )
+}
+
+clothesSchema.statics.deleteClothes = async function (clothes) {
+  await this.deleteOne({
+    _id: clothes._id
+  })
 }
 
 clothesSchema.methods.addPerson = async function (person, date) {

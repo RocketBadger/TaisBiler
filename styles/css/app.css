@@ -29,7 +29,9 @@ body {
   color: #818181;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   font-family: 'Patua One', cursive;
 }
 
@@ -79,7 +81,8 @@ button {
   color: darkred;
 }
 
-.buttonsPerson {
+.buttonsPerson,
+.buttonsClothes {
   margin-left: 2pc;
   margin-top: 2pc;
   float: left;

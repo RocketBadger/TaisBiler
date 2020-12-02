@@ -1,44 +1,107 @@
 extends layout
 
 block content
-  h2 Opret, ændre, slette arbejdstøj
-  h2 eller tilføje arbejdstøj til person
-  div.buttonDiv
-    form(action="clothes" method="post")
-      table 
-        tr
-          td #[strong Type:]
-          td(colspan='2')
-            input(type="text", name="name",
-            value=(clothes!==undifined)?clothes.name:'',
-            placeholder='Type',required)
-        tr
-          td #[strong Størrelse:]
-          td(colspan='2')
-            input(type="text", name="size",
-            value=(clothes !== undifined) ? clothes.size:'',
-            placeholder='Størrelse',required)
-        tr
-          td #[strong Mærke:]
-          td(colspan='2')
-            input(type="text", name="brand",
-            value=(clothes !== undifined) ? clothes.brand:'',
-            placeholder='Mærke',required)
-        tr
-          td(colspan='2')
-            br
-            button(class="buttonsPerson" name="btnCreate" type="submit" value="create" ) Opret 
-            button(class="buttonsPerson" name="btnChange" type="submit" value="change") Ændre 
-            button(class="buttonsPerson" name="btnNullify" type="submit" value="nullify") "Slet" 
+  .grid-container 
+    .grid-item
+      h2 Vælg person og tøj, klik tilføj
+      div.buttonDiv
+        form(action="clothes" method="POST")
+          table 
+            tr
+              td
+                label Vælg en person :
+              td(colspan='2')    
+                select#personSelect(name='persons' onchange='loadPerson()')
+                  for person in persons
+                    option(value=person.birthday +'#' + person.position +  '#' + person._id) #{person.name}
+                      script.
+                        function loadPerson() {
+                          let selectedPerson = document.getElementById("personSelect").value
+                          let personDetails = selectedPerson.split('#')
+                          document.getElementById("personBirthday").innerHTML = (personDetails[0] !=='null') ? personDetails[0] : 'Ingen oplysninger' 
+                          document.getElementById("personPosition").innerHTML = (personDetails[1] !=='') ? personDetails[1] : 'Ingen oplysninger' 
+                        }
+
+            tr(rowspan='2')
+              td Fødselsdag
+              td(colspan='2') 
+                p#personBirthday Ingen valg
+            tr
+              td Stilling
+              td(colspan='2') 
+                p#personPosition Ingen valg
+            tr
+              td
+                label Vælg beklædning :
+              td(colspan='2') 
+                select#clothesSelect(name='clothes' onchange='loadClothes()')
+                  if (clothes !== undefined) 
+                  each cloth in clothes
+                    option(value=cloth.size + '#' + cloth.brand +  '#' + cloth._id) #{cloth.name}
+                      script.
+                        function loadClothes() {
+                        let selectedClothes = document.getElementById("clothesSelect").value
+                        let clothesDetails = selectedClothes.split('#')
+                        //- document.getElementById("clothesSize").innerHTML =selectedClothes
+                        document.getElementById("clothesSize").innerHTML =  clothesDetails[0]  
+                        document.getElementById("clothesBrand").innerHTML = clothesDetails[1]
+                        }
+
+            tr(rowspan='2')
+              td Størrelse
+              td(colspan='2') 
+                p#clothesSize Ingen valg
+            tr
+              td Mærke
+              td(colspan='2') 
+                p#clothesBrand Ingen valg
 
             input(type="hidden" name="_id", value=(person !== undefined && person._id !== undefined) ? person._id:'')
 
+    .grid-item
+      h2 Opret, ændre, slette arbejdstøj
+      div.buttonDiv
+        form(action="clothes" method="post")
+          table.listTable 
+            tr
+              td #[strong Type:]
+              td(colspan='2')
+                input(type="text", name="name",
+                value=(cloth!==undifined)?cloth.name:'',
+                placeholder='Type',required)
+            tr
+              td #[strong Størrelse:]
+              td(colspan='2')
+                input(type="text", name="size",
+                value=(cloth !== undifined) ? cloth.size:'',
+                placeholder='Størrelse',required)
+            tr
+              td #[strong Mærke:]
+              td(colspan='2')
+                input(type="text", name="brand",
+                value=(cloth !== undifined) ? cloth.brand:'',
+                placeholder='Mærke',required)
+            tr
+              td(colspan='2')
+                br
+                button(class="buttonsClothes" name="btnCreate" type="submit" value="create" ) Opret 
+                button(class="buttonsClothes" name="btnChange" type="submit" value="change") Ændre 
+                button(class="buttonsClothes" name="btnDelete" type="submit" value="delete") Slet 
+            input(type="hidden" name="_id", value=(cloth !== undefined) ? cloth._id:'')
 
-        tr
-          td(colspan='3') -----------------------------------
-        tr
-          td #[strong Person:]
-          td(colspan='2')
-            input(type="text" name="person",
-            value=(person !==undifined && person.name !== undifined) ? person.name : '' ,
-            placeholder='Ingen person valgt',required)
+          h2 Beklædningsgenstande
+          table.listTable
+            if clothes !== undefined
+            each cloth in clothes
+              tr
+                td #[i Type:] 
+                td #{cloth.name}
+              tr
+                td #[i Størrelse:] 
+                td #{cloth.size}
+              tr
+                td #[i Mærke:] 
+                td #{cloth.brand}
+              tr
+                td.emojiTD 
+                  a(href="/clothes/" + cloth._id, class='emojiLink') ✏️
