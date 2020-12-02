@@ -6,8 +6,10 @@ if (process.env.NODE_ENV !== 'production') {
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
-const Car = require('./model/Car')
-const Repair = require('./model/Repair')
+const Car = require('./model/Car') // SKAL SLETTES
+const Repair = require('./model/Repair') // SKAL SLETTES
+const Clothes = require('./model/Clothes') // SKAL SLETTES
+const Person = require('./model/Person') // SKAL SLETTES
 
 // Starter Mongoose database
 const mongoose = require('mongoose')
@@ -52,6 +54,47 @@ app.set('view engine', 'pug')
 //   })
 // }
 // addCar()
+
+// async function addClothes() {
+//   let clothes = new Clothes({
+//     name: 'Bukser',
+//     size: 'Large',
+//     brand: 'Kanvas'
+//   })
+//   await clothes.save()
+// }
+// addClothes()
+
+async function addPersonToClothes() {
+  let person = await Person.find()
+  // console.log(person);
+  let clothes = await Clothes.find()
+  // console.log(clothes);
+  if (clothes !== undefined) {
+    // await clothes.addPerson()
+    // (person, new Date())
+  }
+  // Clothes.allClothes()
+  // clothes.addPerson()
+}
+addPersonToClothes()
+
+// async function clothesFun() {
+//   const person = new Person({
+//     name: 'Hej'
+//   })
+//   await person.save()
+//   const clothes = new Clothes({
+//     name: 'er',
+//     size: 'sd',
+//     brand: 'er'
+//   })
+//   await clothes.save()
+//   await clothes.addPerson(person, 'to')
+//   await clothes.addPerson(person, 'tre')
+// }
+// clothesFun()
+
 // -> SKAL SLETTES
 
 // De forskellige routes

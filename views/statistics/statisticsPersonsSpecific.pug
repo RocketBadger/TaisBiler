@@ -1,0 +1,20 @@
+extends ../layout
+
+block content
+    include statistics
+    h2 Person
+    | Navn: #{person.name}
+    br
+    | Stilling: #{person.position}
+    br
+    | Fødselsdag: #{person.birthday.toLocaleDateString()}
+    table
+        for piece in clothes
+            tr
+                td #{piece.brand} #{piece.name} str. #{piece.size}
+                td
+                    for date in piece.handedOut.get(person._id)
+                        | #{date}
+                        br
+                td.emojiTD
+                    a(href="/statistik/toj/" + piece._id, class='emojiLink') 🔍

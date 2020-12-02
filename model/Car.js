@@ -61,7 +61,7 @@ const carSchema = new mongoose.Schema({
   damages: [Damage],
   driver: {
     driver: {
-    type: Person
+      type: Person
     },
     dateFrom: {
       type: Date
@@ -69,7 +69,7 @@ const carSchema = new mongoose.Schema({
     prevDriver: {
       type: Person
     },
-    prevDateFrom:{
+    prevDateFrom: {
       type: Date
     },
     prevDateTo: {
@@ -82,22 +82,14 @@ const carSchema = new mongoose.Schema({
 
 carSchema.statics.updateCar = async function (car, object) {
   return await this.findOneAndUpdate(
-    {
-      _id: car._id
-    },
-    {
-      $set: object
-    },
-    {
-      new: true
-    }
+    { _id: car._id },
+    { $set: object },
+    { new: true }
   )
 }
 
 carSchema.statics.deleteCar = async function (car) {
-  await this.deleteOne({
-    _id: car._id
-  })
+  await this.deleteOne({ _id: car._id })
 }
 
 carSchema.statics.getCar = async function (details) {
@@ -137,6 +129,7 @@ carSchema.methods.changeDamage = async function (actualDamage, damageChange) {
   await this.save()
   return this.damages.id(actualDamage._id)
 }
+
 carSchema.methods.deleteDamage = async function (damage) {
   await this.damages.id(damage._id).remove()
 }
