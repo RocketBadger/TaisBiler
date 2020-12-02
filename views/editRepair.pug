@@ -2,23 +2,31 @@ extends layout
 
 block content
 
-    h1 Rediger skade
+    h1 Rediger Reparation
     div.buttonDiv
         form(action="redigerReparation", method="POST")
+            |#[strong Nummerplade:] #{car.licensePlate}
+            br
+            |#[strong Mærke:] #{car.brand}
+            br
+            |#[strong Model:] #{car.model}
+            br  
+            br  
+
             table
                 tr
                     td #[strong Reparation:]
                     td
-                        input(type="text", name="reparation", value=rep.repair)
+                        input(type="text", name="repair" value=repair.repair)
                 tr
                     td #[strong Dato:]
                     td
-                        input(type="date", name="date" value=rep.date)
+                        input(type="date", name="date" value=new Date(repair.date).toISOString().split('T')[0])
                 tr
                     td #[strong Repareret:]
                     td
                         select(name="repaired")
                             option(value="false") Nej
                             option(value="true") Ja
-            input(type="hidden", name="_id", value=dam._id)
-            button(type="submit") REDIGER
+            input(type="hidden", name="_id", value=repair._id)
+            button(type="submit") REDIGÉR

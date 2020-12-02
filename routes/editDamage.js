@@ -12,31 +12,36 @@ router.get('/', async (req, res) => {
     }
 })
 
-router.get('/:id', (req, res) => {
-    try {
-      console.log(req.params.id)
-      const damage = Car.damages.findById(req.params.id)
-      res.render('editDamage', {damage: damage})
-    } catch (error) {
-      res.render('errorMessage', { errorMessage: 'Skade kunne ikke findes' })
+router.get('/:id', async (req, res) => {
+  try {
+      const damageID = req.params.id
+      const carID = damageID.split("_")[0]
+      const car = await Car.findById(carID)
+      let damage = await car.damages.id(damageID)
+      res.render('editDamage', {car: car, damage: damage})
+  } catch (error) {
+      res.render('errorMessage', { errorMessage: 'Damage kunne ikke findes' })
       console.log(error)
-    }
-  })
+  }
+})
 
-  router.post('/edit', async (req, res) => {
+  router.post('/redigerSkade', async (req, res) => {
     try {
-        const damage = await Damage.findById(req.body._id)
-        const updates = {
-          date: req.body.Date,
-          damage: req.body.damage,
-          repaired: req.body.repaired
-        }
-        await damage.changeRepair(damage, updates)
-        res.redirect('/reparation')
-      } catch (error) {
-        console.log(error)
+      const damageID = req.body._id
+      const carID = damageID.split("_")[0]
+      const car = await Car.findById(carID)
+      const updates = {
+        date: req.body.date,
+        damage: req.body.damage,
+        repaired: req.body.repaired
       }
-  })
+      let damage = car.damages.id(damageID)
+      const test = await car.changeDamage(damage, updates)
+      res.redirect('/reparation/' + carID)
+    } catch (error) {
+      console.log("Random text")
+    }
+})
 
   module.exports = router
 

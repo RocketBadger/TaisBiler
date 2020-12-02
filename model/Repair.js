@@ -10,6 +10,9 @@ const repairSchema = new mongoose.Schema({
   repaired: {
     type: Boolean,
     default: false
+  },
+  _id: {
+    type: String
   }
 })
 

@@ -13,24 +13,30 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
     try {
-      const repair = await Car.repairs.findById(req.params.id)
-      res.render('editRepair', {repair: repair})
+      const repairID = req.params.id
+      const carID = repairID.split("_")[0]
+      const car = await Car.findById(carID)
+      let repair = await car.repairs.id(repairID)
+      res.render('editRepair', {car: car, repair: repair})
     } catch (error) {
       res.render('errorMessage', { errorMessage: 'Repair kunne ikke findes' })
       console.log(error)
     }
   })
 
-  router.post('/edit', async (req, res) => {
+  router.post('/redigerReparation', async (req, res) => {
     try {
-        const repair = await Repair.findById(req.body._id)
+        const repairID = req.body._id
+        const carID = repairID.split("_")[0]
+        const car = await Car.findById(carID)
         const updates = {
-          date: req.body.Date,
+          date: req.body.date,
           repair: req.body.repair,
           repaired: req.body.repaired
         }
-        await repair.changeRepair(repair, updates)
-        res.redirect('/reparation')
+        let repair = car.repairs.id(repairID)
+        const test = await car.changeRepair(repair, updates)
+        res.redirect('/reparation/' + carID)
       } catch (error) {
         console.log("Random text")
       }

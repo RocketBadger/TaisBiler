@@ -28,11 +28,14 @@ router.get('/:id', async (request, response) => {
 // POST repair på en bil
 router.post('/addRepair', async (request, response) => {
   try {
-    const car = await Car.findById(request.body._id)
+    const carID = request.body._id
+    const car = await Car.findById(carID)
+    const repairLength = car.repairs.length
     const repair = new Repair({
       date: request.body.date,
       repair: request.body.repair,
-      repaired: request.body.repaired
+      repaired: request.body.repaired,
+      _id: carID + "_" + (1000+ repairLength)
     })
     await car.addRepair(repair)
     response.redirect('/reparation/' + request.body._id)
@@ -68,11 +71,14 @@ router.get('/:id', async (request, response) => {
 // POST damage på en bil
 router.post('/addDamage', async (request, response) => {
   try {
-    const car = await Car.findById(request.body._id)
+    const carID = request.body._id
+    const car = await Car.findById(carID)
+    const damageLength = car.damages.length
     const damage = new Damage({
       date: request.body.date,
       damage: request.body.damage,
-      repaired: request.body.repaired
+      repaired: request.body.repaired,
+      _id: carID + "_" + damageLength
     })
     await car.addDamage(damage)
     response.redirect('/reparation/' + request.body._id)

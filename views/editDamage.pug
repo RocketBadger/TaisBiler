@@ -5,20 +5,28 @@ block content
     h1 Rediger skade
     div.buttonDiv
         form(action="redigerSkade", method="POST")
+            |#[strong Nummerplade:] #{car.licensePlate}
+            br
+            |#[strong Mærke:] #{car.brand}
+            br
+            |#[strong Model:] #{car.model}
+            br  
+            br  
+
             table
                 tr
                     td #[strong Skade:]
                     td
-                        input(type="text", name="damage", value=dam.damage)
+                        input(type="text", name="damage", value=damage.damage)
                 tr
                     td #[strong Dato:]
                     td
-                        input(type="date", name="date" value=dam.date)
+                        input(type="date", name="date" value=new Date(damage.date).toISOString().split('T')[0])
                 tr
                     td #[strong Repareret:]
                     td
                         select(name="repaired")
                             option(value="false") Nej
                             option(value="true") Ja
-            input(type="hidden", name="_id", value=dam._id)
-            button(type="submit") REDIGER
+            input(type="hidden", name="_id", value=damage._id)
+            button(type="submit") REDIGÉR
