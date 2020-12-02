@@ -532,7 +532,6 @@ describe('addInspection', () => {
 
 //----------Driver-----------------
 // Tilføje chauffør til bil
-car = await Car.updateCar(car, { brand: 'Mercedes' })
 describe('addDriver', () => {
   it('addDriver', async () => {
     const car = await Car.findOne()
