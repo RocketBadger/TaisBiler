@@ -24,6 +24,15 @@ block content
             input(type="text", name="brand",
             value=(clothes !== undifined) ? clothes.brand:'',
             placeholder='Mærke',required)
+        tr
+          td(colspan='2')
+            br
+            button(class="buttonsPerson" name="btnCreate" type="submit" value="create" ) Opret 
+            button(class="buttonsPerson" name="btnChange" type="submit" value="change") Ændre 
+            button(class="buttonsPerson" name="btnNullify" type="submit" value="nullify") "Slet" 
+
+            input(type="hidden" name="_id", value=(person !== undefined && person._id !== undefined) ? person._id:'')
+
 
         tr
           td(colspan='3') -----------------------------------
