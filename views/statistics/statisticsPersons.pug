@@ -1,0 +1,17 @@
+extends ../layout
+
+block content
+    include statistics
+    h2 Personer
+    table
+        each person in persons
+            tr
+                td
+                    if person.position
+                        | #{person.position}
+                    if person.nickname
+                        | #{person.nickname}
+                    if person.birthday
+                        | (#{person.birthday.toLocaleDateString()})
+                td.emojiTD
+                    a(href="/statistik/personer/" + person._id, class='emojiLink') 🔍
