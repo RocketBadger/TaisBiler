@@ -6,6 +6,12 @@ block content
     table
         each piece in clothes
             tr
-                td #{piece.brand} #{piece.name} str. #{piece.size}
+                td 
+                    if piece.brand
+                        | #{piece.brand}
+                    if piece.name
+                        |  #{piece.name}
+                    if piece.size
+                        |  str. #{piece.size}
                 td.emojiTD
                     a(href="/statistik/toj/" + piece._id, class='emojiLink') 🔍

@@ -13,7 +13,17 @@ block content
     table
         each dates, person in persons
             tr
-                td #{person.split(",")[1].replace(/name:/gi, "").replace(/'/gi, "")}
+                if person.split(",").length > 2
+                    if person.split(",")[1].includes('name')
+                        td #{person.split(",")[1].replace(/name:/gi, "").replace(/'/gi, "")}
+                    else if person.split(",")[1].includes('position')
+                        td #{person.split(",")[1].replace(/position:/gi, "").replace(/'/gi, "")}
+                    else if person.split(",")[1].includes('birthday')
+                        td #{person.split(",")[1].replace(/birthday:/gi, "").replace(/'/gi, "")}
+                    else
+                        td Ukendt person
+                else
+                    td Intet navn
                 td #{dates.length}
                 td
                     a(href="/statistik/personer/" + person.split(",")[0].replace(/{ _id: /gi, ""), class='emojiLink') 🔍

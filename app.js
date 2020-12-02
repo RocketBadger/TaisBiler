@@ -65,19 +65,19 @@ app.set('view engine', 'pug')
 // }
 // addClothes()
 
-async function addPersonToClothes() {
-  let person = await Person.find()
-  // console.log(person);
-  let clothes = await Clothes.find()
-  // console.log(clothes);
-  if (clothes !== undefined) {
-    // await clothes.addPerson()
-    // (person, new Date())
-  }
-  // Clothes.allClothes()
-  // clothes.addPerson()
-}
-addPersonToClothes()
+// async function addPersonToClothes() {
+//   let person = await Person.find()
+//   // console.log(person);
+//   let clothes = await Clothes.find()
+//   // console.log(clothes);
+//   if (clothes !== undefined) {
+//     // await clothes.addPerson()
+//     // (person, new Date())
+//   }
+//   // Clothes.allClothes()
+//   // clothes.addPerson()
+// }
+// addPersonToClothes()
 
 // async function clothesFun() {
 //   const person = new Person({
