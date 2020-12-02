@@ -1,0 +1,15 @@
+extends ../layout
+
+block content
+    include statistics
+    h2 Biler
+    include ../carInfo
+    br
+    h3 Modtagere
+    table
+        for person in persons
+            tr
+                td #{person.position} #{person.name} (#{person.birthday.toLocaleDateString()})
+                td 
+                td
+                    a(href="/statistik/personer/" + person._id, class='emojiLink') 🔍

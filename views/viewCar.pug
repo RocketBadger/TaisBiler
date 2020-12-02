@@ -30,7 +30,7 @@ block content
                 |#[strong Kælenavn:] #{car.nickName}
             br
             if car.driver.driver
-                |#[strong Chauffør:] #{car.driver.driver.name} |#[strong Fra:] #{car.driver.DateFrom.toLocaleDateString()}
+                |#[strong Chauffør:] #{car.driver.driver.name} |#[strong Fra:] #{car.driver.dateFrom.toLocaleDateString()}
             else
                 |#[strong Chauffør:] Ingen
             br
@@ -38,5 +38,3 @@ block content
                 |#[strong Tidligere chauffør:] #{car.driver.prevDriver.name} |#[strong Til:] #{car.driver.prevDateTo.toLocaleDateString()} |#[strong Fra:] #{car.driver.prevDateFrom.toLocaleDateString()}
             else
                 |#[strong Tidligere chauffør:] Ingen
-        .grid-item
-            include inspection

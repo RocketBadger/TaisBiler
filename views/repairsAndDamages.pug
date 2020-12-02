@@ -1,7 +1,11 @@
 extends layout
 
 block content
-    include viewCar
+    .grid-container
+        .grid-item
+            include viewCar
+        .grid-item
+            include inspection
     .grid-container
         .grid-item
             include addRepair

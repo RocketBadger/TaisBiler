@@ -530,6 +530,16 @@ describe('addInspection', () => {
   })
 })
 
+//----------Driver-----------------
+// Tilføje chauffør til bil
+describe('addDriver', () => {
+  it('addDriver', async () => {
+    const car = await Car.findOne()
+    const person = await Person.findOne()
+    await Car.updateCar(car, {driver: {driver: person, dateFrom: new Date().toISOString().split('T')[0]}})
+  })
+})
+
 //----------Statistics-----------------
 describe('car statistics', () => {
   beforeEach(async () => {
