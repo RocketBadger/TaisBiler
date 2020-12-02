@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const { mapReduce } = require('./Repair')
+const Person = require('../model/Person')
 
 const clothesSchema = new mongoose.Schema(
   {
@@ -24,20 +24,8 @@ const clothesSchema = new mongoose.Schema(
   { minimize: false }
 )
 
-clothesSchema.methods.addPerson = async function (person, date) {
-  let personID = person._id.toString()
-  if (this.handedOut.has(personID)) {
-    // handedOut.get(person._id).push(date)
-    let dateArray = this.handedOut.get(personID) // HVIS IKKE OVENSTÅENDE VIRKER
-    dateArray.push(date)
-    this.handedOut.set(personID, dateArray)
-    await this.save()
-  } else {
-    let dateArray = new Array()
-    dateArray.push(date)
-    this.handedOut.set(personID, dateArray)
-    await this.save()
-  }
+clothesSchema.statics.allClothes = async function () {
+  return 'Hej'
 }
 
 clothesSchema.statics.getReceiversOfClothes = async function (clothesID) {
@@ -47,7 +35,8 @@ clothesSchema.statics.getReceiversOfClothes = async function (clothesID) {
     // Do nothing
   } else {
     let personIDs = Array.from(clothes.handedOut.keys())
-    let personsArray = await this.find().where('_id').in(personIDs).exec()
+    let personsArray = await Person.find()
+    personsArray = personsArray.filter(person => personIDs.includes(person._id.toString()))
     for (let i = 0; i < personsArray.length; i++) {
       const element = personsArray[i]
       receivers.set(element, clothes.handedOut.get(element._id.toString()))
@@ -66,6 +55,22 @@ clothesSchema.statics.getAPersonsClothes = async function (personID) {
     }
   }
   return clothes
+}
+
+clothesSchema.methods.addPerson = async function (person, date) {
+  let personID = person._id.toString()
+  if (this.handedOut.has(personID)) {
+    // handedOut.get(person._id).push(date)
+    let dateArray = this.handedOut.get(personID) // HVIS IKKE OVENSTÅENDE VIRKER
+    dateArray.push(date)
+    this.handedOut.set(personID, dateArray)
+    await this.save()
+  } else {
+    let dateArray = new Array()
+    dateArray.push(date)
+    this.handedOut.set(personID, dateArray)
+    await this.save()
+  }
 }
 
 module.exports = mongoose.model('Clothes', clothesSchema)

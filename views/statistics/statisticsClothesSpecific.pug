@@ -11,9 +11,9 @@ block content
     br
     h3 Modtagere
     table
-        for person in persons
+        each dates, person in persons
             tr
-                td #{person.position} #{person.name} (#{person.birthday.toLocaleDateString()})
-                td #{clothes.handedOut.size}
+                td #{person.split(",")[1].replace(/name:/gi, "").replace(/'/gi, "")}
+                td #{dates.length}
                 td
-                    a(href="/statistik/personer/" + person._id, class='emojiLink') 🔍
+                    a(href="/statistik/personer/" + person.split(",")[0].replace(/{ _id: /gi, ""), class='emojiLink') 🔍

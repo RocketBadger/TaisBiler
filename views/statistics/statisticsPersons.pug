@@ -9,9 +9,9 @@ block content
                 td
                     if person.position
                         | #{person.position}
-                    if person.nickname
-                        | #{person.nickname}
+                    if person.name
+                        |  #{person.name}
                     if person.birthday
-                        | (#{person.birthday.toLocaleDateString()})
+                        |  (#{person.birthday.toLocaleDateString()})
                 td.emojiTD
                     a(href="/statistik/personer/" + person._id, class='emojiLink') 🔍
