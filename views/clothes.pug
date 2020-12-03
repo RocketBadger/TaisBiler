@@ -5,7 +5,7 @@ block content
     .grid-item
       h2 Vælg person og tøj, klik tilføj
       div.buttonDiv
-        form(action="clothes" method="POST")
+        form(action="clothes/addPersonToClothes" method="POST")
           table 
             tr
               td
@@ -20,6 +20,7 @@ block content
                           let personDetails = selectedPerson.split('#')
                           document.getElementById("personBirthday").innerHTML = (personDetails[0] !=='null') ? personDetails[0] : 'Ingen oplysninger' 
                           document.getElementById("personPosition").innerHTML = (personDetails[1] !=='') ? personDetails[1] : 'Ingen oplysninger' 
+                          document.getElementById("personID").value = personDetails[2]
                         }
 
             tr(rowspan='2')
@@ -45,6 +46,7 @@ block content
                         //- document.getElementById("clothesSize").innerHTML =selectedClothes
                         document.getElementById("clothesSize").innerHTML =  clothesDetails[0]  
                         document.getElementById("clothesBrand").innerHTML = clothesDetails[1]
+                        document.getElementById("clothesID").value = clothesDetails[2]
                         }
 
             tr(rowspan='2')
@@ -55,8 +57,11 @@ block content
               td Mærke
               td(colspan='2') 
                 p#clothesBrand Ingen valg
-
-            input(type="hidden" name="_id", value=(person !== undefined && person._id !== undefined) ? person._id:'')
+            tr
+              td
+                button(class="addPersonToClothes" name="btnAddPersonToClothes" type="submit" value="addPersonToClothes" ) Udlever beklædning 
+            input#personID( type="hidden" name="person_id", value=(person !== undefined && person._id !== undefined) ? person._id:'')
+            input#clothesID( type="hidden" name="cloth_id", value=(cloth !== undefined && cloth._id !== undefined) ? cloth._id:'')
 
     .grid-item
       h2 Opret, ændre, slette arbejdstøj
