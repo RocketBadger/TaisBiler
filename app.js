@@ -117,6 +117,9 @@ app.use('/person', personsRouter)
 const clothesRouter = require('./routes/clothes')
 app.use('/clothes', clothesRouter)
 
+const loginRouter = require('./routes/login')
+app.use('/login', loginRouter)
+
 const dummyRouter = require('./routes/dummy') // SKAL SLETTES
 app.use('/dummy', dummyRouter) // SKAL SLETTES
 
