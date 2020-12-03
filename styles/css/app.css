@@ -43,6 +43,12 @@ button {
   float: right;
 }
 
+.buttonsPerson, .buttonsClothes {
+  margin-left: 2pc;
+  margin-top: 2pc;
+  float: left;
+}
+
 .grid-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -67,18 +73,16 @@ button {
   text-align: right;
 }
 
+.topTD {
+  vertical-align: top;
+}
+
 .emojiTD {
   text-align: center;
 }
 
 .buttonDiv {
   display: inline-block;
-}
-
-.buttonsPerson, .buttonsClothes {
-  margin-left: 2pc;
-  margin-top: 2pc;
-  float: left;
 }
 
 #error {
@@ -116,6 +120,7 @@ button {
   .emojiTD {
     display: inline-table;
     margin: auto 20px auto auto;
+    text-align: right;
   }
   h1 {
     font-size: 1.5em;

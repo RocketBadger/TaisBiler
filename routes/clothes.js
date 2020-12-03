@@ -14,6 +14,7 @@ router.get('/', async (req, res) => {
     console.log(error)
   }
 })
+
 router.get('/:id', async (req, res) => {
   try {
     const persons = await Person.find()
@@ -105,10 +106,8 @@ router.post('/clothes', async (req, res) => {
 })
 
 router.post('/addPersonToClothes', async (req, res) => {
-  console.log(req.body.person_id, ' - ', req.body.cloth_id)
-  const person = await Person.findById(req.body.person_id)
-  const clothes = await Clothes.findById(req.body.cloth_id)
-  clothes.addPerson(person, new Date())
-  console.log(person, ' - - ', clothes)
+  Clothes.addPerson(req.body.cloth_id, req.body.person_id, new Date())
+  res.redirect('/clothes')
 })
+
 module.exports = router
