@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-router.get('/login', async (request, response) => {
+router.get('/', async (request, response) => {
     try {
         response.render('login')
     } catch (error) {
@@ -11,3 +11,5 @@ router.get('/login', async (request, response) => {
 })
 
 // ved korrekt login redirect til /biler
+
+module.exports = router
