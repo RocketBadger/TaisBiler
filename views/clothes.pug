@@ -43,7 +43,7 @@ block content
               td
                 p#clothesBrand Ingen valg
             tr
-              td
+              td(colspan='2')
                 button(class="addPersonToClothes" name="btnAddPersonToClothes" type="submit" value="addPersonToClothes" ) Udlever beklædning 
             input#personID( type="hidden" name="person_id", value=(person !== undefined && person._id !== undefined) ? person._id:'')
             input#clothesID( type="hidden" name="cloth_id", value=(cloth !== undefined && cloth._id !== undefined) ? cloth._id:'')
@@ -72,7 +72,7 @@ block content
                 value=(cloth !== undifined) ? cloth.brand:'',
                 placeholder='Mærke',required)
             tr
-              td
+              td(colspan='2')
                 br
                 button(class="buttonsClothes" name="btnCreate" type="submit" value="create" ) Opret 
                 button(class="buttonsClothes" name="btnChange" type="submit" value="change") Ændre 

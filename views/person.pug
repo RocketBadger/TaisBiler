@@ -7,23 +7,23 @@ block content
       table 
         tr
           td #[strong Navn:]
-          td(colspan='2')
+          td
             input(type="text", name="name",
             value=(person !== undefined && person.name !== undefined) ? person.name : '',
             placeholder='Navn')           
         tr
           td #[strong Stilling:]
-          td(colspan='2')
+          td
             input(type="text", name="position",
             value=(person !== undefined && person.position !== undefined) ? person.position : '',
             placeholder='Stilling')
         tr
           td #[strong Fødselsdato:]
-          td(colspan='2')
+          td
             input(type="date",
             name="birthday",
             value=(person !== undefined && person.birthday !== undefined ) ? person.birthday : '',
-            placeholder=new Date().toISOString().split('T')[0])
+            placeholder=new Date().toLocaleDateString())
         tr
           td(colspan='2')
             br
@@ -45,9 +45,7 @@ block content
             td #{person.position}
           tr
             td #[i Fødselsdag:] 
-            td #{(person.birthday!== undefined&&person.birthday!== null) ? person.birthday.toLocaleDateString():''}
+            td #{(person.birthday!== undefined && person.birthday!== null) ? person.birthday.toLocaleDateString():''}
           tr
             td.emojiTD 
               a(href="/person/" + person._id, class='emojiLink') ✏️
-          tr
-            td(colspan='2') -------------------------
