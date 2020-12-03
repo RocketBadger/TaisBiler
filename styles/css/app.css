@@ -73,16 +73,16 @@ button {
   display: inline-block;
 }
 
-#error {
-  font-weight: bold;
-  font-size: larger;
-  color: darkred;
-}
-
 .buttonsPerson {
   margin-left: 2pc;
   margin-top: 2pc;
   float: left;
+}
+
+#error {
+  font-weight: bold;
+  font-size: larger;
+  color: darkred;
 }
 
 /* ------------------------------------------------------------------ */
@@ -90,14 +90,14 @@ button {
 /* Extra small devices (phones, 767px and down) */
 @media only screen and (max-width: 767px) {
   body {
-    margin-left: 110px; /* Same as the width of the sidebar + 10 */
+    margin-left: 115px; /* Same as the width of the sidebar + 10 */
   }
   .sidenav {
-    width: 120px;
+    width: 110px;
     padding-top: 15px;
   }
   .sidenav a {
-    font-size: x-large;
+    font-size: large;
     padding: 6px 8px 20px 16px;
   }
   .grid-container {
