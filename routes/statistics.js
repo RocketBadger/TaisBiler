@@ -14,28 +14,6 @@ router.get('/', async (request, response) => {
     }
 })
 
-// router.get('/biler', async (request, response) => {
-//     try {
-//         const cars = await Car.find({})
-//         cars.sort((a, b) => a.retired - b.retired)
-//         response.render('statistics/statisticsCars', { cars: cars })
-//     } catch (error) {
-//         response.render('errorMessage', { errorMessage: 'Statistikker kunne ikke loades' })
-//         console.log(error)
-//     }
-// })
-
-// router.get('/biler/:id', async (request, response) => {
-//     try {
-//         const car = await Car.findById(request.params.id)
-//         // SKAL MEDTAGE PERSONER
-//         response.render('statistics/statisticsCarsSpecific', { car: car, persons: [] })
-//     } catch (error) {
-//         response.render('errorMessage', { errorMessage: 'Statistikker kunne ikke loades' })
-//         console.log(error)
-//     }
-// })
-
 router.get('/personer', async (request, response) => {
     try {
         const persons = await Person.find({})

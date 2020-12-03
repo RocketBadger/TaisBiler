@@ -24,8 +24,18 @@ const clothesSchema = new mongoose.Schema(
   { minimize: false }
 )
 
-clothesSchema.statics.allClothes = async function () {
-  return 'Hej'
+clothesSchema.statics.updateClothes = async function (clothes, change) {
+  return await this.findOneAndUpdate(
+    { _id: clothes._id },
+    { $set: change },
+    { new: true }
+  )
+}
+
+clothesSchema.statics.deleteClothes = async function (clothes) {
+  await this.deleteOne({
+    _id: clothes._id
+  })
 }
 
 clothesSchema.statics.getReceiversOfClothes = async function (clothesID) {
@@ -59,33 +69,20 @@ clothesSchema.statics.getAPersonsClothes = async function (personID) {
   return clothes
 }
 
-clothesSchema.statics.updateClothes = async function (clothes, change) {
-  return await this.findOneAndUpdate(
-    { _id: clothes._id },
-    { $set: change },
-    { new: true }
-  )
-}
-
-clothesSchema.statics.deleteClothes = async function (clothes) {
-  await this.deleteOne({
-    _id: clothes._id
-  })
-}
-
-clothesSchema.methods.addPerson = async function (person, date) {
-  let personID = person._id.toString()
-  if (this.handedOut.has(personID)) {
-    // handedOut.get(person._id).push(date)
-    let dateArray = this.handedOut.get(personID) // HVIS IKKE OVENSTÅENDE VIRKER
+clothesSchema.statics.addPerson = async function (clothes_id, person_id, date) {
+  let clothesFound = await this.findById(clothes_id)
+  if (clothesFound.handedOut.has(person_id)) {
+    let dateArray = clothesFound.handedOut.get(person_id)
     dateArray.push(date)
-    this.handedOut.set(personID, dateArray)
-    await this.save()
+    let newHandedOut = clothesFound.handedOut
+    newHandedOut.set(person_id, dateArray)
+    await this.findOneAndUpdate({ _id: clothes_id }, { $set: { 'handedOut': newHandedOut } })
   } else {
     let dateArray = new Array()
     dateArray.push(date)
-    this.handedOut.set(personID, dateArray)
-    await this.save()
+    let newHandedOut = clothesFound.handedOut
+    newHandedOut.set(person_id, dateArray)
+    await this.findOneAndUpdate({ _id: clothes_id }, { $set: { 'handedOut': newHandedOut } })
   }
 }
 

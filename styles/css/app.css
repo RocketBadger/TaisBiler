@@ -43,6 +43,12 @@ button {
   float: right;
 }
 
+.buttonsPerson, .buttonsClothes {
+  margin-left: 2pc;
+  margin-top: 2pc;
+  float: left;
+}
+
 .grid-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -67,6 +73,10 @@ button {
   text-align: right;
 }
 
+.topTD {
+  vertical-align: top;
+}
+
 .emojiTD {
   text-align: center;
 }
@@ -81,26 +91,19 @@ button {
   color: darkred;
 }
 
-.buttonsPerson,
-.buttonsClothes {
-  margin-left: 2pc;
-  margin-top: 2pc;
-  float: left;
-}
-
 /* ------------------------------------------------------------------ */
 
 /* Extra small devices (phones, 767px and down) */
 @media only screen and (max-width: 767px) {
   body {
-    margin-left: 110px; /* Same as the width of the sidebar + 10 */
+    margin-left: 115px; /* Same as the width of the sidebar + 10 */
   }
   .sidenav {
-    width: 120px;
+    width: 110px;
     padding-top: 15px;
   }
   .sidenav a {
-    font-size: x-large;
+    font-size: large;
     padding: 6px 8px 20px 16px;
   }
   .grid-container {
@@ -117,6 +120,7 @@ button {
   .emojiTD {
     display: inline-table;
     margin: auto 20px auto auto;
+    text-align: right;
   }
   h1 {
     font-size: 1.5em;
