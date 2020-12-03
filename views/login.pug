@@ -1,12 +1,10 @@
 html
     style
         include ../styles/css/login.css
-    body
-        block content
-            .log-form
-                h2 Login
-                    form
-                        input(type='text' title='username' placeholder='username')
-                        input(type='password' title='username' placeholder='password')
-                        button.btn(type='submit') Login
 
+.login
+  h1 Login
+  form(method='post')
+    input(type='text' name='u' placeholder='Username' required='required')
+    input(type='password' name='p' placeholder='Password' required='required')
+    button.btn.btn-primary.btn-block.btn-large(type='submit') Let me in.
