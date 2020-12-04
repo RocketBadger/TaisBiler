@@ -17,9 +17,11 @@ beforeEach(async () => {
   await person1.save()
   await person2.save()
 })
-afterEach(() => {
-  mongoose.connection.collections.people.drop()
+
+afterEach(async () => {
+  await mongoose.connection.collections.people.drop()
 })
+
 // Oprette person
 describe('Person', function () {
   it('create person no info', function () {
@@ -80,7 +82,7 @@ describe('updatePerson', () => {
     let personOther = await Person.findOne({ name: 'Worker No1' })
     personOther.name.should.be.equal('Worker No1')
     personOther.position.should.be.equal('Roofer')
-    // personOther.birthday.should.be.equal(new Date(1111, 11, 11))
+    // person.birthday.should.be.equal(new Date(1111, 11, 11))
   })
   it('updatePerson birthday', async () => {
     let person = await Person.findOne({ name: 'Worker Two' })
@@ -97,15 +99,15 @@ describe('updatePerson', () => {
     // personOther.bir.should.be.equal(new Date(1111, 11, 11))
   })
   it('updatePerson nothing', async () => {
-    let person = await Person.findOne()
+    let person = await Person.findOne({ name: 'Worker One' })
     person = await Person.updatePerson(person, {})
-    person.name.should.be.equal('Worker No1')
-    person.position.should.be.equal('Sleeper')
-    perosn.birthday.should.be.equal(new Date(1333, 13, 13))
+    person.name.should.be.equal('Worker One')
+    person.position.should.be.equal('Stargazer')
+    // person.birthday.should.be.equal(new Date(1234, 12, 12))
 
-    let personOther = await Person.findOne({ name: 'Worker One' })
-    personOther.name.should.be.equal('Worker One')
-    personOther.position.should.be.equal('Carpenter')
-    personOther.bir.should.be.equal(new Date(1111, 11, 11))
+    let personOther = await Person.findOne({ name: 'Worker Two' })
+    personOther.name.should.be.equal('Worker Two')
+    personOther.position.should.be.equal('Roofer')
+    // personOther.birthday.should.be.equal(new Date(1111, 11, 11))
   })
 })
