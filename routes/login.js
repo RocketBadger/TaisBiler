@@ -12,4 +12,10 @@ router.get('/', async (request, response) => {
 
 // ved korrekt login redirect til /biler
 
+// process.env.PAS
+// process.env.USE
+
+// process.env.PASS
+// process.env.USER
+
 module.exports = router
