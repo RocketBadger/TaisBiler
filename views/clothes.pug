@@ -10,55 +10,40 @@ block content
             tr
               td
                 label Vælg en person :
-              td(colspan='2')    
+              td   
                 select#personSelect(name='persons' onchange='loadPerson()')
+                  option(hidden='' disabled='' selected='' value='')  Vælg en person
                   for person in persons
-                    option(value=person.birthday +'#' + person.position +  '#' + person._id) #{person.name}
-                      script.
-                        function loadPerson() {
-                          let selectedPerson = document.getElementById("personSelect").value
-                          let personDetails = selectedPerson.split('#')
-                          document.getElementById("personBirthday").innerHTML = (personDetails[0] !=='null') ? personDetails[0] : 'Ingen oplysninger' 
-                          document.getElementById("personPosition").innerHTML = (personDetails[1] !=='') ? personDetails[1] : 'Ingen oplysninger' 
-                          document.getElementById("personID").value = personDetails[2]
-                        }
-
-            tr(rowspan='2')
+                    option(value=((person && person.birthday) ? person.birthday.toLocaleDateString() : 'Ej oplyst') 
+                    +'#' + person.position +  '#' + person._id) #{person.name}
+            tr
               td Fødselsdag
-              td(colspan='2') 
+              td
                 p#personBirthday Ingen valg
             tr
               td Stilling
-              td(colspan='2') 
+              td
                 p#personPosition Ingen valg
             tr
               td
                 label Vælg beklædning :
-              td(colspan='2') 
+              td
                 select#clothesSelect(name='clothes' onchange='loadClothes()')
+                  option(hidden='' disabled='' selected='' value='')  Vælg beklædning
                   if (clothes !== undefined) 
                   each cloth in clothes
                     option(value=cloth.size + '#' + cloth.brand +  '#' + cloth._id) #{cloth.name}
-                      script.
-                        function loadClothes() {
-                        let selectedClothes = document.getElementById("clothesSelect").value
-                        let clothesDetails = selectedClothes.split('#')
-                        //- document.getElementById("clothesSize").innerHTML =selectedClothes
-                        document.getElementById("clothesSize").innerHTML =  clothesDetails[0]  
-                        document.getElementById("clothesBrand").innerHTML = clothesDetails[1]
-                        document.getElementById("clothesID").value = clothesDetails[2]
-                        }
 
-            tr(rowspan='2')
+            tr
               td Størrelse
-              td(colspan='2') 
+              td 
                 p#clothesSize Ingen valg
             tr
               td Mærke
-              td(colspan='2') 
+              td
                 p#clothesBrand Ingen valg
             tr
-              td
+              td(colspan='2')
                 button(class="addPersonToClothes" name="btnAddPersonToClothes" type="submit" value="addPersonToClothes" ) Udlever beklædning 
             input#personID( type="hidden" name="person_id", value=(person !== undefined && person._id !== undefined) ? person._id:'')
             input#clothesID( type="hidden" name="cloth_id", value=(cloth !== undefined && cloth._id !== undefined) ? cloth._id:'')
@@ -70,19 +55,19 @@ block content
           table.listTable 
             tr
               td #[strong Type:]
-              td(colspan='2')
+              td
                 input(type="text", name="name",
                 value=(cloth!==undifined)?cloth.name:'',
                 placeholder='Type',required)
             tr
               td #[strong Størrelse:]
-              td(colspan='2')
+              td
                 input(type="text", name="size",
                 value=(cloth !== undifined) ? cloth.size:'',
                 placeholder='Størrelse',required)
             tr
               td #[strong Mærke:]
-              td(colspan='2')
+              td
                 input(type="text", name="brand",
                 value=(cloth !== undifined) ? cloth.brand:'',
                 placeholder='Mærke',required)
@@ -110,3 +95,19 @@ block content
               tr
                 td.emojiTD 
                   a(href="/clothes/" + cloth._id, class='emojiLink') ✏️
+  script.
+    function loadPerson() {
+      let selectedPerson = document.getElementById("personSelect").value
+      let personDetails = selectedPerson.split('#')
+      document.getElementById("personBirthday").innerHTML = (personDetails[0]) ? personDetails[0] : 'Ej oplyst' 
+      document.getElementById("personPosition").innerHTML =  (personDetails[1]) ? personDetails[1] : 'Ej oplyst' 
+      document.getElementById("personID").value = personDetails[2]
+    }
+    function loadClothes() {
+      let selectedClothes = document.getElementById("clothesSelect").value
+      let clothesDetails = selectedClothes.split('#')
+      document.getElementById("clothesSize").innerHTML =  clothesDetails[0]  
+      document.getElementById("clothesBrand").innerHTML = clothesDetails[1]
+      document.getElementById("clothesID").value = clothesDetails[2]
+      }
+
