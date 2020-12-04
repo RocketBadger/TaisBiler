@@ -100,6 +100,10 @@ app.set('view engine', 'pug')
 // De forskellige routes
 const rootRouter = require('./routes/frontpage')
 app.use('/', rootRouter)
+
+const loginRouter = require('./routes/login')
+app.use('/login', loginRouter)
+
 const carsRouter = require('./routes/cars')
 app.use('/biler', carsRouter)
 const repairsRouter = require('./routes/repair')
@@ -116,9 +120,6 @@ const personsRouter = require('./routes/person')
 app.use('/person', personsRouter)
 const clothesRouter = require('./routes/clothes')
 app.use('/clothes', clothesRouter)
-
-const loginRouter = require('./routes/login')
-app.use('/login', loginRouter)
 
 const dummyRouter = require('./routes/dummy') // SKAL SLETTES
 app.use('/dummy', dummyRouter) // SKAL SLETTES
