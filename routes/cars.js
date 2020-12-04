@@ -101,10 +101,12 @@ router.post('/redigerBil/redigerBil', async (req, res) => {
         dateFrom: new Date()
       }
     }
-    await Car.updateCar(car, updates)
+    await car.updateThisCar(updates)
     res.redirect('/biler')
   } catch (error) {
-    res.render('errorMessage', { errorMessage: 'Der skete en fejl under redigering af bilen' })
+    res.render('errorMessage', {
+      errorMessage: 'Der skete en fejl under redigering af bilen'
+    })
   }
 })
 

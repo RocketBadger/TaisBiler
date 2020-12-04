@@ -36,7 +36,6 @@ beforeEach(async () => {
     nickName: 'Two'
   })
   await car.save()
-  await carOther.save()
 })
 
 afterEach(() => {
@@ -96,8 +95,12 @@ describe('Car', function () {
 // Ændre bil-attributter
 describe('updateCar', () => {
   it('updateCar brand', async () => {
-    let car = await Car.findOne({ brand: 'dudum' })
-    car = await Car.updateCar(car, { brand: 'Mercedes' })
+    let car = await Car.findOne({ licensePlate: 'BB56789' })
+    const update = { brand: 'Mercedes' }
+
+    await car.updateThisCar(update)
+    car = await Car.findOne({ licensePlate: 'BB56789' })
+
     car.brand.should.be.equal('Mercedes')
     car.model.should.be.equal('dummde')
     car.licensePlate.should.be.equal('BB56789')
@@ -121,7 +124,8 @@ describe('updateCar', () => {
   })
   it('updateCar model', async () => {
     let car = await Car.findOne({ brand: 'dudum' })
-    car = await Car.updateCar(car, { model: 'C1' })
+    car.updateThisCar({ model: 'C1' })
+    car = await Car.findOne({ brand: 'dudum' })
     car.brand.should.be.equal('dudum')
     car.model.should.be.equal('C1')
     car.licensePlate.should.be.equal('BB56789')
@@ -145,7 +149,8 @@ describe('updateCar', () => {
   })
   it('updateCar licensePlate', async () => {
     let car = await Car.findOne({ brand: 'dudum' })
-    car = await Car.updateCar(car, { licensePlate: 'BB22555' })
+    car = await car.updateThisCar({ licensePlate: 'BB22555' })
+    car = await Car.findOne({ brand: 'dudum' })
     car.brand.should.be.equal('dudum')
     car.model.should.be.equal('dummde')
     car.licensePlate.should.be.equal('BB22555')
@@ -530,6 +535,11 @@ describe('addDriver', () => {
   it('addDriver', async () => {
     const car = await Car.findOne()
     const person = await Person.findOne()
-    await Car.updateCar(car, { driver: { driver: person, dateFrom: new Date().toISOString().split('T')[0] } })
+    await Car.updateCar(car, {
+      driver: {
+        driver: person,
+        dateFrom: new Date().toISOString().split('T')[0]
+      }
+    })
   })
 })
