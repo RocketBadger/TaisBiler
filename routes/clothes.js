@@ -11,7 +11,6 @@ router.get('/', async (req, res) => {
     res.render('clothes', { persons: persons, clothes: clothes })
   } catch (error) {
     res.render('errorMessage', { errorMessage: 'Siden kunne ikke loades' })
-    console.log(error)
   }
 })
 
@@ -25,7 +24,6 @@ router.get('/:id', async (req, res) => {
     res.render('errorMessage', {
       errorMessage: 'Beklædningsgenstanden kunne ikke findes'
     })
-    console.log(error)
   }
 })
 
@@ -44,7 +42,6 @@ router.post('/', async (req, res) => {
       res.render('errorMessage', {
         errorMessage: 'Beklædningsgenstanden kunne ikke oprettes'
       })
-      console.log(error)
     }
   } else if (req.body.btnChange) {
     res.render('errorMessage', {
@@ -52,7 +49,7 @@ router.post('/', async (req, res) => {
     })
   } else if (req.body.btnDelete) {
     res.render('errorMessage', {
-      errorMessage: 'Beklædningsgenstand skal vælges, før der kan "slettes"'
+      errorMessage: 'Beklædningsgenstand skal vælges, før der kan slettes'
     })
   }
 })
@@ -88,19 +85,16 @@ router.post('/clothes', async (req, res) => {
       res.render('errorMessage', {
         errorMessage: 'Beklædningsgenstanden kunne ikke ændres'
       })
-      console.log(error)
     }
   } else if (req.body.btnDelete) {
     try {
       const oldClothes = await Clothes.findById(req.body._id)
-
       await Clothes.deleteClothes(oldClothes)
       res.redirect('/clothes')
     } catch (error) {
       res.render('errorMessage', {
         errorMessage: 'Beklædningsgenstanden kunne ikke ændres'
       })
-      console.log(error)
     }
   }
 })

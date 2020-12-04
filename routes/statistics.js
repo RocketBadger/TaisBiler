@@ -1,20 +1,18 @@
 const bodyParser = require('body-parser')
 const express = require('express')
 const router = express.Router()
-// const Car = require('../model/Car')
 const Clothes = require('../model/Clothes')
 const Person = require('../model/Person')
 
-router.get('/', async (request, response) => {
+router.get('/', async (req, res) => {
     try {
-        response.render('statistics/statistics')
+        res.render('statistics/statistics')
     } catch (error) {
-        response.render('errorMessage', { errorMessage: 'Statistikker kunne ikke loades' })
-        console.log(error)
+        res.render('errorMessage', { errorMessage: 'Statistikker kunne ikke loades' })
     }
 })
 
-router.get('/personer', async (request, response) => {
+router.get('/personer', async (req, res) => {
     try {
         const persons = await Person.find({})
         persons.sort((a, b) => {
@@ -28,25 +26,23 @@ router.get('/personer', async (request, response) => {
                 b.birthday - a.birthday
             }
         })
-        response.render('statistics/statisticsPersons', { persons: persons })
+        res.render('statistics/statisticsPersons', { persons: persons })
     } catch (error) {
-        response.render('errorMessage', { errorMessage: 'Statistikker kunne ikke loades' })
-        console.log(error)
+        res.render('errorMessage', { errorMessage: 'Statistikker kunne ikke loades' })
     }
 })
 
-router.get('/personer/:id', async (request, response) => {
+router.get('/personer/:id', async (req, res) => {
     try {
-        const person = await Person.findById(request.params.id)
-        const clothes = await Clothes.getAPersonsClothes(request.params.id)
-        response.render('statistics/statisticsPersonsSpecific', { person: person, clothes: clothes })
+        const person = await Person.findById(req.params.id)
+        const clothes = await Clothes.getAPersonsClothes(req.params.id)
+        res.render('statistics/statisticsPersonsSpecific', { person: person, clothes: clothes })
     } catch (error) {
-        response.render('errorMessage', { errorMessage: 'Statistikker kunne ikke loades' })
-        console.log(error)
+        res.render('errorMessage', { errorMessage: 'Statistikker kunne ikke loades' })
     }
 })
 
-router.get('/toj', async (request, response) => {
+router.get('/toj', async (req, res) => {
     try {
         const clothes = await Clothes.find({})
         clothes.sort((a, b) => {
@@ -60,22 +56,20 @@ router.get('/toj', async (request, response) => {
                 a.size.toLowerCase() - b.size.toLowerCase()
             }
         })
-        response.render('statistics/statisticsClothes', { clothes: clothes })
+        res.render('statistics/statisticsClothes', { clothes: clothes })
     } catch (error) {
-        response.render('errorMessage', { errorMessage: 'Statistikker kunne ikke loades' })
-        console.log(error)
+        res.render('errorMessage', { errorMessage: 'Statistikker kunne ikke loades' })
     }
 })
 
-router.get('/toj/:id', async (request, response) => {
+router.get('/toj/:id', async (req, res) => {
     try {
-        const clothes = await Clothes.findById(request.params.id)
-        const persons = await Clothes.getReceiversOfClothes(request.params.id)
+        const clothes = await Clothes.findById(req.params.id)
+        const persons = await Clothes.getReceiversOfClothes(req.params.id)
         const personsObject = Object.fromEntries(persons)
-        response.render('statistics/statisticsClothesSpecific', { clothes: clothes, persons: personsObject })
+        res.render('statistics/statisticsClothesSpecific', { clothes: clothes, persons: personsObject })
     } catch (error) {
-        response.render('errorMessage', { errorMessage: 'Statistikker kunne ikke loades' })
-        console.log(error)
+        res.render('errorMessage', { errorMessage: 'Statistikker kunne ikke loades' })
     }
 })
 

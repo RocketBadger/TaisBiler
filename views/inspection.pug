@@ -2,24 +2,21 @@ extends layout
 
 block content
     h2 Syn
-    |#[strong Næste:] 
+    | #[strong Næste:] 
     if car.nextInspection !== undefined 
-        |#{car.nextInspection.toLocaleDateString()}
+        | #{car.nextInspection.toLocaleDateString()}
     br
     |#[strong Sidste:]
     if car.prevInspection !== undefined 
-        |#{car.prevInspection.toLocaleDateString()}
+        | #{car.prevInspection.toLocaleDateString()}
     br
-    br
-    //- h2 Tilføj syn
     div.buttonDiv
         form(action="addInspection", method="POST")
             table
                 tr
-                    td #[strong Dato for næste: ]
+                    td #[strong Dato for næste:]
                     td
-                        input(type="date",
-                        name="nextInspection",
+                        input(type="date", name="nextInspection",
                         value=new Date().toISOString().split('T')[0],
                         min=value=new Date().toISOString().split('T')[0])
             input(type="hidden", name="_id", value=car._id)

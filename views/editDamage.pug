@@ -21,7 +21,7 @@ block content
                 tr
                     td #[strong Dato:]
                     td
-                        input(type="date", name="date" value=new Date(damage.date).toISOString().split('T')[0])
+                        input(type="date", name="date" value=new Date(damage.date).toDateLocaleString())
                 tr
                     td #[strong Repareret:]
                     td

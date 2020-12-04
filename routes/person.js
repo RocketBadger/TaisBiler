@@ -1,5 +1,4 @@
 const express = require('express')
-const { prependOnceListener } = require('../model/Person')
 const router = express.Router()
 const Person = require('../model/Person')
 
@@ -10,7 +9,6 @@ router.get('/', async (req, res) => {
     res.render('person', { persons: persons })
   } catch (error) {
     res.render('errorMessage', { errorMessage: 'Siden kunne ikke loades' })
-    console.log(error)
   }
 })
 router.get('/:id', async (req, res) => {
@@ -22,7 +20,6 @@ router.get('/:id', async (req, res) => {
     res.render('errorMessage', {
       errorMessage: 'Person kunne ikke findes'
     })
-    console.log(error)
   }
 })
 
@@ -41,7 +38,6 @@ router.post('/', async (req, res) => {
       res.render('errorMessage', {
         errorMessage: 'Person kunne ikke oprettes'
       })
-      console.log(error)
     }
   } else if (req.body.btnChange) {
     res.render('errorMessage', {
@@ -49,7 +45,7 @@ router.post('/', async (req, res) => {
     })
   } else if (req.body.btnNullify) {
     res.render('errorMessage', {
-      errorMessage: 'Person skal vælges, før der kan "slettes"'
+      errorMessage: 'Person skal vælges, før der kan slettes'
     })
   }
 })
@@ -105,4 +101,5 @@ router.post('/person', async (req, res) => {
     }
   }
 })
+
 module.exports = router

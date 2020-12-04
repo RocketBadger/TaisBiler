@@ -5,42 +5,42 @@ const Repair = require('../model/Repair')
 const Damage = require('../model/Damage')
 
 // GET /reparation uden id
-router.get('/', async (request, response) => {
+router.get('/', async (req, res) => {
   try {
-    response.redirect('/biler')
+    res.redirect('/biler')
   } catch (error) {
-    response.render('errorMessage', { errorMessage: 'Biler kunne ikke loades' })
+    res.render('errorMessage', { errorMessage: 'Biler kunne ikke loades' })
     console.log(error)
   }
 })
 
 // GET /reparation med id
-router.get('/:id', async (request, response) => {
+router.get('/:id', async (req, res) => {
   try {
-    const car = await Car.findById(request.params.id)
-    response.render('repairsAndDamages', { car: car })
+    const car = await Car.findById(req.params.id)
+    res.render('repairsAndDamages', { car: car })
   } catch (error) {
-    response.render('errorMessage', { errorMessage: 'Bil kunne ikke findes' })
+    res.render('errorMessage', { errorMessage: 'Bil kunne ikke findes' })
     console.log(error)
   }
 })
 
 // POST repair på en bil
-router.post('/addRepair', async (request, response) => {
+router.post('/addRepair', async (req, res) => {
   try {
-    const carID = request.body._id
+    const carID = req.body._id
     const car = await Car.findById(carID)
     const repairLength = car.repairs.length
     const repair = new Repair({
-      date: request.body.date,
-      repair: request.body.repair,
-      repaired: request.body.repaired,
-      _id: carID + "_" + (1000+ repairLength)
+      date: req.body.date,
+      repair: req.body.repair,
+      repaired: req.body.repaired,
+      _id: carID + "_" + (1000 + repairLength)
     })
     await car.addRepair(repair)
-    response.redirect('/reparation/' + request.body._id)
+    res.redirect('/reparation/' + req.body._id)
   } catch (error) {
-    response.render('errorMessage', {
+    res.render('errorMessage', {
       errorMessage: 'Tilføjelse af reparation gik galt'
     })
     console.log(error)
@@ -48,42 +48,42 @@ router.post('/addRepair', async (request, response) => {
 })
 
 // GET /skader uden id
-router.get('/', async (request, response) => {
+router.get('/', async (req, res) => {
   try {
-    response.redirect('/biler')
+    res.redirect('/biler')
   } catch (error) {
-    response.render('errorMessage', { errorMessage: 'Biler kunne ikke loades' })
+    res.render('errorMessage', { errorMessage: 'Biler kunne ikke loades' })
     console.log(error)
   }
 })
 
 // GET /skader med id
-router.get('/:id', async (request, response) => {
+router.get('/:id', async (req, res) => {
   try {
-    const car = await Car.findById(request.params.id)
-    response.render('addDamage', { car: car })
+    const car = await Car.findById(req.params.id)
+    res.render('addDamage', { car: car })
   } catch (error) {
-    response.render('errorMessage', { errorMessage: 'Bil kunne ikke findes' })
+    res.render('errorMessage', { errorMessage: 'Bil kunne ikke findes' })
     console.log(error)
   }
 })
 
 // POST damage på en bil
-router.post('/addDamage', async (request, response) => {
+router.post('/addDamage', async (req, res) => {
   try {
-    const carID = request.body._id
+    const carID = req.body._id
     const car = await Car.findById(carID)
     const damageLength = car.damages.length
     const damage = new Damage({
-      date: request.body.date,
-      damage: request.body.damage,
-      repaired: request.body.repaired,
+      date: req.body.date,
+      damage: req.body.damage,
+      repaired: req.body.repaired,
       _id: carID + "_" + damageLength
     })
     await car.addDamage(damage)
-    response.redirect('/reparation/' + request.body._id)
+    res.redirect('/reparation/' + req.body._id)
   } catch (error) {
-    response.render('errorMessage', {
+    res.render('errorMessage', {
       errorMessage: 'Tilføjelse af skade gik galt'
     })
     console.log(error)
@@ -91,84 +91,44 @@ router.post('/addDamage', async (request, response) => {
 })
 
 // GET inspection uden id
-router.get('/', async (request, response) => {
+router.get('/', async (req, res) => {
   try {
-      response.redirect('/biler')
+    res.redirect('/biler')
   } catch (error) {
-      response.render('errorMessage', {
-          errorMessage: 'Siden kunne ikke loades'
-      })
-      console.log(error)
+    res.render('errorMessage', {
+      errorMessage: 'Siden kunne ikke loades'
+    })
+    console.log(error)
   }
 })
 
 // GET inspection med id
-router.get('/:id', async (request, response) => {
+router.get('/:id', async (req, res) => {
   try {
-      const car = await Car.findById(request.params.id)
-      response.render('inspection', {
-          car: car
-      })
+    const car = await Car.findById(req.params.id)
+    res.render('inspection', {
+      car: car
+    })
   } catch (error) {
-      response.render('errorMessage', {
-          errorMessage: 'Bil kunne ikke findes'
-      })
-      console.log(error)
+    res.render('errorMessage', {
+      errorMessage: 'Bil kunne ikke findes'
+    })
+    console.log(error)
   }
 })
 
 // POST inspection på en bil
-router.post('/addInspection', async (request, response) => {
+router.post('/addInspection', async (req, res) => {
   try {
-      const car = await Car.findById(request.body._id)
-      car.addInspection(request.body.nextInspection)
-      response.redirect('/reparation/' + request.body._id)
+    const car = await Car.findById(req.body._id)
+    car.addInspection(req.body.nextInspection)
+    res.redirect('/reparation/' + req.body._id)
   } catch (error) {
-      response.render('errorMessage', {
-          errorMessage: 'Tilføjelse af syn gik galt'
-      })
-      console.log(error)
+    res.render('errorMessage', {
+      errorMessage: 'Tilføjelse af syn gik galt'
+    })
+    console.log(error)
   }
 })
-
-//TODO --------------------------------------------
-
-// router.get('/redigerSkade', (request, response) => {
-//   try {
-//     response.redirect('/reparation')
-//   } catch (error) {
-//     response.render('errorMessage', { errorMessage: 'Siden kunne ikke loades' })
-//     console.log(error)
-//   }
-// })
-
-// router.get('/redigerSkade/:id', (request, response) => {
-//   try {
-//     console.log(request.params.id)
-//     const damage = car.damages.findById(request.params.id)
-//     response.render('editDamage', { damage: damage })
-//   } catch (error) {
-//     response.render('errorMessage', { errorMessage: 'Skade kunne ikke findes' })
-//     console.log(error)
-//   }
-// })
-
-// router.post('redigerSkade/redigerSkade', async (request, response) => {
-//   try {
-//     const damage = await Damage.findById(request.body._id)
-//     const updates = {
-//       date: request.body.Date,
-//       damage: request.body.damage,
-//       repaired: request.body.repaired
-//     }
-//     await damage.changeRepair(damage, updates)
-//     response.redirect('/reparation')
-//   } catch (error) {
-//     response.render('errorMessage', {
-//       errorMessage: 'Der skete en fejl under redigeringen af skaden'
-//     })
-//     console.log(error)
-//   }
-// })
 
 module.exports = router
