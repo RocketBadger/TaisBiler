@@ -1,113 +1,108 @@
 extends layout
 
 block content
+  h1 Arbejdstøj
   .grid-container 
     .grid-item
-      h2 Vælg person og tøj, klik tilføj
+      h2 Udlevér tøj til medarbejder
       div.buttonDiv
-        form(action="clothes/addPersonToClothes" method="POST")
+        form(action="toj/addPersonToClothes" method="POST")
           table 
             tr
-              td
-                label Vælg en person :
+              td #[b Vælg en person:]
               td   
                 select#personSelect(name='persons' onchange='loadPerson()')
                   option(hidden='' disabled='' selected='' value='')  Vælg en person
                   for person in persons
-                    option(value=((person && person.birthday) ? person.birthday.toLocaleDateString() : 'Ej oplyst') 
-                    +'#' + person.position +  '#' + person._id) #{person.name}
+                    if person.name || person.position || person.birthday
+                      option(value=((person && person.birthday) ? person.birthday.toLocaleDateString() : 'Ej oplyst') 
+                      + '#' + person.position + '#' + person._id) #{person.name}
             tr
-              td Fødselsdag
+              td #[b Fødselsdag:]
               td
-                p#personBirthday Ingen valg
+                div#personBirthday Ingen valg
             tr
-              td Stilling
-              td
-                p#personPosition Ingen valg
+              td.spaceTD #[b Stilling:]
+              td.spaceTD
+                div#personPosition Ingen valg
             tr
               td
-                label Vælg beklædning :
+                | #[b Vælg beklædning:]
               td
                 select#clothesSelect(name='clothes' onchange='loadClothes()')
                   option(hidden='' disabled='' selected='' value='')  Vælg beklædning
-                  if (clothes !== undefined) 
-                  each cloth in clothes
-                    option(value=cloth.size + '#' + cloth.brand +  '#' + cloth._id) #{cloth.name}
-
+                  if clothes
+                    each cloth in clothes
+                      option(value=cloth.size + '#' + cloth.brand + '#' + cloth._id) #{cloth.name}
             tr
-              td Størrelse
+              td #[b Str.:]
               td 
-                p#clothesSize Ingen valg
+                div#clothesSize Ingen valg
             tr
-              td Mærke
+              td #[b Mærke:]
               td
-                p#clothesBrand Ingen valg
+                div#clothesBrand Ingen valg
             tr
               td(colspan='2')
-                button(class="addPersonToClothes" name="btnAddPersonToClothes" type="submit" value="addPersonToClothes" ) Udlever beklædning 
-            input#personID( type="hidden" name="person_id", value=(person !== undefined && person._id !== undefined) ? person._id:'')
-            input#clothesID( type="hidden" name="cloth_id", value=(cloth !== undefined && cloth._id !== undefined) ? cloth._id:'')
+                button(class="addPersonToClothes" name="btnAddPersonToClothes" type="submit" value="addPersonToClothes" ) UDLEVER 
+            input#personID(type="hidden" name="person_id" value=(person !== undefined && person._id !== undefined) ? person._id: '')
+            input#clothesID(type="hidden" name="cloth_id" value=(cloth !== undefined && cloth._id !== undefined) ? cloth._id: '')
 
     .grid-item
-      h2 Opret, ændre, slette arbejdstøj
+      h2 Opret, ændr og slet arbejdstøj
       div.buttonDiv
-        form(action="clothes" method="post")
+        form(action="toj" method="post")
           table.listTable 
             tr
-              td #[strong Type:]
+              td #[b Type:]
               td
                 input(type="text", name="name",
-                value=(cloth!==undifined)?cloth.name:'',
-                placeholder='Type',required)
+                value=(cloth!==undefined) ? cloth.name: '',
+                placeholder='Type', required)
             tr
-              td #[strong Størrelse:]
+              td #[b Str.:]
               td
                 input(type="text", name="size",
-                value=(cloth !== undifined) ? cloth.size:'',
-                placeholder='Størrelse',required)
+                value=(cloth !== undefined) ? cloth.size: '',
+                placeholder='Størrelse', required)
             tr
-              td #[strong Mærke:]
+              td #[b Mærke:]
               td
                 input(type="text", name="brand",
-                value=(cloth !== undifined) ? cloth.brand:'',
-                placeholder='Mærke',required)
+                value=(cloth !== undefined) ? cloth.brand: '',
+                placeholder='Mærke', required)
             tr
               td(colspan='2')
-                br
-                button(class="buttonsClothes" name="btnCreate" type="submit" value="create" ) Opret 
-                button(class="buttonsClothes" name="btnChange" type="submit" value="change") Ændre 
-                button(class="buttonsClothes" name="btnDelete" type="submit" value="delete") Slet 
-            input(type="hidden" name="_id", value=(cloth !== undefined) ? cloth._id:'')
+                button(class="buttonsClothes" name="btnDelete" type="submit" value="delete") SLET
+                button(class="buttonsClothes" name="btnChange" type="submit" value="change") ÆNDR
+                button(name="btnCreate" type="submit" value="create") OPRET
+          input(type="hidden" name="_id" value=(cloth !== undefined) ? cloth._id: '')
 
           h2 Beklædningsgenstande
           table.listTable
-            if clothes !== undefined
-            each cloth in clothes
-              tr
-                td #[i Type:] 
-                td #{cloth.name}
-              tr
-                td #[i Størrelse:] 
-                td #{cloth.size}
-              tr
-                td #[i Mærke:] 
-                td #{cloth.brand}
-              tr
-                td.emojiTD 
-                  a(href="/clothes/" + cloth._id, class='emojiLink') ✏️
+            if clothes
+              each cloth in clothes
+                tr
+                  td.listTD
+                    | #[b Type:] #{cloth.name}
+                    br
+                    | #[b Str.:] #{cloth.size}
+                    br
+                    | #[b Mærke:] #{cloth.brand}
+                  td.listTD
+                    a(href="/toj/" + cloth._id, class='emojiLink') ✏️
   script.
     function loadPerson() {
       let selectedPerson = document.getElementById("personSelect").value
       let personDetails = selectedPerson.split('#')
       document.getElementById("personBirthday").innerHTML = (personDetails[0]) ? personDetails[0] : 'Ej oplyst' 
-      document.getElementById("personPosition").innerHTML =  (personDetails[1]) ? personDetails[1] : 'Ej oplyst' 
+      document.getElementById("personPosition").innerHTML = (personDetails[1]) ? personDetails[1] : 'Ej oplyst' 
       document.getElementById("personID").value = personDetails[2]
     }
     function loadClothes() {
       let selectedClothes = document.getElementById("clothesSelect").value
       let clothesDetails = selectedClothes.split('#')
-      document.getElementById("clothesSize").innerHTML =  clothesDetails[0]  
+      document.getElementById("clothesSize").innerHTML = clothesDetails[0]  
       document.getElementById("clothesBrand").innerHTML = clothesDetails[1]
       document.getElementById("clothesID").value = clothesDetails[2]
-      }
-
+    }

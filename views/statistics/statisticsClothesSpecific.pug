@@ -3,11 +3,11 @@ extends ../layout
 block content
     include statistics
     h2 Tøj
-    | Mærke: #{clothes.brand}
+    | #[b Mærke:] #{clothes.brand}
     br
-    | Type: #{clothes.name}
+    | #[b Type:] #{clothes.name}
     br
-    | Str.: #{clothes.size}
+    | #[b Str.:] #{clothes.size}
     br
     h3 Modtagere
     table

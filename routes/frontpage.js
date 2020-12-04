@@ -2,12 +2,11 @@ const express = require('express')
 const router = express.Router()
 
 // Forsiden redirecter til /biler
-router.get('/', (request, response) => {
+router.get('/', (req, res) => {
     try {
-        response.redirect('/biler')
+        res.redirect('/biler')
     } catch (error) {
-        response.send('Der skete en fejl')
-        console.log(error)
+        res.send('Der skete en fejl')
     }
 })
 

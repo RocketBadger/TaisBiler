@@ -1,51 +1,46 @@
 extends layout
 
 block content
-  h2 Opret, ændre eller "slette" person
+  h1 Personer
+  h2 Opret, ændr eller slet person
   div.buttonDiv
     form(action="person" method="POST")
       table 
         tr
-          td #[strong Navn:]
+          td #[b Navn:]
           td
             input(type="text", name="name",
             value=(person !== undefined && person.name !== undefined) ? person.name : '',
-            placeholder='Navn')           
+            placeholder='Navn', required)
         tr
-          td #[strong Stilling:]
+          td #[b Stilling:]
           td
             input(type="text", name="position",
             value=(person !== undefined && person.position !== undefined) ? person.position : '',
             placeholder='Stilling')
         tr
-          td #[strong Fødselsdato:]
+          td #[b Fødselsdato:]
           td
-            input(type="date",
-            name="birthday",
-            value=(person !== undefined && person.birthday !== undefined ) ? person.birthday : '',
+            input(type="date", name="birthday",
+            value=(person !== undefined && person.birthday !== undefined) ? person.birthday : '',
             placeholder=new Date().toLocaleDateString())
         tr
           td(colspan='2')
-            br
-            button(class="buttonsPerson" name="btnCreate" type="submit" value="create" ) Opret 
-            button(class="buttonsPerson" name="btnChange" type="submit" value="change") Ændre 
-            button(class="buttonsPerson" name="btnNullify" type="submit" value="nullify") "Slet" 
+            button(class="buttonsPerson" name="btnNullify" type="submit" value="nullify") SLET
+            button(class="buttonsPerson" name="btnChange" type="submit" value="change") ÆNDR
+            button(name="btnCreate" type="submit" value="create") OPRET
+      input(type="hidden" name="_id", value=(person !== undefined && person._id !== undefined) ? person._id:'')
 
-            input(type="hidden" name="_id", value=(person !== undefined && person._id !== undefined) ? person._id:'')
-
-    br
     h2 Personer
       table.listTable
         each person in persons
-          tr
-            td #[i Navn:] 
-            td #{person.name}
-          tr
-            td #[i Stilling:] 
-            td #{person.position}
-          tr
-            td #[i Fødselsdag:] 
-            td #{(person.birthday!== undefined && person.birthday!== null) ? person.birthday.toLocaleDateString():''}
-          tr
-            td.emojiTD 
-              a(href="/person/" + person._id, class='emojiLink') ✏️
+          if person.name || person.position || person.birthday
+            tr
+              td.listTD
+                | #[b Navn:] #{person.name}
+                br
+                | #[b Stilling:] #{person.position}
+                br
+                | #[b Fødselsdag:] #{(person.birthday !== undefined && person.birthday !== null) ? person.birthday.toLocaleDateString() : ''}
+              td.listTD 
+                a(href="/person/" + person._id, class='emojiLink') ✏️
