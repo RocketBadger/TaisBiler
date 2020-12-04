@@ -1,7 +1,6 @@
 const bodyParser = require('body-parser')
 const express = require('express')
 const router = express.Router()
-// const Car = require('../model/Car')
 const Clothes = require('../model/Clothes')
 const Person = require('../model/Person')
 

@@ -11,6 +11,7 @@ licensePlate
 retired
 colour
 nickName */
+
 beforeEach(async () => {
   let car = new Car({
     brand: 'BMW',
@@ -37,9 +38,11 @@ beforeEach(async () => {
   await car.save()
   await carOther.save()
 })
-afterEach(async () => {
+
+afterEach(() => {
   mongoose.connection.collections.cars.drop()
 })
+
 // Oprette bil
 describe('Car', function () {
   it('create car empty', function () {
@@ -291,25 +294,23 @@ describe('updateCar', () => {
 // slette bil
 describe('deleteCar', function () {
   it('delete a car', async function () {
-    let noBeforDelete = await Car.count({})
+    let noBeforeDelete = await Car.count({})
     let car = await Car.findOne()
     car.brand.should.be.equal('dudum')
     await Car.deleteCar(car)
     let car2 = await Car.findOne()
     let noAfterDelete = await Car.count({})
     car2.brand.should.be.equal('BMW')
-    noBeforDelete.should.be.equal(2)
+    noBeforeDelete.should.be.equal(2)
     noAfterDelete.should.be.equal(1)
   })
 })
 
 //----------repair-------------
 // Tilføje reparation til bil
-
 describe('addRepair', () => {
   it('add repair today', async () => {
     const car = await Car.findOne()
-    const carId = car._id
     const repair = new Repair({
       date: Date.now(),
       repair: 'Totalskadet',
@@ -348,7 +349,6 @@ describe('changeRepair', () => {
   it('change repair all', async () => {
     const date1 = Date.parse('March 21, 2012')
     const car = await Car.findOne()
-    const carId = car._id
     const repair = new Repair({
       date: Date.now(),
       repair: 'Totalskadet',
@@ -367,7 +367,6 @@ describe('changeRepair', () => {
   })
   it('change repair repaired', async () => {
     const car = await Car.findOne()
-    const carId = car._id
     const date1 = Date.now()
     const repair = new Repair({
       date: date1,
@@ -392,6 +391,7 @@ describe('changeRepair', () => {
     updatedRepair.date.valueOf().should.be.equal(date1)
   })
 })
+
 // Slette reparation
 describe('deleteRepair', function () {
   it('delete a repair', async function () {
@@ -413,7 +413,6 @@ describe('deleteRepair', function () {
     let noAfterDelete = await car.repairs.length
     let repair4 = await car.repairs[0]
     repair4.repair.should.be.equal('Totally')
-
     noBeforDelete.should.be.equal(2)
     noAfterDelete.should.be.equal(1)
   })
@@ -421,7 +420,6 @@ describe('deleteRepair', function () {
 
 //----------Damage-----------------
 // Tilføje skade til bil
-
 describe('addDamage', () => {
   it('add damage default', async () => {
     const car = await Car.findOne()
@@ -453,7 +451,6 @@ describe('addDamage', () => {
 describe('changeDamage', () => {
   it('change damage all', async () => {
     const car = await Car.findOne()
-    const carId = car._id
     const damage = new Damage({
       date: Date.now(),
       damage: 'Totalskadet',
@@ -472,7 +469,6 @@ describe('changeDamage', () => {
 
   it('change damage repaired', async () => {
     const car = await Car.findOne()
-    const carId = car._id
     const date1 = Date.now()
     const damage = new Damage({
       date: date1,
@@ -480,7 +476,6 @@ describe('changeDamage', () => {
       repaired: false
     })
     const actualDamage = await car.addDamage(damage)
-
     const updatedDamage = await car.changeDamage(actualDamage, {
       repaired: true
     })
@@ -494,7 +489,6 @@ describe('changeDamage', () => {
 describe('deleteDamage', () => {
   it('delete a damage', async () => {
     const car = await Car.findOne()
-    const carId = car._id
     const date1 = Date.now()
     const damage1 = new Damage({
       date: date1,
@@ -536,72 +530,6 @@ describe('addDriver', () => {
   it('addDriver', async () => {
     const car = await Car.findOne()
     const person = await Person.findOne()
-    await Car.updateCar(car, {driver: {driver: person, dateFrom: new Date().toISOString().split('T')[0]}})
-  })
-})
-
-//----------Statistics-----------------
-describe('car statistics', () => {
-  beforeEach(async () => {
-    let car = new Car({
-      brand: 'BMW',
-      model: 'X5',
-      licensePlate: 'AA12345',
-      engine: 'V5',
-      year: 2018,
-      particulateFilter: false,
-      retired: true,
-      colour: 'black',
-      nickName: 'One'
-    })
-    await car.save()
-  })
-  afterEach(async () => {
-    await Car.drop()
-    await Person.drop()
-  })
-  it('get drivers from specific car', async function () {
-    let car = Car.findOne()
-    let person = new Person({
-      name: 'Sam',
-      position: 'Sjakbejs',
-      birthday: new Date(1983, 5, 2)
-    })
-    await person.save()
-    let person2 = new Person({
-      name: 'Dean',
-      position: 'Tagdækker',
-      birthday: new Date(1979, 1, 24)
-    })
-    await person2.save()
-    // add person and person2 to car
-    // tjek at der er to personer på car
-    // tjek at den ene er Sam
-    // tjek at den anden er Dean
-  })
-  it('get cars from specific driver', async function () {
-    let car = new Car({
-      brand: 'Rolls-Royce',
-      model: 'Phantom',
-      licensePlate: 'RR37913',
-      engine: 'V5',
-      year: 2019,
-      particulateFilter: true,
-      retired: false,
-      colour: 'pink',
-      nickName: 'VrumVrum'
-    })
-    await car.save()
-    let car2 = Car.findOne({ brand: 'BMW' })
-    let person = new Person({
-      name: 'Sam',
-      position: 'Sjakbejs',
-      birthday: new Date(1983, 5, 2)
-    })
-    await person.save()
-    // add person to car and car2
-    // tjek at der to biler, der hører til personen
-    // tjek at den ene er Rolls-Royce
-    // tjek at den anden er BMW
+    await Car.updateCar(car, { driver: { driver: person, dateFrom: new Date().toISOString().split('T')[0] } })
   })
 })
