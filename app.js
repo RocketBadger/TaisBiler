@@ -100,6 +100,7 @@ app.set('view engine', 'pug')
 // De forskellige routes
 const rootRouter = require('./routes/frontpage')
 app.use('/', rootRouter)
+
 const carsRouter = require('./routes/cars')
 app.use('/biler', carsRouter)
 const repairsRouter = require('./routes/repair')
