@@ -17,9 +17,7 @@ router.get('/:id', async (req, res) => {
     const persons = await Person.find({})
     res.render('person', { person: person, persons: persons })
   } catch (error) {
-    res.render('errorMessage', {
-      errorMessage: 'Person kunne ikke findes'
-    })
+    res.render('errorMessage', { errorMessage: 'Person kunne ikke findes' })
   }
 })
 
@@ -27,7 +25,7 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
   if (req.body.btnCreate) {
     try {
-      let person = new Person({
+      const person = new Person({
         name: req.body.name,
         position: req.body.position,
         birthday: req.body.birthday
@@ -35,18 +33,12 @@ router.post('/', async (req, res) => {
       await person.save()
       res.redirect('/person')
     } catch (error) {
-      res.render('errorMessage', {
-        errorMessage: 'Person kunne ikke oprettes'
-      })
+      res.render('errorMessage', { errorMessage: 'Person kunne ikke oprettes' })
     }
   } else if (req.body.btnChange) {
-    res.render('errorMessage', {
-      errorMessage: 'Person skal vælges, før der kan ændres'
-    })
+    res.render('errorMessage', { errorMessage: 'Person skal vælges, før der kan ændres' })
   } else if (req.body.btnNullify) {
-    res.render('errorMessage', {
-      errorMessage: 'Person skal vælges, før der kan slettes'
-    })
+    res.render('errorMessage', { errorMessage: 'Person skal vælges, før der kan slettes' })
   }
 })
 
@@ -54,7 +46,7 @@ router.post('/', async (req, res) => {
 router.post('/person', async (req, res) => {
   if (req.body.btnCreate) {
     try {
-      let person = new Person({
+      const person = new Person({
         name: req.body.name,
         position: req.body.position,
         birthday: req.body.birthday
@@ -65,7 +57,6 @@ router.post('/person', async (req, res) => {
       res.render('errorMessage', {
         errorMessage: 'Person kunne ikke oprettes'
       })
-      console.log(error)
     }
   } else if (req.body.btnChange) {
     try {
@@ -81,7 +72,6 @@ router.post('/person', async (req, res) => {
       res.render('errorMessage', {
         errorMessage: 'Person kunne ikke ændres'
       })
-      console.log(error)
     }
   } else if (req.body.btnNullify) {
     try {
@@ -97,7 +87,6 @@ router.post('/person', async (req, res) => {
       res.render('errorMessage', {
         errorMessage: 'Person kunne ikke ændres'
       })
-      console.log(error)
     }
   }
 })

@@ -10,7 +10,6 @@ router.get('/', async (req, res) => {
     res.redirect('/biler')
   } catch (error) {
     res.render('errorMessage', { errorMessage: 'Biler kunne ikke loades' })
-    console.log(error)
   }
 })
 
@@ -21,7 +20,6 @@ router.get('/:id', async (req, res) => {
     res.render('repairsAndDamages', { car: car })
   } catch (error) {
     res.render('errorMessage', { errorMessage: 'Bil kunne ikke findes' })
-    console.log(error)
   }
 })
 
@@ -40,31 +38,7 @@ router.post('/addRepair', async (req, res) => {
     await car.addRepair(repair)
     res.redirect('/reparation/' + req.body._id)
   } catch (error) {
-    res.render('errorMessage', {
-      errorMessage: 'Tilføjelse af reparation gik galt'
-    })
-    console.log(error)
-  }
-})
-
-// GET /skader uden id
-router.get('/', async (req, res) => {
-  try {
-    res.redirect('/biler')
-  } catch (error) {
-    res.render('errorMessage', { errorMessage: 'Biler kunne ikke loades' })
-    console.log(error)
-  }
-})
-
-// GET /skader med id
-router.get('/:id', async (req, res) => {
-  try {
-    const car = await Car.findById(req.params.id)
-    res.render('addDamage', { car: car })
-  } catch (error) {
-    res.render('errorMessage', { errorMessage: 'Bil kunne ikke findes' })
-    console.log(error)
+    res.render('errorMessage', { errorMessage: 'Tilføjelse af reparation gik galt' })
   }
 })
 
@@ -83,37 +57,7 @@ router.post('/addDamage', async (req, res) => {
     await car.addDamage(damage)
     res.redirect('/reparation/' + req.body._id)
   } catch (error) {
-    res.render('errorMessage', {
-      errorMessage: 'Tilføjelse af skade gik galt'
-    })
-    console.log(error)
-  }
-})
-
-// GET inspection uden id
-router.get('/', async (req, res) => {
-  try {
-    res.redirect('/biler')
-  } catch (error) {
-    res.render('errorMessage', {
-      errorMessage: 'Siden kunne ikke loades'
-    })
-    console.log(error)
-  }
-})
-
-// GET inspection med id
-router.get('/:id', async (req, res) => {
-  try {
-    const car = await Car.findById(req.params.id)
-    res.render('inspection', {
-      car: car
-    })
-  } catch (error) {
-    res.render('errorMessage', {
-      errorMessage: 'Bil kunne ikke findes'
-    })
-    console.log(error)
+    res.render('errorMessage', { errorMessage: 'Tilføjelse af skade gik galt' })
   }
 })
 
@@ -124,10 +68,7 @@ router.post('/addInspection', async (req, res) => {
     car.addInspection(req.body.nextInspection)
     res.redirect('/reparation/' + req.body._id)
   } catch (error) {
-    res.render('errorMessage', {
-      errorMessage: 'Tilføjelse af syn gik galt'
-    })
-    console.log(error)
+    res.render('errorMessage', { errorMessage: 'Tilføjelse af syn gik galt' })
   }
 })
 

@@ -32,7 +32,7 @@ router.post('/redigerSkade', async (req, res) => {
       damage: req.body.damage,
       repaired: req.body.repaired
     }
-    let damage = car.damages.id(damageID)
+    const damage = car.damages.id(damageID)
     await car.changeDamage(damage, updates)
     res.redirect('/reparation/' + carID)
   } catch (error) {

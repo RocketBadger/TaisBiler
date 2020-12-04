@@ -13,9 +13,7 @@ router.get('/', async (req, res) => {
       cars: cars
     })
   } catch (error) {
-    res.render('errorMessage', {
-      errorMessage: 'Biler kunne ikke loades'
-    })
+    res.render('errorMessage', { errorMessage: 'Biler kunne ikke loades' })
   }
 })
 
@@ -24,9 +22,7 @@ router.get('/opretBil', (req, res) => {
   try {
     res.render('createCar')
   } catch (error) {
-    res.render('errorMessage', {
-      errorMessage: 'Siden kunne ikke loades'
-    })
+    res.render('errorMessage', { errorMessage: 'Siden kunne ikke loades' })
   }
 })
 
@@ -37,7 +33,7 @@ router.post('/opretBil', async (req, res) => {
     if (req.body.driver !== 'Ingen') {
       Driver = await Person.findById(req.body.driver)
     }
-    let car = new Car({
+    const car = new Car({
       brand: req.body.brand,
       model: req.body.model,
       licensePlate: req.body.licensePlate,
@@ -55,9 +51,7 @@ router.post('/opretBil', async (req, res) => {
     await car.save()
     res.redirect('/biler')
   } catch (error) {
-    res.render('errorMessage', {
-      errorMessage: 'Bil kunne ikke oprettes'
-    })
+    res.render('errorMessage', { errorMessage: 'Bil kunne ikke oprettes' })
   }
 })
 
@@ -66,9 +60,7 @@ router.get('/redigerBil', (req, res) => {
   try {
     res.redirect('/biler')
   } catch (error) {
-    res.render('errorMessage', {
-      errorMessage: 'Siden kunne ikke loades'
-    })
+    res.render('errorMessage', { errorMessage: 'Siden kunne ikke loades' })
   }
 })
 
@@ -77,14 +69,9 @@ router.get('/redigerBil/:id', async (req, res) => {
   try {
     const car = await Car.findById(req.params.id)
     const people = await Person.find({})
-    res.render('editCar', {
-      car: car,
-      people: people
-    })
+    res.render('editCar', { car: car, people: people })
   } catch (error) {
-    res.render('errorMessage', {
-      errorMessage: 'Bil kunne ikke findes'
-    })
+    res.render('errorMessage', { errorMessage: 'Bil kunne ikke findes' })
   }
 })
 
@@ -117,9 +104,7 @@ router.post('/redigerBil/redigerBil', async (req, res) => {
     await Car.updateCar(car, updates)
     res.redirect('/biler')
   } catch (error) {
-    res.render('errorMessage', {
-      errorMessage: 'Der skete en fejl under redigering af bilen'
-    })
+    res.render('errorMessage', { errorMessage: 'Der skete en fejl under redigering af bilen' })
   }
 })
 
