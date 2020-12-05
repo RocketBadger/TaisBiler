@@ -9,7 +9,8 @@ table.listTable
         tr
             td.listTD #[b Reparation:] #{rep.repair}
                 br
-                | #[b Dato:] #{rep.date.toLocaleDateString()}
+                | #[b Dato:] #{(rep.date) ? rep.date.toLocaleDateString() : ''}
+
                 br
                 if rep.repaired
                     |#[b Repareret:] Ja

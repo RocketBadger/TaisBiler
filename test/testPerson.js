@@ -19,7 +19,7 @@ beforeEach(async () => {
 })
 
 afterEach(async () => {
-  await mongoose.connection.collections.people.drop()
+  await Person.collection.drop()
 })
 
 // Oprette person

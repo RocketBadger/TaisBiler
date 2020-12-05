@@ -36,10 +36,11 @@ beforeEach(async () => {
     nickName: 'Two'
   })
   await car.save()
+  console.log('ok')
 })
 
-afterEach(() => {
-  mongoose.connection.collections.cars.drop()
+afterEach(async () => {
+  await Car.collection.drop()
 })
 
 // Oprette bil
@@ -124,7 +125,7 @@ describe('updateCar', () => {
   })
   it('updateCar model', async () => {
     let car = await Car.findOne({ brand: 'dudum' })
-    car.updateThisCar({ model: 'C1' })
+    await car.updateThisCar({ model: 'C1' })
     car = await Car.findOne({ brand: 'dudum' })
     car.brand.should.be.equal('dudum')
     car.model.should.be.equal('C1')
@@ -172,75 +173,10 @@ describe('updateCar', () => {
     car2.colour.should.be.equal('black')
     car2.nickName.should.be.equal('One')
   })
-  it('updateCar engine', async () => {
-    let car = await Car.findOne({ brand: 'BMW' })
-    car = await Car.updateCar(car, { engine: 'BrumBrum' })
-    car.brand.should.be.equal('BMW')
-    car.model.should.be.equal('X5')
-    car.licensePlate.should.be.equal('AA12345')
-    car.engine.should.be.equal('BrumBrum')
-    car.year.should.be.equal(2018)
-    car.particulateFilter.should.be.equal(false)
-    car.retired.should.be.equal(true)
-    car.colour.should.be.equal('black')
-    car.nickName.should.be.equal('One')
-  })
-  it('updateCar year', async () => {
-    let car = await Car.findOne({ brand: 'BMW' })
-    car = await Car.updateCar(car, { year: 2019 })
-    car.brand.should.be.equal('BMW')
-    car.model.should.be.equal('X5')
-    car.licensePlate.should.be.equal('AA12345')
-    car.engine.should.be.equal('V5')
-    car.year.should.be.equal(2019)
-    car.particulateFilter.should.be.equal(false)
-    car.retired.should.be.equal(true)
-    car.colour.should.be.equal('black')
-    car.nickName.should.be.equal('One')
-  })
-  it('updateCar particulateFilter', async () => {
-    let car = await Car.findOne({ brand: 'BMW' })
-    car = await Car.updateCar(car, { particulateFilter: true })
-    car.brand.should.be.equal('BMW')
-    car.model.should.be.equal('X5')
-    car.licensePlate.should.be.equal('AA12345')
-    car.engine.should.be.equal('V5')
-    car.year.should.be.equal(2018)
-    car.particulateFilter.should.be.equal(true)
-    car.retired.should.be.equal(true)
-    car.colour.should.be.equal('black')
-    car.nickName.should.be.equal('One')
-  })
-  it('updateCar colour', async () => {
-    let car = await Car.findOne({ brand: 'BMW' })
-    car = await Car.updateCar(car, { colour: 'blue' })
-    car.brand.should.be.equal('BMW')
-    car.model.should.be.equal('X5')
-    car.licensePlate.should.be.equal('AA12345')
-    car.engine.should.be.equal('V5')
-    car.year.should.be.equal(2018)
-    car.particulateFilter.should.be.equal(false)
-    car.retired.should.be.equal(true)
-    car.colour.should.be.equal('blue')
-    car.nickName.should.be.equal('One')
-  })
-  it('updateCar nickName', async () => {
-    let car = await Car.findOne({ brand: 'BMW' })
-    car = await Car.updateCar(car, { nickName: 'Four' })
-    car.brand.should.be.equal('BMW')
-    car.model.should.be.equal('X5')
-    car.licensePlate.should.be.equal('AA12345')
-    car.engine.should.be.equal('V5')
-    car.year.should.be.equal(2018)
-    car.particulateFilter.should.be.equal(false)
-    car.retired.should.be.equal(true)
-    car.colour.should.be.equal('black')
-    car.nickName.should.be.equal('Four')
-  })
   it('updateCar brand and colour', async () => {
     let car = await Car.findOne({ brand: 'BMW' })
     const carId = car._id
-    car = await Car.updateCar(car, { brand: 'Mercedes', colour: 'blue' })
+    car = await car.updateThisCar({ brand: 'Mercedes', colour: 'blue' })
     car = await Car.findById(carId)
     car.brand.should.be.equal('Mercedes')
     car.model.should.be.equal('X5')
@@ -264,7 +200,8 @@ describe('updateCar', () => {
   })
   it('updateCar all attributes', async () => {
     let car = await Car.findOne({ brand: 'BMW' })
-    car = await Car.updateCar(car, {
+    const carId = car._id
+    car = await car.updateThisCar({
       brand: 'Mercedes',
       model: 'C1',
       licensePlate: 'BB22555',
@@ -275,6 +212,7 @@ describe('updateCar', () => {
       colour: 'blue',
       nickName: 'Four'
     })
+    car = await Car.findById(carId)
     car.brand.should.be.equal('Mercedes')
     car.model.should.be.equal('C1')
     car.licensePlate.should.be.equal('BB22555')

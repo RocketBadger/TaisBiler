@@ -4,7 +4,7 @@ block content
 
     h1 Rediger Reparation
     div.buttonDiv
-        form(action="redigerReparation", method="POST")
+        form(action="redigerReparation" method="POST")
             |#[strong Nummerplade:] #{car.licensePlate}
             br
             |#[strong Mærke:] #{car.brand}
@@ -17,11 +17,11 @@ block content
                 tr
                     td #[strong Reparation:]
                     td
-                        input(type="text", name="repair" value=repair.repair)
+                        input(type="text" name="repair" value=repair.repair)
                 tr
                     td #[strong Dato:]
                     td
-                        input(type="date", name="date" value=new Date(repair.date).toDateLocaleString())
+                        input(type="date" name="date" value=new Date(repair.date).toLocaleDateString())
                 tr
                     td #[strong Repareret:]
                     td
@@ -33,5 +33,5 @@ block content
                             select(name="repaired")
                                 option(value="false") Nej
                                 option(value="true") Ja
-            input(type="hidden", name="_id", value=repair._id)
+            input(type="hidden" name="_id", value=repair._id)
             button(type="submit") REDIGÉR
