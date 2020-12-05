@@ -79,9 +79,9 @@ describe('updatePerson', () => {
     person.position.should.be.equal('Sleeper')
     // person.birthday.should.be.equal(new Date(2002, 02, 02))
 
-    let personOther = await Person.findOne({ name: 'Worker No1' })
-    personOther.name.should.be.equal('Worker No1')
-    personOther.position.should.be.equal('Roofer')
+    let personOther = await Person.findOne({ name: 'Worker One' })
+    personOther.name.should.be.equal('Worker One')
+    personOther.position.should.be.equal('Stargazer')
     // person.birthday.should.be.equal(new Date(1111, 11, 11))
   })
   it('updatePerson birthday', async () => {
@@ -90,12 +90,12 @@ describe('updatePerson', () => {
       birthday: new Date(1333, 13, 13)
     })
     person.name.should.be.equal('Worker Two')
-    person.position.should.be.equal('Sleeper')
+    person.position.should.be.equal('Roofer')
     // person.birthday.should.be.equal(new Date(1333, 13, 13))
 
-    let personOther = await Person.findOne({ name: 'Worker No1' })
-    personOther.name.should.be.equal('Worker No1')
-    personOther.position.should.be.equal('Roofer')
+    let personOther = await Person.findOne({ name: 'Worker One' })
+    personOther.name.should.be.equal('Worker One')
+    personOther.position.should.be.equal('Stargazer')
     // personOther.bir.should.be.equal(new Date(1111, 11, 11))
   })
   it('updatePerson nothing', async () => {

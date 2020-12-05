@@ -291,7 +291,7 @@ describe('addRepair', () => {
 describe('changeRepair', () => {
   it('change repair all', async () => {
     const date1 = Date.parse('March 21, 2012')
-    const car = await Car.findOne()
+    const car = await Car.findOne({ brand: 'BMW' })
     const repair = new Repair({
       date: Date.now(),
       repair: 'Totalskadet',
@@ -309,7 +309,7 @@ describe('changeRepair', () => {
     updatedRepair.date.valueOf().should.be.equal(date1)
   })
   it('change repair repaired', async () => {
-    const car = await Car.findOne()
+    const car = await Car.findOne({ brand: 'BMW' })
     const date1 = Date.now()
     const repair = new Repair({
       date: date1,
@@ -322,7 +322,7 @@ describe('changeRepair', () => {
       repaired: false
     })
 
-    const actualRepair = await car.addRepair(repair)
+    let actualRepair = await car.addRepair(repair)
     const actualRepair2 = await car.addRepair(repair2)
     const updatedRepair = await car.changeRepair(actualRepair, {
       repaired: true
@@ -338,7 +338,7 @@ describe('changeRepair', () => {
 // Slette reparation
 describe('deleteRepair', function () {
   it('delete a repair', async function () {
-    let car = await Car.findOne()
+    let car = await Car.findOne({ brand: 'BMW' })
     const repair = new Repair({
       date: Date.now(),
       repair: 'Totalskadet',
