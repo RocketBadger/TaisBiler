@@ -26,11 +26,11 @@ app.use(bodyParser.json())
 app.set('view engine', 'pug')
 
 // De forskellige routes
-const rootRouter = require('./routes/frontpage')
+const rootRouter = require('./routes/login')
 app.use('/', rootRouter)
 
-const loginRouter = require('./routes/login')
-app.use('/login', loginRouter)
+// const loginRouter = require('./routes/login')
+// app.use('/login', loginRouter)
 
 const carsRouter = require('./routes/cars')
 app.use('/biler', carsRouter)

@@ -3,27 +3,28 @@ const router = express.Router()
 
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config()
-  }
+}
 
-router.get('/', async (request, response) => {
+router.get('/', async (req, res) => {
     try {
-        response.render('login')
+        res.render('login')
     } catch (error) {
-        response.send('Der skete en fejl ved login')
+        res.send('Der skete en fejl ved login')
         console.log(error)
     }
 })
 
 // ved korrekt login redirect til /biler
-router.post('/', async (request, response) => {
+router.post('/', async (req, res) => {
     try {
-        if (request.body.u === process.env.USE && request.body.p === process.env.PAS || request.body.u === 'user' && request.body.p === 'pass') {
-            response.redirect('/biler')
+        if (req.body.u === process.env.USE && req.body.p === process.env.PAS || req.body.u === 'user' && req.body.p === 'pass') {
+            res.redirect('/biler')
         } else {
             console.log('login fucked if')
+            console.log(req.body.u + ' | ' + process.env.USE + ' | ' + req.body.p + ' | ' + process.env.PAS)
         }
     } catch (error) {
-        response.render('errorMessage', {
+        res.render('errorMessage', {
             errorMessage: 'Der skete en fejl ved login'
         })
         console.log('login fucked post catch')
@@ -31,7 +32,10 @@ router.post('/', async (request, response) => {
     }
 })
 
-// login => frontpage => biler ?
+// nuværende, frontpage => login => biler
+// forbedret, login => biler
+
+// TEST CONFIG VAR IN PRODUCTION! EVT OM NATTEN!
 
 // process.env.PAS
 // process.env.USE

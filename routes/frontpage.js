@@ -2,19 +2,19 @@ const express = require('express')
 const router = express.Router()
 
 // Forsiden redirecter til /biler
-router.get('/', (req, res) => {
-    try {
-        response.redirect('/login')
-    } catch (error) {
-        res.send('Der skete en fejl')
-    }
-})
-
-// router.get('/', (request, response) => {
+// router.get('/', (req, res) => {
 //     try {
-//         response.render('login')
+//         res.redirect('/login')
 //     } catch (error) {
-//         response.send('Der skete en fejl')
+//         res.send('Der skete en fejl: frontpage')
+//     }
+// })
+
+// router.get('/', (req, res) => {
+//     try {
+//         res.render('login')
+//     } catch (error) {
+//         res.send('Der skete en fejl')
 //         console.log(error)
 //     }
 // })
