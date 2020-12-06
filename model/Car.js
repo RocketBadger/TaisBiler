@@ -103,9 +103,8 @@ carSchema.methods.addRepair = async function (repair) {
 
 carSchema.methods.changeRepair = async function (actualRepair, repairChange) {
   let repairToChange = await this.repairs.id(actualRepair._id)
-  repairToChange.set(repairChange)
+  await repairToChange.set(repairChange)
   await this.save()
-  return this.repairs.id(actualRepair._id)
 }
 
 carSchema.methods.deleteRepair = async function (repair) {
