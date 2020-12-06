@@ -1,14 +1,9 @@
 const express = require('express')
 const router = express.Router()
 
-if (process.env.NODE_ENV !== 'production') {
-    require('dotenv').config()
-}
-
 // hvis logget ind redirect til /biler, ellers /login
 router.get('/', async (req, res) => {
-    const name = req.session.name
-    if (name) {
+    if (req.session.name) {
         try {
             res.redirect('/biler')
         } catch (error) {

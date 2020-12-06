@@ -34,8 +34,8 @@ app.use('/', rootRouter)
 
 
 // Login middleware
-app.use(function (req, res, next) {
 // if user is not logged in redirect to login page
+app.use(function (req, res, next) {
   if (req.session.name) {
     next();
   } else {
