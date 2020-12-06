@@ -29,6 +29,7 @@ router.post('/', async (req, res) => {
             res.redirect('/biler')
         } else {
             console.log(req.body.u + ' | ' + process.env.USE + ' | ' + req.body.p + ' | ' + process.env.PAS)
+            res.redirect('/')
         }
     } catch (error) {
         res.render('errorMessage', {
