@@ -61,7 +61,10 @@ describe('clothes statistics', function () {
       position: 'Sjakbejs',
       birthday: new Date(1983, 5, 2)
     })
+
     await person.save()
+    let person1 = await Person.findOne({ name: 'Sam' })
+    let person1Id = person1._id
     let person2 = new Person({
       name: 'Dean',
       position: 'Tagdækker',
@@ -80,7 +83,11 @@ describe('clothes statistics', function () {
     )
     let persons = await Clothes.getReceiversOfClothes(clothes._id.toString())
     persons.size.should.be.equal(2)
-    // persons.should.contain({ name: 'Sam', position: 'Sjakbejs', birthday: new Date(1983, 5, 2) })
+    persons
+      .has({
+        person1Id
+      })
+      .should.equal(true)
     // persons.should.contain({ name: 'Dean', position: 'Tagdækker', birthday: new Date(1979, 1, 24) })
     // persons.should.not.contain({ name: 'Bobby', position: 'Sekretær', birthday: new Date(1950, 8, 12) })
   })
