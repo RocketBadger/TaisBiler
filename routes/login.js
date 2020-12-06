@@ -28,14 +28,12 @@ router.post('/', async (req, res) => {
             req.session.name = u;
             res.redirect('/biler')
         } else {
-            console.log('login fucked if')
             console.log(req.body.u + ' | ' + process.env.USE + ' | ' + req.body.p + ' | ' + process.env.PAS)
         }
     } catch (error) {
         res.render('errorMessage', {
             errorMessage: 'Der skete en fejl ved login'
         })
-        console.log('login fucked post catch')
         console.log(error)
     }
 })
