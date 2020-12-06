@@ -29,9 +29,7 @@ body {
   color: #818181;
 }
 
-h1,
-h2,
-h3 {
+h1, h2, h3 {
   font-family: 'Patua One', cursive;
 }
 
@@ -40,13 +38,12 @@ button {
   font-weight: bold;
   border: 1px solid #000000;
   border-radius: 2px;
+  margin-top: 1em;
   float: right;
 }
 
 .buttonsPerson, .buttonsClothes {
-  margin-left: 2pc;
-  margin-top: 2pc;
-  float: left;
+  margin-left: 1em;
 }
 
 .grid-container {
@@ -65,12 +62,18 @@ button {
   border-collapse: collapse;
 }
 
+td {
+  font-family: 'Nunito', sans-serif;
+}
+
 .listTD {
   border-bottom-style: dotted;
+  padding-top: 1em;
 }
 
 .listTD:nth-child(2) {
   text-align: right;
+  padding-top: 0em;
 }
 
 .topTD {
@@ -79,6 +82,10 @@ button {
 
 .emojiTD {
   text-align: center;
+}
+
+.spaceTD {
+  padding-bottom: 1em;
 }
 
 .buttonDiv {
@@ -119,8 +126,11 @@ button {
   }
   .emojiTD {
     display: inline-table;
-    margin: auto 20px auto auto;
+    margin-right: 20px;
     text-align: right;
+  }
+  .spaceTD:nth-child(1) {
+    padding-bottom: 0em;
   }
   h1 {
     font-size: 1.5em;
@@ -150,7 +160,7 @@ button {
   } */
   .emojiTD {
     display: inline-table;
-    margin: auto 20px auto auto;
+    margin-right: 20px;
   }
 }
 

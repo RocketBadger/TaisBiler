@@ -19,7 +19,7 @@ beforeEach(async () => {
 })
 
 afterEach(async () => {
-  await mongoose.connection.collections.people.drop()
+  await Person.collection.drop()
 })
 
 // Oprette person
@@ -32,23 +32,50 @@ describe('Person', function () {
   })
 
   it('Person with info', async () => {
-    const date = new Date(1234, 12, 12)
+    let date = new Date(1234, 12, 12)
     const date2 = new Date(1111, 11, 11)
     let person1 = await Person.findOne({ name: 'Worker One' })
     person1.name.should.be.equal('Worker One')
     person1.position.should.be.equal('Stargazer')
-    // person1.birthday.should.be.equal(date)
+    person1.birthday
+      .toLocaleDateString()
+      .should.be.equal(date.toLocaleDateString())
 
     let person = await Person.findOne({ name: 'Worker Two' })
     person.name.should.be.equal('Worker Two')
     person.position.should.be.equal('Roofer')
-    // person.birthday.should.be.equal(date2)
+    person.birthday
+      .toLocaleDateString()
+      .should.be.equal(date2.toLocaleDateString())
   })
 })
 
 // Ændre person info
 describe('updatePerson', () => {
   it('updatePerson name', async () => {
+    const date = new Date(1111, 11, 11)
+    let person22 = new Person({
+      name: 'Worker TwoTwo',
+      position: 'Roofer',
+      birthday: date
+    })
+    await person22.save()
+    let person = await Person.findOne({ name: 'Worker TwoTwo' })
+    person = await Person.updatePerson(person, { name: 'Worker No1' })
+    person.name.should.be.equal('Worker No1')
+    person.position.should.be.equal('Roofer')
+    person.birthday
+      .toLocaleDateString()
+      .should.be.equal(date.toLocaleDateString())
+
+    let personOther = await Person.findOne({ name: 'Worker No1' })
+    personOther.name.should.be.equal('Worker No1')
+    personOther.position.should.be.equal('Roofer')
+    personOther.birthday
+      .toLocaleDateString()
+      .should.be.equal(new Date(1111, 11, 11).toLocaleDateString())
+  })
+  it('updatePerson position', async () => {
     let person22 = new Person({
       name: 'Worker TwoTwo',
       position: 'Roofer',
@@ -56,33 +83,19 @@ describe('updatePerson', () => {
     })
     await person22.save()
     let person = await Person.findOne({ name: 'Worker TwoTwo' })
-    person = await Person.updatePerson(person, { name: 'Worker No1' })
-    person.name.should.be.equal('Worker No1')
-    person.position.should.be.equal('Roofer')
-    // person.birthday.should.be.equal(new Date(2002, 02, 02))
-
-    let personOther = await Person.findOne({ name: 'Worker No1' })
-    personOther.name.should.be.equal('Worker No1')
-    personOther.position.should.be.equal('Roofer')
-    // personOther.birthday.should.be.equal(new Date(1111, 11, 11))
-  })
-  it('updatePerson position', async () => {
-    let person2 = new Person({
-      name: 'Worker Two',
-      position: 'Roofer',
-      birthday: new Date(2002, 02, 02)
-    })
-    await person2.save()
-    let person = await Person.findOne({ name: 'Worker Two' })
     person = await Person.updatePerson(person, { position: 'Sleeper' })
-    person.name.should.be.equal('Worker Two')
+    person.name.should.be.equal('Worker TwoTwo')
     person.position.should.be.equal('Sleeper')
-    // person.birthday.should.be.equal(new Date(2002, 02, 02))
+    person.birthday
+      .toLocaleDateString()
+      .should.be.equal(new Date(2002, 02, 02).toLocaleDateString())
 
-    let personOther = await Person.findOne({ name: 'Worker No1' })
-    personOther.name.should.be.equal('Worker No1')
-    personOther.position.should.be.equal('Roofer')
-    // person.birthday.should.be.equal(new Date(1111, 11, 11))
+    let personOther = await Person.findOne({ name: 'Worker One' })
+    personOther.name.should.be.equal('Worker One')
+    personOther.position.should.be.equal('Stargazer')
+    personOther.birthday
+      .toLocaleDateString()
+      .should.be.equal(new Date(1234, 12, 12).toLocaleDateString())
   })
   it('updatePerson birthday', async () => {
     let person = await Person.findOne({ name: 'Worker Two' })
@@ -90,12 +103,14 @@ describe('updatePerson', () => {
       birthday: new Date(1333, 13, 13)
     })
     person.name.should.be.equal('Worker Two')
-    person.position.should.be.equal('Sleeper')
-    // person.birthday.should.be.equal(new Date(1333, 13, 13))
+    person.position.should.be.equal('Roofer')
+    person.birthday
+      .toLocaleDateString()
+      .should.be.equal(new Date(1333, 13, 13).toLocaleDateString())
 
-    let personOther = await Person.findOne({ name: 'Worker No1' })
-    personOther.name.should.be.equal('Worker No1')
-    personOther.position.should.be.equal('Roofer')
+    let personOther = await Person.findOne({ name: 'Worker One' })
+    personOther.name.should.be.equal('Worker One')
+    personOther.position.should.be.equal('Stargazer')
     // personOther.bir.should.be.equal(new Date(1111, 11, 11))
   })
   it('updatePerson nothing', async () => {
@@ -103,11 +118,15 @@ describe('updatePerson', () => {
     person = await Person.updatePerson(person, {})
     person.name.should.be.equal('Worker One')
     person.position.should.be.equal('Stargazer')
-    // person.birthday.should.be.equal(new Date(1234, 12, 12))
+    person.birthday
+      .toLocaleDateString()
+      .should.be.equal(new Date(1234, 12, 12).toLocaleDateString())
 
     let personOther = await Person.findOne({ name: 'Worker Two' })
     personOther.name.should.be.equal('Worker Two')
     personOther.position.should.be.equal('Roofer')
-    // personOther.birthday.should.be.equal(new Date(1111, 11, 11))
+    personOther.birthday
+      .toLocaleDateString()
+      .should.be.equal(new Date(1111, 11, 11).toLocaleDateString())
   })
 })

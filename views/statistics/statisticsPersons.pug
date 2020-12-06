@@ -5,13 +5,19 @@ block content
     h2 Personer
     table
         each person in persons
-            tr
-                td
-                    if person.position
-                        | #{person.position}
-                    if person.name
-                        |  #{person.name}
-                    if person.birthday
-                        |  (#{person.birthday.toLocaleDateString()})
-                td.emojiTD
-                    a(href="/statistik/personer/" + person._id, class='emojiLink') 🔍
+            if person.name || person.position || person.birthday
+                tr
+                    td
+                        if person.position
+                            | #{person.position}
+                        if person.name
+                            | #{person.name}
+                        if person.birthday
+                            | (#{person.birthday.toLocaleDateString()})
+                    td.emojiTD
+                        a(href="/statistik/personer/" + person._id, class='emojiLink') 🔍
+            else
+                tr
+                    td Slettet person
+                    td.emojiTD
+                        a(href="/statistik/personer/" + person._id, class='emojiLink') 🔍

@@ -4,134 +4,115 @@ const Car = require('../model/Car')
 const Person = require('../model/Person')
 
 // Forsiden redirecter til /biler
-router.get('/', async (request, response) => {
+router.get('/', async (req, res) => {
   try {
     const cars = await Car.find({})
-    // Ikke-skrottede biler går først
+    // Ikke-skrottede biler sorteres først
     cars.sort((a, b) => a.retired - b.retired)
-    response.render('cars', {
+    res.render('cars', {
       cars: cars
     })
   } catch (error) {
-    response.render('errorMessage', {
-      errorMessage: 'Biler kunne ikke loades'
-    })
-    console.log(error)
+    res.render('errorMessage', { errorMessage: 'Biler kunne ikke loades' })
   }
 })
 
 // Viser siden opretBil
-router.get('/opretBil', (request, response) => {
+router.get('/opretBil', (req, res) => {
   try {
-    response.render('createCar')
+    res.render('createCar')
   } catch (error) {
-    response.render('errorMessage', {
-      errorMessage: 'Siden kunne ikke loades'
-    })
-    console.log(error)
+    res.render('errorMessage', { errorMessage: 'Siden kunne ikke loades' })
   }
 })
 
 // Opretter en ny bil med POST
-router.post('/opretBil', async (request, response) => {
+router.post('/opretBil', async (req, res) => {
   try {
     let Driver = undefined
-    if (request.body.driver !== 'Ingen') {
-      Driver = await Person.findById(request.body.driver)
+    if (req.body.driver !== 'Ingen') {
+      Driver = await Person.findById(req.body.driver)
     }
-    let car = new Car({
-      brand: request.body.brand,
-      model: request.body.model,
-      licensePlate: request.body.licensePlate,
-      engine: request.body.engine,
-      year: request.body.year,
-      particulateFilter: request.body.particulateFilter,
-      retired: request.body.retired,
-      colour: request.body.colour,
-      nickName: request.body.nickName,
+    const car = new Car({
+      brand: req.body.brand,
+      model: req.body.model,
+      licensePlate: req.body.licensePlate,
+      engine: req.body.engine,
+      year: req.body.year,
+      particulateFilter: req.body.particulateFilter,
+      retired: req.body.retired,
+      colour: req.body.colour,
+      nickName: req.body.nickName,
       driver: {
         driver: Driver,
-        dateFrom: new Date().toISOString().split('T')[0]
+        dateFrom: new Date()
       }
     })
     await car.save()
-    response.redirect('/biler')
+    res.redirect('/biler')
   } catch (error) {
-    response.render('errorMessage', {
-      errorMessage: 'Bil kunne ikke oprettes'
-    })
-    console.log(error)
+    res.render('errorMessage', { errorMessage: 'Bil kunne ikke oprettes' })
   }
 })
 
 // Redirecter tilbage til /biler, hvis der ikke er et id
-router.get('/redigerBil', (request, response) => {
+router.get('/redigerBil', (req, res) => {
   try {
-    response.redirect('/biler')
+    res.redirect('/biler')
   } catch (error) {
-    response.render('errorMessage', {
-      errorMessage: 'Siden kunne ikke loades'
-    })
-    console.log(error)
+    res.render('errorMessage', { errorMessage: 'Siden kunne ikke loades' })
   }
 })
 
 // Finder en bil fra ID og klargør redigering
-router.get('/redigerBil/:id', async (request, response) => {
+router.get('/redigerBil/:id', async (req, res) => {
   try {
-    const car = await Car.findById(request.params.id)
+    const car = await Car.findById(req.params.id)
     const people = await Person.find({})
-    response.render('editCar', {
-      car: car,
-      people: people
-    })
+    res.render('editCar', { car: car, people: people })
   } catch (error) {
-    response.render('errorMessage', {
-      errorMessage: 'Bil kunne ikke findes'
-    })
-    console.log(error)
+    res.render('errorMessage', { errorMessage: 'Bil kunne ikke findes' })
   }
 })
 
 // Opdaterer en bil fra ID med PUT
-router.post('/redigerBil/redigerBil', async (request, response) => {
+router.post('/redigerBil/redigerBil', async (req, res) => {
   try {
     let Driver = undefined
-    if (request.body.driver !== 'Ingen') {
-      Driver = await Person.findById(request.body.driver)
+    if (req.body.driver !== 'Ingen') {
+      Driver = await Person.findById(req.body.driver)
     }
-    const car = await Car.findById(request.body._id)
+    const car = await Car.findById(req.body._id)
     const updates = {
-      brand: request.body.brand,
-      model: request.body.model,
-      licensePlate: request.body.licensePlate,
-      engine: request.body.engine,
-      year: request.body.year,
-      particulateFilter: request.body.particulateFilter,
-      retired: request.body.retired,
-      colour: request.body.colour,
-      nickName: request.body.nickName,
+      brand: req.body.brand,
+      model: req.body.model,
+      licensePlate: req.body.licensePlate,
+      engine: req.body.engine,
+      year: req.body.year,
+      particulateFilter: req.body.particulateFilter,
+      retired: req.body.retired,
+      colour: req.body.colour,
+      nickName: req.body.nickName,
       driver: {
         prevDriver: car.driver.driver,
         prevDateFrom: car.driver.dateFrom,
-        prevDateTo: new Date().toISOString().split('T')[0],
+        prevDateTo: new Date(),
         driver: Driver,
-        dateFrom: new Date().toISOString().split('T')[0]
+        dateFrom: new Date()
       }
     }
-    await Car.updateCar(car, updates)
-    response.redirect('/biler')
+    await car.updateThisCar(updates)
+    res.redirect('/biler')
   } catch (error) {
-    response.render('errorMessage', {
+    res.render('errorMessage', {
       errorMessage: 'Der skete en fejl under redigering af bilen'
     })
-    console.log(error)
   }
 })
 
 // Fanger alle forkert stavede versioner af sidens extension
-router.get('/:site', (request, response) => {
-  response.redirect('/')
+router.get('/:site', (req, res) => {
+  res.redirect('/')
 })
 
 module.exports = router

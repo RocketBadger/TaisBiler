@@ -36,11 +36,11 @@ beforeEach(async () => {
     nickName: 'Two'
   })
   await car.save()
-  await carOther.save()
+  console.log('ok')
 })
 
-afterEach(() => {
-  mongoose.connection.collections.cars.drop()
+afterEach(async () => {
+  await Car.collection.drop()
 })
 
 // Oprette bil
@@ -96,8 +96,12 @@ describe('Car', function () {
 // Ændre bil-attributter
 describe('updateCar', () => {
   it('updateCar brand', async () => {
-    let car = await Car.findOne({ brand: 'dudum' })
-    car = await Car.updateCar(car, { brand: 'Mercedes' })
+    let car = await Car.findOne({ licensePlate: 'BB56789' })
+    const update = { brand: 'Mercedes' }
+
+    await car.updateThisCar(update)
+    car = await Car.findOne({ licensePlate: 'BB56789' })
+
     car.brand.should.be.equal('Mercedes')
     car.model.should.be.equal('dummde')
     car.licensePlate.should.be.equal('BB56789')
@@ -121,7 +125,8 @@ describe('updateCar', () => {
   })
   it('updateCar model', async () => {
     let car = await Car.findOne({ brand: 'dudum' })
-    car = await Car.updateCar(car, { model: 'C1' })
+    await car.updateThisCar({ model: 'C1' })
+    car = await Car.findOne({ brand: 'dudum' })
     car.brand.should.be.equal('dudum')
     car.model.should.be.equal('C1')
     car.licensePlate.should.be.equal('BB56789')
@@ -145,7 +150,8 @@ describe('updateCar', () => {
   })
   it('updateCar licensePlate', async () => {
     let car = await Car.findOne({ brand: 'dudum' })
-    car = await Car.updateCar(car, { licensePlate: 'BB22555' })
+    car = await car.updateThisCar({ licensePlate: 'BB22555' })
+    car = await Car.findOne({ brand: 'dudum' })
     car.brand.should.be.equal('dudum')
     car.model.should.be.equal('dummde')
     car.licensePlate.should.be.equal('BB22555')
@@ -167,75 +173,10 @@ describe('updateCar', () => {
     car2.colour.should.be.equal('black')
     car2.nickName.should.be.equal('One')
   })
-  it('updateCar engine', async () => {
-    let car = await Car.findOne({ brand: 'BMW' })
-    car = await Car.updateCar(car, { engine: 'BrumBrum' })
-    car.brand.should.be.equal('BMW')
-    car.model.should.be.equal('X5')
-    car.licensePlate.should.be.equal('AA12345')
-    car.engine.should.be.equal('BrumBrum')
-    car.year.should.be.equal(2018)
-    car.particulateFilter.should.be.equal(false)
-    car.retired.should.be.equal(true)
-    car.colour.should.be.equal('black')
-    car.nickName.should.be.equal('One')
-  })
-  it('updateCar year', async () => {
-    let car = await Car.findOne({ brand: 'BMW' })
-    car = await Car.updateCar(car, { year: 2019 })
-    car.brand.should.be.equal('BMW')
-    car.model.should.be.equal('X5')
-    car.licensePlate.should.be.equal('AA12345')
-    car.engine.should.be.equal('V5')
-    car.year.should.be.equal(2019)
-    car.particulateFilter.should.be.equal(false)
-    car.retired.should.be.equal(true)
-    car.colour.should.be.equal('black')
-    car.nickName.should.be.equal('One')
-  })
-  it('updateCar particulateFilter', async () => {
-    let car = await Car.findOne({ brand: 'BMW' })
-    car = await Car.updateCar(car, { particulateFilter: true })
-    car.brand.should.be.equal('BMW')
-    car.model.should.be.equal('X5')
-    car.licensePlate.should.be.equal('AA12345')
-    car.engine.should.be.equal('V5')
-    car.year.should.be.equal(2018)
-    car.particulateFilter.should.be.equal(true)
-    car.retired.should.be.equal(true)
-    car.colour.should.be.equal('black')
-    car.nickName.should.be.equal('One')
-  })
-  it('updateCar colour', async () => {
-    let car = await Car.findOne({ brand: 'BMW' })
-    car = await Car.updateCar(car, { colour: 'blue' })
-    car.brand.should.be.equal('BMW')
-    car.model.should.be.equal('X5')
-    car.licensePlate.should.be.equal('AA12345')
-    car.engine.should.be.equal('V5')
-    car.year.should.be.equal(2018)
-    car.particulateFilter.should.be.equal(false)
-    car.retired.should.be.equal(true)
-    car.colour.should.be.equal('blue')
-    car.nickName.should.be.equal('One')
-  })
-  it('updateCar nickName', async () => {
-    let car = await Car.findOne({ brand: 'BMW' })
-    car = await Car.updateCar(car, { nickName: 'Four' })
-    car.brand.should.be.equal('BMW')
-    car.model.should.be.equal('X5')
-    car.licensePlate.should.be.equal('AA12345')
-    car.engine.should.be.equal('V5')
-    car.year.should.be.equal(2018)
-    car.particulateFilter.should.be.equal(false)
-    car.retired.should.be.equal(true)
-    car.colour.should.be.equal('black')
-    car.nickName.should.be.equal('Four')
-  })
   it('updateCar brand and colour', async () => {
     let car = await Car.findOne({ brand: 'BMW' })
     const carId = car._id
-    car = await Car.updateCar(car, { brand: 'Mercedes', colour: 'blue' })
+    car = await car.updateThisCar({ brand: 'Mercedes', colour: 'blue' })
     car = await Car.findById(carId)
     car.brand.should.be.equal('Mercedes')
     car.model.should.be.equal('X5')
@@ -259,7 +200,8 @@ describe('updateCar', () => {
   })
   it('updateCar all attributes', async () => {
     let car = await Car.findOne({ brand: 'BMW' })
-    car = await Car.updateCar(car, {
+    const carId = car._id
+    car = await car.updateThisCar({
       brand: 'Mercedes',
       model: 'C1',
       licensePlate: 'BB22555',
@@ -270,6 +212,7 @@ describe('updateCar', () => {
       colour: 'blue',
       nickName: 'Four'
     })
+    car = await Car.findById(carId)
     car.brand.should.be.equal('Mercedes')
     car.model.should.be.equal('C1')
     car.licensePlate.should.be.equal('BB22555')
@@ -348,188 +291,66 @@ describe('addRepair', () => {
 describe('changeRepair', () => {
   it('change repair all', async () => {
     const date1 = Date.parse('March 21, 2012')
-    const car = await Car.findOne()
+    let car = await Car.findOne({ brand: 'BMW' })
+    const carId = car._id
+    const repairId = car.Id + 'a'
     const repair = new Repair({
       date: Date.now(),
       repair: 'Totalskadet',
-      repaired: false
+      repaired: false,
+      _id: repairId
     })
-    const actualRepair = await car.addRepair(repair)
+    const r = await car.addRepair(repair)
+    car = await Car.findById(carId)
+    car.repairs.length.should.be.equal(1)
+    let actualRepair = await car.repairs[0]
+    const repairID2 = actualRepair._id
     const repairChange = new Repair({
       date: date1,
       repair: 'ok',
       repaired: true
     })
-    const updatedRepair = await car.changeRepair(actualRepair, repairChange)
+
+    const r2 = await car.changeRepair(actualRepair, repairChange)
+    car = await Car.findById(carId)
+    const updatedRepair = car.repairs[0]
+    car.repairs.length.should.be.equal(1)
+    updatedRepair._id.should.be.equal(repairId)
     updatedRepair.repaired.should.be.equal(true)
     updatedRepair.repair.should.be.equal('ok')
     updatedRepair.date.valueOf().should.be.equal(date1)
   })
   it('change repair repaired', async () => {
-    const car = await Car.findOne()
+    let car = await Car.findOne({ brand: 'BMW' })
     const date1 = Date.now()
     const repair = new Repair({
       date: date1,
       repair: 'Totalskadet',
-      repaired: false
+      repaired: false,
+      _id: car._id + 'a'
     })
     const repair2 = new Repair({
       date: Date.now(),
       repair: 'Totalskadet',
-      repaired: false
+      repaired: false,
+      _id: car._id + 'b'
     })
 
-    const actualRepair = await car.addRepair(repair)
-    const actualRepair2 = await car.addRepair(repair2)
-    const updatedRepair = await car.changeRepair(actualRepair, {
+    let actualRepair = await car.addRepair(repair)
+    let actualRepair2 = await car.addRepair(repair2)
+    actualRepair = await car.repairs[0]
+    car = await Car.findOne({ brand: 'BMW' })
+    actualRepair = await car.repairs[0]
+    actualRepair2 = await car.repairs[1]
+    let updatedRepair = await car.changeRepair(actualRepair, {
       repaired: true
     })
+    car = await Car.findOne({ brand: 'BMW' })
+    updatedRepair = await car.repairs[0]
     car.repairs.length.should.be.equal(2)
     actualRepair2.repaired.should.be.equal(false)
     updatedRepair.repaired.should.be.equal(true)
     updatedRepair.repair.should.be.equal('Totalskadet')
     updatedRepair.date.valueOf().should.be.equal(date1)
-  })
-})
-
-// Slette reparation
-describe('deleteRepair', function () {
-  it('delete a repair', async function () {
-    let car = await Car.findOne()
-    const repair = new Repair({
-      date: Date.now(),
-      repair: 'Totalskadet',
-      repaired: false
-    })
-    const repair2 = new Repair({
-      date: Date.now(),
-      repair: 'Totally',
-      repaired: true
-    })
-    let repair3 = await car.addRepair(repair)
-    await car.addRepair(repair2)
-    let noBeforDelete = await car.repairs.length
-    await car.deleteRepair(repair3)
-    let noAfterDelete = await car.repairs.length
-    let repair4 = await car.repairs[0]
-    repair4.repair.should.be.equal('Totally')
-    noBeforDelete.should.be.equal(2)
-    noAfterDelete.should.be.equal(1)
-  })
-})
-
-//----------Damage-----------------
-// Tilføje skade til bil
-describe('addDamage', () => {
-  it('add damage default', async () => {
-    const car = await Car.findOne()
-    await car.addDamage({})
-    car.damages.length.should.be.equal(1)
-  })
-  it('add damage Christmas', async () => {
-    const car = await Car.findOne()
-    await car.addDamage({
-      date: new Date(1995, 11, 24),
-      damage: 'Ramt af slæde',
-      repaired: false
-    })
-    car.damages.length.should.be.equal(1)
-  })
-  it('add two damages', async () => {
-    const car = await Car.findOne()
-    await car.addDamage({
-      date: new Date(1995, 11, 24),
-      damage: 'Ramt af slæde',
-      repaired: true
-    })
-    await car.addDamage({ damage: 'Tippet som ko' })
-    car.damages.length.should.be.equal(2)
-  })
-})
-
-//ændre skade
-describe('changeDamage', () => {
-  it('change damage all', async () => {
-    const car = await Car.findOne()
-    const damage = new Damage({
-      date: Date.now(),
-      damage: 'Totalskadet',
-      repaired: false
-    })
-    const actualDamage = await car.addDamage(damage)
-    const damageChange = new Damage({
-      date: Date.now(),
-      damage: 'ok',
-      repaired: true
-    })
-    const updatedDamage = await car.changeDamage(actualDamage, damageChange)
-    updatedDamage.repaired.should.be.equal(true)
-    updatedDamage.damage.should.be.equal('ok')
-  })
-
-  it('change damage repaired', async () => {
-    const car = await Car.findOne()
-    const date1 = Date.now()
-    const damage = new Damage({
-      date: date1,
-      damage: 'Totalskadet',
-      repaired: false
-    })
-    const actualDamage = await car.addDamage(damage)
-    const updatedDamage = await car.changeDamage(actualDamage, {
-      repaired: true
-    })
-    updatedDamage.repaired.should.be.equal(true)
-    updatedDamage.damage.should.be.equal('Totalskadet')
-    updatedDamage.date.valueOf().should.be.equal(date1)
-  })
-})
-
-//slette skade
-describe('deleteDamage', () => {
-  it('delete a damage', async () => {
-    const car = await Car.findOne()
-    const date1 = Date.now()
-    const damage1 = new Damage({
-      date: date1,
-      damage: 'Totalskadet1',
-      repaired: false
-    })
-    const damage2 = new Damage({
-      date: date1,
-      damage: 'Totalskadet2',
-      repaired: false
-    })
-    const damage3 = await car.addDamage(damage1)
-    car.addDamage(damage2)
-
-    let noBeforDelete = await car.damages.length
-    await car.deleteDamage(damage3)
-    let noAfterDelete = await car.damages.length
-    let damage4 = await car.damages[0]
-    damage4.damage.should.be.equal('Totalskadet2')
-
-    noBeforDelete.should.be.equal(2)
-    noAfterDelete.should.be.equal(1)
-  })
-})
-
-//----------Inspection-----------------
-// Tilføje syn til bil
-describe('addInspection', () => {
-  it('add inspection', async () => {
-    const car = await Car.findOne()
-    const inspection = new Date(0)
-    await car.addInspection(inspection)
-  })
-})
-
-//----------Driver-----------------
-// Tilføje chauffør til bil
-describe('addDriver', () => {
-  it('addDriver', async () => {
-    const car = await Car.findOne()
-    const person = await Person.findOne()
-    await Car.updateCar(car, { driver: { driver: person, dateFrom: new Date().toISOString().split('T')[0] } })
   })
 })

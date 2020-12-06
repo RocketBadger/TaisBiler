@@ -4,13 +4,13 @@ block content
     include statistics
     h2 Person
     if person.name
-        | Navn: #{person.name}
+        | #[b Navn:] #{person.name}
         br
     if person.position
-        | Stilling: #{person.position}
+        | #[b Stilling:] #{person.position}
         br
     if person.birthday
-        | Fødselsdag: #{person.birthday.toLocaleDateString()}
+        | #[b Fødselsdag:] #{person.birthday.toLocaleDateString()}
     h3 Modtaget tøj
     table
         for piece in clothes
