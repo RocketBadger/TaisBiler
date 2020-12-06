@@ -138,4 +138,10 @@ carSchema.methods.addInspection = async function (newNextInspection) {
   await this.save()
 }
 
+carSchema.methods.getAllInspections = async function () {
+  // entrants.find({ pincode: { $ne: null } })
+  // return await this.nextInspection.find({})
+  // return await this.find({nextInspection: { $nin: null } })
+}
+
 module.exports = mongoose.model('Car', carSchema)
