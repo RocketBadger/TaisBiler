@@ -17,7 +17,7 @@ block content
                 tr
                     td #[strong Skade:]
                     td
-                        input(type="text" name="damage", value=damage.damage)
+                        input(type="text" name="damage" value=damage.damage)
                 tr
                     td #[strong Dato:]
                     td
@@ -33,5 +33,5 @@ block content
                             select(name="repaired")
                                 option(value="false") Nej
                                 option(value="true") Ja
-            input(type="hidden" name="_id", value=damage._id)
+            input(type="hidden" name="_id" value=damage._id)
             button(type="submit") REDIGÉR

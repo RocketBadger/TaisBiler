@@ -57,7 +57,7 @@ block content
             td
                 select(name="retired")
                     option(value="true",
-                        selected= (car !== undefined) ? car.retired == true : retired = true) Ja
+                        selected=(car !== undefined) ? car.retired == true : retired = true) Ja
                     option(value="false",
                         selected=(car !== undefined) ? car.retired == false : retired = false) Nej
         tr
@@ -68,4 +68,4 @@ block content
                     if people !== undefined
                         each person in people
                             option(value=person._id) #{person.name}
-    input(type="hidden" name="_id", value=(car !== undefined && car._id !== undefined) ? car._id : '')
+    input(type="hidden", name="_id", value=(car !== undefined && car._id !== undefined) ? car._id : '')

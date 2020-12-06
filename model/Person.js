@@ -13,6 +13,7 @@ const personSchema = new mongoose.Schema({
 })
 
 //-----------Schema Methods---------------------
+
 personSchema.statics.updatePerson = async function (person, change) {
   return await this.findOneAndUpdate(
     { _id: person._id },
@@ -21,7 +22,4 @@ personSchema.statics.updatePerson = async function (person, change) {
   )
 }
 
-//----------person/object methods---------------
-
-//---------export så muligt at importere------
 module.exports = mongoose.model('Person', personSchema)
