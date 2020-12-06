@@ -7,6 +7,9 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 
+const session = require('express-session')
+app.use(session({secret: process.env.SECRET, saveUninitialized: true, resave: true}));
+
 // Starter Mongoose database
 const mongoose = require('mongoose')
 mongoose.connect(process.env.DATABASE_URL, {
