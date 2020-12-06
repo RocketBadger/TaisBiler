@@ -1,6 +1,5 @@
 const express = require('express')
 const router = express.Router()
-const session = require('express-session')
 
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config()
@@ -11,7 +10,7 @@ router.get('/', async (req, res) => {
     const name = req.session.name
     if (name) {
         try {
-            res.redirect('biler')
+            res.redirect('/biler')
         } catch (error) {
             res.send('Der skete en fejl ved login. req.session.name true')
             console.log(error)
@@ -32,14 +31,8 @@ router.post('/', async (req, res) => {
     try {
         if (u === process.env.USE && p === process.env.PAS) {
             req.session.name = u;
-            // res.send({
-            //     ok: true
-            // });
             res.redirect('/biler')
         } else {
-            // res.send({
-            //     ok: false
-            // })
             console.log('login fucked if')
             console.log(req.body.u + ' | ' + process.env.USE + ' | ' + req.body.p + ' | ' + process.env.PAS)
         }
@@ -51,11 +44,5 @@ router.post('/', async (req, res) => {
         console.log(error)
     }
 })
-
-// nuværende, frontpage => login => biler
-// forbedret, login => biler
-
-// TEST CONFIG VAR IN PRODUCTION! EVT OM NATTEN!
-// TESTET USE + PAS config var, fungerer i req/res + frontpage forbipasseret commit
 
 module.exports = router

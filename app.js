@@ -32,8 +32,16 @@ app.set('view engine', 'pug')
 const rootRouter = require('./routes/login')
 app.use('/', rootRouter)
 
-// const loginRouter = require('./routes/login')
-// app.use('/login', loginRouter)
+
+// Login middleware
+app.use(function (req, res, next) {
+// if user is not logged in redirect to login page
+  if (req.session.name) {
+    next();
+  } else {
+    res.redirect('/');
+  }
+});
 
 const carsRouter = require('./routes/cars')
 app.use('/biler', carsRouter)
@@ -49,6 +57,7 @@ const personsRouter = require('./routes/person')
 app.use('/person', personsRouter)
 const clothesRouter = require('./routes/clothes')
 app.use('/toj', clothesRouter)
+
 
 // Sætter server online
 app.listen(process.env.PORT, console.log('Server running'))
