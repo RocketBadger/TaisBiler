@@ -147,7 +147,6 @@ carSchema.statics.getAllInspections = async function () {
       carList.push(car)
     }
   });
-  carList.push()
   let list = carList.sort(function(a,b){
     let c = new Date(a.nextInspection)
     let d = new Date(b.nextInspection)
