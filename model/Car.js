@@ -154,13 +154,13 @@ carSchema.statics.getAllInspections = async function () {
       // carList.push(car.nextInspection)
     }
   });
-  // carList.push()
-  // let list = await carList.sort(function(a,b){
-  //   let c = new Date(a.date)
-  //   let d = new Date(b.date)
-  //   return c-d;
-  // })
-  console.log(carList)
+  carList.push()
+  let list = carList.sort(function(a,b){
+    let c = new Date(a.nextInspection)
+    let d = new Date(b.nextInspection)
+    return c-d;
+  })
+  console.log(list)
   // return carList
 }
 
