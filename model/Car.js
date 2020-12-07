@@ -144,11 +144,7 @@ carSchema.statics.getAllInspections = async function () {
   let carList = []
   cars.forEach(car => {
     if (car.nextInspection) {
-      // console.log('if2')
-      // console.log(car.licensePlate)
-      // console.log(car.nextInspection)
       carList.push(car)
-      // carList.push(car.nextInspection)
     }
   });
   carList.push()
@@ -157,7 +153,6 @@ carSchema.statics.getAllInspections = async function () {
     let d = new Date(b.nextInspection)
     return c-d;
   })
-  console.log('list done')
   return list
 }
 

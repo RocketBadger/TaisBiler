@@ -10,7 +10,7 @@ block content
                         td(colspan=2)
                             if car.nickName
                                 br
-                                |#[strong Kælenavn:] #{car.nickName}
+                                |#[b Kælenavn:] #{car.nickName}
                             br
                             |#[u #{car.licensePlate}]
                     tr
@@ -21,11 +21,16 @@ block content
         .grid-item
             h1 Syn og Planlagt Arbejde
             table.listTable
-                each list in i
+                each work in list
                     tr
                         td.listTD
                             br
-                            | #[b Syn:] #{car.licenseplate}
+                            | #[b Syn] 
+                            if work.nickName 
+                                br
+                                |#[b Kælenavn:] #{work.nickName}
                             br
-                            | #[b Dato:] #{car.nextInspection.toLocaleDate()} 
+                            |#[u #{work.licensePlate}]
+                            br
+                            | #[b Dato:] #{work.nextInspection.toLocaleDateString()} 
                                         

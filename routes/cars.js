@@ -6,12 +6,8 @@ const Person = require('../model/Person')
 // Forsiden redirecter til /biler
 router.get('/', async (req, res) => {
   try {
-    //
-    let i = []
-    i.push(await Car.getAllInspections())
-    // console.log(i)
-    //
     const cars = await Car.find({})
+    const i = await Car.getAllInspections()
     // Ikke-skrottede biler sorteres først
     cars.sort((a, b) => a.retired - b.retired)
     res.render('cars', {
