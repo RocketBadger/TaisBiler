@@ -117,7 +117,7 @@ carSchema.statics.getAllRepairs = async function () {
   cars.forEach(car => {
     car.repairs.forEach(rep => {
       if (!rep.repaired) {
-        // repList.push(car)
+        repList.push(car)
         repList.push(rep)
       }
     })

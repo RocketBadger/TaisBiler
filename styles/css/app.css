@@ -73,12 +73,22 @@ td {
 
 .listTD:nth-child(2) {
   text-align: right;
-  padding-top: 0em;
+  padding-top: 0;
 }
 
 .calendarTD {
   border-bottom-style: dotted;
   padding-top: 1em;
+}
+
+.calendarTopTD {
+  padding-top: 1em;
+  padding-bottom: 0;
+}
+
+.calendarBottomTD {
+  border-bottom-style: dotted;
+  padding-top: 0;
 }
 
 .topTD {

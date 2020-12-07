@@ -18,18 +18,20 @@ block content
     table
         each repair in repairs
             tr
-                td.calendarTD
-                    if repair.nickName
-                        | #[b Kælenavn:] #{repair.nickName}
-                        br
-                    if repair.licensePlate
-                        | #[u #{repair.licensePlate}]
-                        br
-                    if repair.repair
-                        | #{repair.repair}
-                        br
-                    if repair.date
-                        | #[b Dato:] #{repair.date.toLocaleDateString()}
+                if repair.licensePlate
+                    td.calendarTopTD
+                        if repair.nickName
+                            | #[b Kælenavn:] #{repair.nickName}
+                            br
+                        if repair.licensePlate
+                            | #[u #{repair.licensePlate}]
+                else
+                    td.calendarBottomTD
+                        if repair.repair
+                            | #{repair.repair}
+                            br
+                        if repair.date
+                            | #[b Dato:] #{repair.date.toLocaleDateString()}
 
     if inspectionAlert == true && repairAlert == true
         script.
