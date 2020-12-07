@@ -8,7 +8,7 @@ router.get('/', async (req, res) => {
   try {
     //
     const i = await Car.getAllInspections()
-    console.log(i)
+    // console.log(i)
     //
     const cars = await Car.find({})
     // Ikke-skrottede biler sorteres først
