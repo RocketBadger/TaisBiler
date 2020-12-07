@@ -1,0 +1,42 @@
+extends layout
+
+block content
+    h1 Syn og planlagt arbejde
+    h2 Syn
+    table
+        each inspection in inspections
+            tr
+                td.calendarTD
+                    | #[b Syn] 
+                    if inspection.nickName 
+                        | #[b Kælenavn:] #{inspection.nickName}
+                        br
+                    | #[u #{inspection.licensePlate}]
+                    br
+                    | #[b Dato:] #{inspection.nextInspection.toLocaleDateString()} 
+    h2 Planlagte reparationer
+    table
+        each repair in repairs
+            tr
+                td.calendarTD
+                    if repair.nickName
+                        | #[b Kælenavn:] #{repair.nickName}
+                        br
+                    if repair.licensePlate
+                        | #[u #{repair.licensePlate}]
+                        br
+                    if repair.repair
+                        | #{repair.repair}
+                        br
+                    if repair.date
+                        | #[b Dato:] #{repair.date.toLocaleDateString()}
+
+    if inspectionAlert == true && repairAlert == true
+        script.
+            alert('En bil skal snart synes, og en reparation skal foretages!')
+    else if inspectionAlert == true
+        script.
+            alert('En bil skal snart synes!')
+    else if repairAlert == true
+        script.
+            alert('Husk at foretage reparation!')

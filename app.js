@@ -36,12 +36,14 @@ app.use('/', rootRouter)
 // if user is not logged in redirect to login page
 app.use(function (req, res, next) {
   if (req.session.name) {
-    next();
+    next()
   } else {
     res.redirect('/')
   }
 })
 
+const calendarRouter = require('./routes/calendar')
+app.use('/kalender', calendarRouter)
 const carsRouter = require('./routes/cars')
 app.use('/biler', carsRouter)
 const repairsRouter = require('./routes/repair')

@@ -7,13 +7,9 @@ const Person = require('../model/Person')
 router.get('/', async (req, res) => {
   try {
     const cars = await Car.find({})
-    const inspections = await Car.getAllInspections()
-    const repairs = await Car.getAllRepairs()
     // Ikke-skrottede biler sorteres først
     cars.sort((a, b) => a.retired - b.retired)
-    res.render('cars', {
-      cars: cars, inspections: inspections, repairs: repairs
-    })
+    res.render('cars', { cars: cars })
   } catch (error) {
     res.render('errorMessage', { errorMessage: 'Biler kunne ikke loades' })
   }

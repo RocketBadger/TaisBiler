@@ -76,6 +76,11 @@ td {
   padding-top: 0em;
 }
 
+.calendarTD {
+  border-bottom-style: dotted;
+  padding-top: 1em;
+}
+
 .topTD {
   vertical-align: top;
 }

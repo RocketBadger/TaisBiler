@@ -117,7 +117,7 @@ carSchema.statics.getAllRepairs = async function () {
   cars.forEach(car => {
     car.repairs.forEach(rep => {
       if (!rep.repaired) {
-        repList.push(car)
+        // repList.push(car)
         repList.push(rep)
       }
     })
@@ -164,11 +164,11 @@ carSchema.statics.getAllInspections = async function () {
     if (car.nextInspection) {
       carList.push(car)
     }
-  });
-  let list = carList.sort(function(a,b){
+  })
+  let list = carList.sort(function (a, b) {
     let c = new Date(a.nextInspection)
     let d = new Date(b.nextInspection)
-    return c-d;
+    return c - d;
   })
   return list
 }
