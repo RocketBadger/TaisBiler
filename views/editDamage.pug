@@ -2,28 +2,28 @@ extends layout
 
 block content
 
-    h1 Rediger skade
+    h2 Rediger skade
     div.buttonDiv
         form(action="redigerSkade" method="POST")
-            |#[strong Nummerplade:] #{car.licensePlate}
+            | #[b Nummerplade:] #{car.licensePlate}
             br
-            |#[strong Mærke:] #{car.brand}
+            | #[b Mærke:] #{car.brand}
             br
-            |#[strong Model:] #{car.model}
+            | #[b Model:] #{car.model}
             br  
             br  
 
             table
                 tr
-                    td #[strong Skade:]
+                    td #[b Skade:]
                     td
                         input(type="text" name="damage" value=damage.damage)
                 tr
-                    td #[strong Dato:]
+                    td #[b Dato:]
                     td
                         input(type="date" name="date" value=new Date(damage.date).toLocaleDateString())
                 tr
-                    td #[strong Repareret:]
+                    td #[b Repareret:]
                     td
                         if damage.repaired
                             select(name="repaired")

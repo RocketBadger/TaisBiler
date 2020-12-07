@@ -6,15 +6,15 @@ block content
         form(action="addRepair" method="POST")
             table
                 tr
-                    td #[strong Reparation:]
+                    td #[b Reparation:]
                     td
                         input(type="text" name="repair" placeholder="Reparation")
                 tr
-                    td #[strong Dato:]
+                    td #[b Dato:]
                     td
                         input(type="date" name="date" value=new Date().toISOString().split('T')[0])
                 tr
-                    td #[strong Repareret:]
+                    td #[b Repareret:]
                     td
                         select(name="repaired")
                             option(value="false") Nej

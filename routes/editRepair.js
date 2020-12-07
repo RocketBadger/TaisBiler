@@ -18,7 +18,7 @@ router.get('/:id', async (req, res) => {
     const repair = await car.repairs.id(repairID)
     res.render('editRepair', { car: car, repair: repair })
   } catch (error) {
-    res.render('errorMessage', { errorMessage: 'Repair kunne ikke findes' })
+    res.render('errorMessage', { errorMessage: 'Reparation kunne ikke findes' })
   }
 })
 

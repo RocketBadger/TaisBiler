@@ -38,8 +38,25 @@ clothesSchema.statics.deleteClothes = async function (clothes) {
   })
 }
 
+clothesSchema.statics.addPerson = async function (clothes_id, person_id, date) {
+  let clothesFound = await this.findById(clothes_id)
+  if (clothesFound.handedOut.has(person_id)) {
+    let dateArray = clothesFound.handedOut.get(person_id)
+    dateArray.push(date)
+    let newHandedOut = clothesFound.handedOut
+    newHandedOut.set(person_id, dateArray)
+    await this.findOneAndUpdate({ _id: clothes_id }, { $set: { 'handedOut': newHandedOut } })
+  } else {
+    let dateArray = new Array()
+    dateArray.push(date)
+    let newHandedOut = clothesFound.handedOut
+    newHandedOut.set(person_id, dateArray)
+    await this.findOneAndUpdate({ _id: clothes_id }, { $set: { 'handedOut': newHandedOut } })
+  }
+}
+
 clothesSchema.statics.getReceiversOfClothes = async function (clothesID) {
-  let clothes = await this.findOne({ _id: clothesID })
+  let clothes = await this.findById(clothesID)
   let receivers = new Map()
   if (!clothes) {
     // Do nothing
@@ -67,23 +84,6 @@ clothesSchema.statics.getAPersonsClothes = async function (personID) {
     }
   }
   return clothes
-}
-
-clothesSchema.statics.addPerson = async function (clothes_id, person_id, date) {
-  let clothesFound = await this.findById(clothes_id)
-  if (clothesFound.handedOut.has(person_id)) {
-    let dateArray = clothesFound.handedOut.get(person_id)
-    dateArray.push(date)
-    let newHandedOut = clothesFound.handedOut
-    newHandedOut.set(person_id, dateArray)
-    await this.findOneAndUpdate({ _id: clothes_id }, { $set: { 'handedOut': newHandedOut } })
-  } else {
-    let dateArray = new Array()
-    dateArray.push(date)
-    let newHandedOut = clothesFound.handedOut
-    newHandedOut.set(person_id, dateArray)
-    await this.findOneAndUpdate({ _id: clothes_id }, { $set: { 'handedOut': newHandedOut } })
-  }
 }
 
 module.exports = mongoose.model('Clothes', clothesSchema)

@@ -3,43 +3,43 @@ extends layout
 block content
     table
         tr
-            td #[strong Mærke:]
+            td #[b Mærke:]
             td
                 input(type="text", name="brand",
                     value=(car !== undefined && car.brand !== undefined) ? car.brand : '',
                     placeholder='Mærke', required)
         tr
-            td #[strong Model:]
+            td #[b Model:]
             td
                 input(type="text", name="model",
                     value=(car !== undefined && car.model !== undefined) ? car.model : '',
                     placeholder='Model', required)
         tr
-            td #[strong Nummerplade:]
+            td #[b Nummerplade:]
             td
                 input(type="text", name="licensePlate",
                     value=(car !== undefined && car.licensePlate !== undefined) ? car.licensePlate : '',
                     placeholder='Nummerplade', required)
         tr
-            td #[strong Farve:]
+            td #[b Farve:]
             td
                 input(type="text", name="colour",
                     value=(car !== undefined && car.colour !== undefined) ? car.colour : '',
                     placeholder='Farve', required)
         tr
-            td #[strong Motor:]
+            td #[b Motor:]
             td
                 input(type="text", name="engine",
                     value=(car !== undefined && car.engine !== undefined) ? car.engine : '',
                     placeholder='Motor', required)
         tr
-            td #[strong Årgang:]
+            td #[b Årgang:]
             td
                 input(type="text", name="year",
                     value=(car !== undefined && car.year !== undefined) ? car.year : '',
                     placeholder='Årstal', required)
         tr
-            td #[strong Partikelfilter:]
+            td #[b Partikelfilter:]
             td
                 select(name="particulateFilter")
                     option(value="true",
@@ -47,13 +47,13 @@ block content
                     option(value="false", 
                         selected=(car !==undefined) ? car.particulateFilter == false : particulateFilter = false) Nej
         tr
-            td #[strong Kælenavn:]
+            td #[b Kælenavn:]
             td
                 input(type="text", name="nickName",
                     value=(car !== undefined && car.nickName !== undefined) ? car.nickName : '',
                     placeholder='Kælenavn')
         tr
-            td #[strong Skrottet:]
+            td #[b Skrottet:]
             td
                 select(name="retired")
                     option(value="true",
@@ -61,7 +61,7 @@ block content
                     option(value="false",
                         selected=(car !== undefined) ? car.retired == false : retired = false) Nej
         tr
-            td #[strong Chauffør:]
+            td #[b Chauffør:]
             td
                 select(name="driver")
                     option(value=undefined) Ingen

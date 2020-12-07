@@ -8,7 +8,7 @@ const app = express()
 const bodyParser = require('body-parser')
 
 const session = require('express-session')
-app.use(session({secret: process.env.SECRET, saveUninitialized: true, resave: true}));
+app.use(session({ secret: process.env.SECRET, saveUninitialized: true, resave: true }));
 
 // Starter Mongoose database
 const mongoose = require('mongoose')
@@ -32,16 +32,15 @@ app.set('view engine', 'pug')
 const rootRouter = require('./routes/login')
 app.use('/', rootRouter)
 
-
 // Login middleware
 // if user is not logged in redirect to login page
 app.use(function (req, res, next) {
   if (req.session.name) {
     next();
   } else {
-    res.redirect('/');
+    res.redirect('/')
   }
-});
+})
 
 const carsRouter = require('./routes/cars')
 app.use('/biler', carsRouter)
@@ -57,7 +56,6 @@ const personsRouter = require('./routes/person')
 app.use('/person', personsRouter)
 const clothesRouter = require('./routes/clothes')
 app.use('/toj', clothesRouter)
-
 
 // Sætter server online
 app.listen(process.env.PORT, console.log('Server running'))
