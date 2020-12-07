@@ -113,19 +113,16 @@ carSchema.methods.deleteRepair = async function (repair) {
 
 carSchema.methods.getAllRepairs = async function () {
   let repList = []
-  console.log('this.repairs: ' + this.repairs)
   this.repairs.forEach(rep => {
     if (!rep.repaired) {
     repList.push(rep)
     }
   })
-  console.log('repList: ' + repList)
   let list = await repList.sort(function(a,b){
     let c = new Date(a.date)
     let d = new Date(b.date)
     return c-d;
   })
-  console.log('list: ' + list)
   return list
 }
 
