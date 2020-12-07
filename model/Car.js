@@ -141,16 +141,16 @@ carSchema.methods.addInspection = async function (newNextInspection) {
 // for car in cars, if car.nextInspection => array, car.licenseplate, car.nextInspection
 carSchema.statics.getAllInspections = async function () {
   const cars = await this.find({})
-  console.log(cars)
+  // console.log(cars)
   let carList = []
   cars.forEach(car => {
     console.log('if1')
-    console.log(car)
+    // console.log(car)
     if (car.nextInspection) {
       console.log('if2')
       console.log(car.licensePlate)
       console.log(car.nextInspection)
-      carList.push(car.nextInspection)
+      carList.push(car)
       // carList.push(car.nextInspection)
     }
   });
