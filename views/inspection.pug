@@ -6,12 +6,12 @@ block content
     if car.nextInspection
         | #{car.nextInspection.toLocaleDateString()}
     br
-    |#[b Sidste:]
+    | #[b Sidste:]
     if car.prevInspection
         | #{car.prevInspection.toLocaleDateString()}
     br
     div.buttonDiv
-        form(action="addInspection", method="POST")
+        form(action="addInspection" method="POST")
             table
                 tr
                     td #[b Dato for næste:]

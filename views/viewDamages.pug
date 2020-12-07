@@ -7,13 +7,14 @@ h2 Skader
 table.listTable
     each dam in carDam
         tr
-            td.listTD #[b Skade:] #{dam.damage}
+            td.listTD
+                | #[b Skade:] #{dam.damage}
                 br
                 | #[b Dato:] #{dam.date.toLocaleDateString()}
                 br
                 if dam.repaired
-                    |#[b Repareret:] Ja
+                    | #[b Repareret:] Ja
                 else
-                    |#[b Repareret:] Nej
+                    | #[b Repareret:] Nej
             td.listTD
                 a(href="/redigerSkade/" + dam._id, class='emojiLink') ✏️

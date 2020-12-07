@@ -2,37 +2,40 @@ extends layout
 
 block content
     h2 Bil
-    |#[strong Nummerplade:] #{car.licensePlate}
+    | #[b Nummerplade:] #{car.licensePlate}
     br
-    |#[strong Mærke:] #{car.brand}
+    | #[b Mærke:] #{car.brand}
     br
-    |#[strong Model:] #{car.model}
+    | #[b Model:] #{car.model}
     br
-    |#[strong Motor:] #{car.engine}
+    | #[b Motor:] #{car.engine}
     br
-    |#[strong Årgang:] #{car.year}
+    | #[b Årgang:] #{car.year}
     br
     if car.particulateFilter
-        |#[strong Partikelfilter:] Ja
+        | #[b Partikelfilter:] Ja
     else
-        |#[strong Partikelfilter:] Nej
+        | #[b Partikelfilter:] Nej
     br
-    |#[strong Farve:] #{car.colour}
+    | #[b Farve:] #{car.colour}
     br
     if car.retired
-        |#[strong Skrottet:] Ja
+        | #[b Skrottet:] Ja
     else
-        |#[strong Skrottet:] Nej
+        | #[b Skrottet:] Nej
     br
     if car.nickName
-        |#[strong Kælenavn:] #{car.nickName}
+        | #[b Kælenavn:] #{car.nickName}
     br
     if car.driver && car.driver.driver
-        |#[strong Chauffør:] #{car.driver.driver.name} |#[strong Fra:] #{car.driver.dateFrom.toLocaleDateString()}
+        | #[b Chauffør:] #{car.driver.driver.name}
+        | #[b Fra:] #{car.driver.dateFrom.toLocaleDateString()}
     else
-        |#[strong Chauffør:] Ingen
+        | #[b Chauffør:] Ingen
     br
     if car.driver && car.driver.prevDriver
-        |#[strong Tidligere chauffør:] #{car.driver.prevDriver.name} |#[strong Til:] #{car.driver.prevDateTo.toLocaleDateString()} |#[strong Fra:] #{car.driver.prevDateFrom.toLocaleDateString()}
+        | #[b Tidligere chauffør:] #{car.driver.prevDriver.name}
+        | #[b Til:] #{car.driver.prevDateTo.toLocaleDateString()}
+        | #[b Fra:] #{car.driver.prevDateFrom.toLocaleDateString()}
     else
-        |#[strong Tidligere chauffør:] Ingen
+        | #[b Tidligere chauffør:] Ingen

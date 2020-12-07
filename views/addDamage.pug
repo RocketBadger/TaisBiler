@@ -6,18 +6,18 @@ block content
         form(action="addDamage" method="POST")
             table
                 tr
-                    td #[strong Skade:]
+                    td #[b Skade:]
                     td
                         input(type="text" name="damage" placeholder="Skade")
                 tr
-                    td #[strong Dato:]
+                    td #[b Dato:]
                     td
                         input(type="date"
                         name="date"
                         value=new Date().toISOString().split('T')[0]
                         max=value=new Date().toISOString().split('T')[0])
                 tr
-                    td #[strong Repareret:]
+                    td #[b Repareret:]
                     td
                         select(name="repaired")
                             option(value="false") Nej
