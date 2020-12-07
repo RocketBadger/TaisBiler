@@ -37,6 +37,7 @@ block content
                     tr
                         td
                             if repair.nickName 
+                                br
                                 |#[b Kælenavn:] #{repair.nickName}
                             if repair.licensePlate
                                 br
@@ -46,5 +47,7 @@ block content
                             if repair.date
                                 br
                                 | #[b Dato:] #{repair.date.toLocaleDateString()} 
+
+                                
                 
                                         
