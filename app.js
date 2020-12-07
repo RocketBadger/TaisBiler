@@ -58,6 +58,5 @@ app.use('/person', personsRouter)
 const clothesRouter = require('./routes/clothes')
 app.use('/toj', clothesRouter)
 
-
 // Sætter server online
 app.listen(process.env.PORT, console.log('Server running'))

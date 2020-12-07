@@ -138,10 +138,32 @@ carSchema.methods.addInspection = async function (newNextInspection) {
   await this.save()
 }
 
-carSchema.methods.getAllInspections = async function () {
+// for car in cars, if car.nextInspection => array, car.licenseplate, car.nextInspection
+carSchema.statics.getAllInspections = async function () {
   // entrants.find({ pincode: { $ne: null } })
   // return await this.nextInspection.find({})
   // return await this.find({nextInspection: { $nin: null } })
+  const cars = await this.find({})
+  console.log(cars)
+  let carList
+//  for (car in this) {
+//    if (car.nextInspection) {
+//      carList.push(car.nextInspection)
+//    }
+//  }
+for (car in cars) {
+  if (car.nextInspection){
+    carList.push(car.licensePlate)
+  }
+}
+
+// carList.push()
+  // let list = await carList.sort(function(a,b){
+  //   let c = new Date(a.date)
+  //   let d = new Date(b.date)
+  //   return c-d;
+  // })
+  return carList
 }
 
 module.exports = mongoose.model('Car', carSchema)
