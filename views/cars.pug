@@ -20,18 +20,12 @@ block content
                             a(href="/reparation/" + car._id, class='emojiLink') 🔧
         .grid-item
             h1 Syn og Planlagt Arbejde
-            //- - let carIns = cars.sort(function(a,b){
-            //-     - let c = new Date(a.date);
-            //-     - let d = new Date(b.date);
-            //-     - return c-d;
-            //- - })
-
-            //- table.listTable
-            //-     each car in cars
-            //-             tr
-            //-                 td.listTD
-            //-                     br
-                                //- | #[b Syn:] #{car.licenseplate}
-                                //- br
-                                //- | #[b Dato:] #{car.nextInspection.toLocaleDate()} 
+            table.listTable
+                each list in i
+                    tr
+                        td.listTD
+                            br
+                            | #[b Syn:] #{car.licenseplate}
+                            br
+                            | #[b Dato:] #{car.nextInspection.toLocaleDate()} 
                                         
