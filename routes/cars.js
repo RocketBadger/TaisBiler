@@ -8,6 +8,11 @@ router.get('/', async (req, res) => {
   try {
     const cars = await Car.find({})
     const i = await Car.getAllInspections()
+    console.log('start')
+    c = await Car.findOne()
+    console.log(c.licensePlate)
+    c.getAllRepairs()
+    console.log('stop')
     // Ikke-skrottede biler sorteres først
     cars.sort((a, b) => a.retired - b.retired)
     res.render('cars', {

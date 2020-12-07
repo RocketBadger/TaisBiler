@@ -111,6 +111,24 @@ carSchema.methods.deleteRepair = async function (repair) {
   await this.repairs.id(repair._id).remove()
 }
 
+carSchema.methods.getAllRepairs = async function () {
+  let repList = []
+  console.log('this.repairs: ' + this.repairs)
+  this.repairs.forEach(rep => {
+    if (!rep.repaired) {
+    repList.push(rep)
+    }
+  })
+  console.log('repList: ' + repList)
+  let list = await repList.sort(function(a,b){
+    let c = new Date(a.date)
+    let d = new Date(b.date)
+    return c-d;
+  })
+  console.log('list: ' + list)
+  return list
+}
+
 //-----------------------Damage methods------------------------------------
 
 carSchema.methods.addDamage = async function (damage) {
@@ -138,7 +156,6 @@ carSchema.methods.addInspection = async function (newNextInspection) {
   await this.save()
 }
 
-// for car in cars, if car.nextInspection => array, car.licenseplate, car.nextInspection
 carSchema.statics.getAllInspections = async function () {
   const cars = await this.find({})
   let carList = []
