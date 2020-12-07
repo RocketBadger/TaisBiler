@@ -21,16 +21,30 @@ block content
         .grid-item
             h1 Syn og Planlagt Arbejde
             table.listTable
-                each work in list
+                each inspection in inspections
                     tr
                         td.listTD
                             br
                             | #[b Syn] 
-                            if work.nickName 
+                            if inspection.nickName 
                                 br
-                                |#[b Kælenavn:] #{work.nickName}
+                                |#[b Kælenavn:] #{inspection.nickName}
                             br
-                            |#[u #{work.licensePlate}]
+                            |#[u #{inspection.licensePlate}]
                             br
-                            | #[b Dato:] #{work.nextInspection.toLocaleDateString()} 
+                            | #[b Dato:] #{inspection.nextInspection.toLocaleDateString()} 
+                each repair in repairs
+                    tr
+                        td
+                            if repair.nickName 
+                                |#[b Kælenavn:] #{repair.nickName}
+                            if repair.licensePlate
+                                br
+                                |#[u #{repair.licensePlate}]
+                            if repair.repair
+                                | #{repair.repair}
+                            if repair.date
+                                br
+                                | #[b Dato:] #{repair.date.toLocaleDateString()} 
+                
                                         

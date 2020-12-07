@@ -111,17 +111,25 @@ carSchema.methods.deleteRepair = async function (repair) {
   await this.repairs.id(repair._id).remove()
 }
 
-carSchema.methods.getAllRepairs = async function () {
+carSchema.statics.getAllRepairs = async function () {
+  const cars = await this.find({})
   let repList = []
-  this.repairs.forEach(rep => {
-    if (!rep.repaired) {
-    repList.push(rep)
-    }
+  cars.forEach(car => {
+    car.repairs.forEach(rep => {
+      if (!rep.repaired) {
+        // repList.push(car.licensePlate)
+        // if (car.nickName) {
+        //   repList.push(car.nickName)
+        // }
+        repList.push(car)
+        repList.push(rep)
+      }
+    })
   })
-  let list = await repList.sort(function(a,b){
+  let list = await repList.sort(function (a, b) {
     let c = new Date(a.date)
     let d = new Date(b.date)
-    return c-d;
+    return c - d;
   })
   return list
 }
