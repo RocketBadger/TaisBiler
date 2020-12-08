@@ -33,7 +33,7 @@ const rootRouter = require('./routes/login')
 app.use('/', rootRouter)
 
 // Login middleware
-// if user is not logged in redirect to login page
+// Hvis bruger ikke er logget ind, redirect til login
 app.use(function (req, res, next) {
   if (req.session.name) {
     next()
