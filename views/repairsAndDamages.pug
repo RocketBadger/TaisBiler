@@ -3,13 +3,148 @@ extends layout
 block content
     .grid-container
         .grid-item
-            include viewCar
+            h2 Bil
+            | #[b Nummerplade:] #{car.licensePlate}
+            br
+            | #[b Mærke:] #{car.brand}
+            br
+            | #[b Model:] #{car.model}
+            br
+            | #[b Motor:] #{car.engine}
+            br
+            | #[b Årgang:] #{car.year}
+            br
+            if car.particulateFilter
+                | #[b Partikelfilter:] Ja
+            else
+                | #[b Partikelfilter:] Nej
+            br
+            | #[b Farve:] #{car.colour}
+            br
+            if car.retired
+                | #[b Skrottet:] Ja
+            else
+                | #[b Skrottet:] Nej
+            br
+            if car.nickName
+                | #[b Kælenavn:] #{car.nickName}
+            br
+            if car.driver && car.driver.driver
+                | #[b Chauffør:] #{car.driver.driver.name}
+                | #[b Fra:] #{car.driver.dateFrom.toLocaleDateString()}
+            else
+                | #[b Chauffør:] Ingen
+            br
+            if car.driver && car.driver.prevDriver
+                | #[b Tidligere chauffør:] #{car.driver.prevDriver.name}
+                | #[b Til:] #{car.driver.prevDateTo.toLocaleDateString()}
+                | #[b Fra:] #{car.driver.prevDateFrom.toLocaleDateString()}
+            else
+                | #[b Tidligere chauffør:] Ingen
         .grid-item
-            include inspection
+            h2 Syn
+            | #[b Næste:] 
+            if car.nextInspection
+                | #{car.nextInspection.toLocaleDateString()}
+            br
+            | #[b Sidste:]
+            if car.prevInspection
+                | #{car.prevInspection.toLocaleDateString()}
+            br
+            div.buttonDiv
+                form(action="addInspection" method="POST")
+                    table
+                        tr
+                            td #[b Dato for næste:]
+                            td
+                                input(type="date", name="nextInspection",
+                                value=new Date().toISOString().split('T')[0],
+                                min=value=new Date().toISOString().split('T')[0])
+                    input(type="hidden", name="_id", value=car._id)
+                    button(type="submit") TILFØJ
     .grid-container
         .grid-item
-            include addRepair
-            include viewRepairs
+            h1 Tilføj reparation
+            div.buttonDiv
+                form(action="addRepair" method="POST")
+                    table
+                        tr
+                            td #[b Reparation:]
+                            td
+                                input(type="text" name="repair" placeholder="Reparation")
+                        tr
+                            td #[b Dato:]
+                            td
+                                input(type="date" name="date" value=new Date().toISOString().split('T')[0])
+                        tr
+                            td #[b Repareret:]
+                            td
+                                select(name="repaired")
+                                    option(value="false") Nej
+                                    option(value="true") Ja
+                    input(type="hidden" name="_id" value=car._id)
+                    button(type="submit") TILFØJ
+            h2 Reparationer
+            - let carRep = car.repairs.sort(function(a,b){
+                - let c = new Date(a.date);
+                - let d = new Date(b.date);
+                - return c-d;
+            - })
+            table.listTable
+                each rep in car.repairs
+                    tr
+                        td.listTD #[b Reparation:] #{rep.repair}
+                            br
+                            | #[b Dato:] #{(rep.date) ? rep.date.toLocaleDateString() : ''}
+
+                            br
+                            if rep.repaired
+                                | #[b Repareret:] Ja
+                            else
+                                | #[b Repareret:] Nej
+                        td.listTD
+                            a(href="/redigerReparation/" + rep._id, class='emojiLink') ✏️
         .grid-item
-            include addDamage
-            include viewDamages
+            h1 Tilføj skade
+            div.buttonDiv
+                form(action="addDamage" method="POST")
+                    table
+                        tr
+                            td #[b Skade:]
+                            td
+                                input(type="text" name="damage" placeholder="Skade")
+                        tr
+                            td #[b Dato:]
+                            td
+                                input(type="date"
+                                name="date"
+                                value=new Date().toISOString().split('T')[0]
+                                max=value=new Date().toISOString().split('T')[0])
+                        tr
+                            td #[b Repareret:]
+                            td
+                                select(name="repaired")
+                                    option(value="false") Nej
+                                    option(value="true") Ja
+                    input(type="hidden" name="_id" value=car._id)
+                    button(type="submit") TILFØJ
+            h2 Skader
+                - let carDam = car.damages.sort(function(a,b){
+                    - let c = new Date(a.date);
+                    - let d = new Date(b.date);
+                    - return c-d;
+                - });
+                table.listTable
+                    each dam in carDam
+                        tr
+                            td.listTD
+                                | #[b Skade:] #{dam.damage}
+                                br
+                                | #[b Dato:] #{dam.date.toLocaleDateString()}
+                                br
+                                if dam.repaired
+                                    | #[b Repareret:] Ja
+                                else
+                                    | #[b Repareret:] Nej
+                            td.listTD
+                                a(href="/redigerSkade/" + dam._id, class='emojiLink') ✏️
