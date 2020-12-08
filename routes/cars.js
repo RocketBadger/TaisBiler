@@ -3,7 +3,6 @@ const router = express.Router()
 const Car = require('../model/Car')
 const Person = require('../model/Person')
 
-// Forsiden redirecter til /biler
 router.get('/', async (req, res) => {
   try {
     const cars = await Car.find({})
